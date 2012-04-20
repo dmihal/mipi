@@ -1,16 +1,20 @@
 <?php
-if(@$_GET[1]=="list")
-{
-	$page = Page::getPage('events/listeditor');
-}
-else {
-	$page = new Page("Events");
+switch (@$_GET[1]) {
+	case 'list':
+		$page = Page::getPage('events/listeditor');
+		break;
+	case 'listsave':
+		
+		break;
+	default:
+		$page = new Page("Events");
 	
-	$cal = new Box("calendar","Calendar");
-	$calendar = new BCCalendar();
-	$calendar->addEvent("Test Event", "#", 12);
-	$cal->setContent($calendar);
-	$page->addBox($cal,'tripple');
+		$cal = new Box("calendar","Calendar");
+		$calendar = new BCCalendar();
+		$calendar->addEvent("Test Event", "#", 12);
+		$cal->setContent($calendar);
+		$page->addBox($cal,'tripple');
+		break;
 }
 $page->section = "events";
 
