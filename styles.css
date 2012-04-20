@@ -1,0 +1,273 @@
+body {
+	margin: 0;
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size:10pt;
+}
+/* = Layout = */
+
+/* Header */
+header {
+	background: #fcf39f; /* Old browsers */
+	background: -moz-linear-gradient(top, #fcf39f 0%, #cec175 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcf39f), color-stop(100%,#cec175)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fcf39f 0%,#cec175 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fcf39f 0%,#cec175 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #fcf39f 0%,#cec175 100%); /* IE10+ */
+	background: linear-gradient(top, #fcf39f 0%,#cec175 100%); /* W3C */
+}
+
+header h1 {
+	float: left;
+	margin: 0;
+}
+/* Nav */
+header nav {
+	padding-top: 50px;
+}
+.topNav {
+	list-style: none;
+	margin: 0;
+	padding: 0 5px;
+	font-family: "MS Serif", "New York", "Times New Roman",serif;
+}
+.topNav li {
+	float: left;
+}
+.topNav li a {
+	font-size: 24pt;
+	line-height: 40px;
+	padding: 0 10px;
+	text-decoration: none;
+	font-variant: small-caps;
+	border-right: solid 1px black;
+	color: #000000;
+}
+.topNav li a:hover {
+	background: tan;
+}
+.topNav li:last-child a {
+	border: 0;
+}
+#navLeft {
+	float: left;
+}
+#navRight {
+	float: right;
+}
+#msgFlag {
+	position: absolute;
+	font-size: 10pt;
+	margin-left: 26px;
+	margin-top: 0;
+	background: red;
+	line-height: 16px;
+	padding: 0 3px;
+	border-radius: 4px;
+}
+/* Shoutbox */
+#shout {
+	clear: both;
+	background: tan;
+	height: 26px;
+	padding: 4px 0;
+	margin-bottom: 20px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+#shouter {
+	float: right;
+}
+#ticker {
+	position: relative;
+	background: white;
+	display: block;
+	padding: 4px;
+	/*margin-right: 200px;*/
+	margin-left: 5px;
+	border-radius: 10px;
+	height: 18px;
+}
+#stream {
+	margin-top: 4px;
+}
+#shouted {
+	white-space: nowrap;
+	overflow: hidden;
+}
+/* Sidebar */
+#sidebar {
+	float: left;
+	background: #ffe2c3;
+	padding: 5px 15px 5px 0;
+	margin-right: 15px;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	width: 175px;
+	
+	font-family: sans-serif;
+	font-size: 11pt;
+}
+#sidebar ul {
+	list-style: none;
+	padding-left: 0px;
+}
+#sidebar ul li {
+	padding-left: 15px;
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
+}
+#sidebar ul li a {
+	text-decoration: none;
+	color: black;
+}
+.spacer {
+	font-size: 6px;
+}
+/* Icons */
+.navIcon {
+	float: left;
+	height: 15px;
+}
+.navIcon img {
+	height: 15px;
+	width: 15px;
+	background-image: url(img/icons.png);
+}
+#iconAlpha {
+	background-position-y: -15px;
+}
+#iconBeta{
+	background-position-y: -30px;
+}
+#iconGamma{
+	background-position-y: -45px;
+}
+#iconTheta{
+	background-position-y: -60px;
+}
+#iconTau{
+	background-position-y: -75px;
+}
+#iconIota{
+	background-position-y: -90px;
+}
+#iconKappa{
+	background-position-y: -105px;
+}
+#iconDelta{
+	background-position-y: -120px;
+}
+#iconPhi{
+	background-position-y: -135px;
+}
+#iconSigma{
+	background-position-y: -150px;
+}
+#iconEpsilon{
+	background-position-y: -165px;
+}
+#iconRho{
+	background-position-y: -180px;
+}
+#iconHouse{
+	background-position-y: -195px;
+}
+#iconEvents{
+	background-position-y: -210px;
+}
+#iconStew{
+	background-position-y: -225px;
+}
+#iconWeb {
+	background-position-y: -240px;
+}
+#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconPhonebook, #iconRecruits {
+	background-position-y: -255px;
+}
+/* Content */
+#content {
+	background-color: #EEB;
+	border-radius: 15px;
+	margin-left: 200px;
+	min-height: 200px;
+	padding: 15px 11px;
+	margin-right: 15px;
+}
+.column {
+	width: 32.5%;
+	float: left;
+	margin: 0 5px;
+}
+.column.double {
+	width: 65.5%;
+}
+.column.tripple {
+	width: 98%;
+}
+.wbox {
+	background: white;
+	margin-bottom: 10px;
+	min-height: 36px;
+}
+.wbox h2 {
+	margin: 0;
+	background:#FFF2D3;
+	font-weight: normal;
+	font-size: 12pt;
+	padding: 2px;
+}
+.wbox .wboxbody {
+	padding: 5px;
+}
+ul.desclist {
+	list-style: none;
+	padding: 0;
+}
+.desclist li {
+	display: block;
+	border-bottom: solid 1px #333;
+	padding: 0 2px;
+}
+.desclist li a.title {
+	display: block;
+	font-weight: bold;
+	text-decoration: none;
+}
+.desclist li a.author {
+	display: block;
+	text-decoration: none;
+	font-size: 10pt;
+}
+/* Footer */
+footer {
+	clear: both;
+}
+/* Styles */
+img {
+	border: none;
+}
+table {
+	width: 100%;
+	border: solid 1px gray;
+}
+td {
+	border: solid 1px lightgrey;
+}
+
+/* == Box Content == */
+
+/* Person Box */
+.personBox {
+	float: left;
+	margin: 6px;
+}
+.personBox h3 {
+	margin: 0;
+}
+.personBox p {
+	margin: 0;
+}
+.personBox img {
+	max-height: 175px;
+	max-width: 130px;
+}
