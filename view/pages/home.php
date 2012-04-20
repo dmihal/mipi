@@ -18,14 +18,18 @@ $page->addBox($messages,'left');
 
 $eventsBox = new Box('events','Upcoming Events');
 $eventsList = new BCList();
-$events = Event::getEventsFromQuery(Event::QueryNextFive);
-foreach ($events as $event){
-	/* @var $event Event */
-	$eventsList->addElement($event->name, $event->getOwner()->getName(), "It's an Event!","","user/".$value->authorID);
+try {
+	$events = Event::getEventsFromQuery(Event::QueryNextFive);
+	foreach ($events as $event){
+		/* @var $event Event */
+		$eventsList->addElement($event->name, $event->getOwner()->getName(), "It's an Event!","","user/".$value->authorID);
+	}
+	unset($events);
+	/*$eventsList->addElement("Thurs 9pm - Kappa", "Alex Margiott", "It's Doody week!");
+	$eventsList->addElement("Saturday 9pm - Mardi Gras Party", "Landon Aires", "Bring beads...");*/
+} catch (Exception $e) {
+	$eventsList = new BCStatic("No upcoming events");
 }
-unset($events);
-/*$eventsList->addElement("Thurs 9pm - Kappa", "Alex Margiott", "It's Doody week!");
-$eventsList->addElement("Saturday 9pm - Mardi Gras Party", "Landon Aires", "Bring beads...");*/
 $eventsBox->setContent($eventsList);
 $page->addBox($eventsBox,'center');
 
