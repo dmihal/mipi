@@ -4,21 +4,45 @@ if(!($eventID=@$_GET[2]))
 	header("Location: /mipi/events/msg:enf");
 	exit;
 }
+if(@$_GET[3]=='print')
+{
+	return Page::getPage('events/listprint');
+}
+$user = getUser();
 $eventList=new GuestList($eventID);
 //var_dump($eventList);
 $page = new Page("List Editor");
 
+$linkbox = new Box("links","");
+$linkcontent = new BCStatic();
+ob_start();
+?>
+<a href="/mipi/events/list/<?php echo $eventID ?>/print">Print</a>
+<?php
+$linkcontent->content = ob_get_clean();
+$linkbox->setContent($linkcontent);
+$page->addBox($linkbox);
+
 $editbox = new Box('listform',"Edit List");
 $form = new BCStatic();
+$myGuests = $eventList->guestsByOwner[$user->id];
 ob_start();
-?><form action="/mipi/events/listsave/">
-	Male 1: <input name="m1f" /><input name="m1l" /><br />
-	Male 2: <input name="m2f" /><input name="m2l" /><br />
-	Female 1: <input name="f1f" /><input name="f1l" /><br />
-	Female 2: <input name="f2f" /><input name="f2l" /><br />
-	Female 3: <input name="f3f" /><input name="f3l" /><br />
-	Female 4: <input name="f4f" /><input name="f4l" /><br />
-	Female 5: <input name="f5f" /><input name="f5l" /><br />
+?><form action="/mipi/events/listsave/" method="post"><?php
+for($i=0; $i<count(@$myGuests['MALE']) || $i<2; $i++)
+{
+	$guest = @$myGuests['MALE'][$i];
+	list($first,$last) = is_object($guest) ? array($guest->first,$guest->last) : array('','');
+	echo "Male ";
+	echo $i+1 .':<input name="mf[]" value="'.$first.'" /><input name="ml[]" value="'.$last.'" /><br />';
+}
+for($i=0; $i<count(@$myGuests['FEMALE']) || $i<5; $i++)
+{
+	$guest = @$myGuests['FEMALE'][$i];
+	list($first,$last) = is_object($guest) ? array($guest->first,$guest->last) : array('','');
+	echo "Female ";
+	echo $i+1 .':<input name="ff[]" value="'.$first.'" /><input name="fl[]" value="'.$last.'" /><br />';
+}
+?>
 	<input type="hidden" name="event" value="<?php echo $eventID ?>" />
 	<button type="submit">Save</button>
 </form><?php
