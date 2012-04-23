@@ -26,6 +26,22 @@ class Member extends Person {
 	{
 		return "/mipi/img/portrait/user$this->id.jpg";
 	}
+	/**
+	 * Copies a new file to the correct location
+	 *
+	 * @return void
+	 * @author  
+	 */
+	function moveNewPhoto($file) {
+		$finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+    	$mime = finfo_file($finfo, $file);
+		finfo_close($finfo);
+		if ($mime == 'image/jpeg') {
+			return move_uploaded_file($file, "/opt/lampp/htdocs/mipi/img/portrait/user$this->id.jpg");
+		} else {
+			return false;
+		}
+	}
 	function getPiNum($htmlchar=false)
 	{
 		return $htmlchar ? "" : NULL;
