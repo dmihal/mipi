@@ -23,6 +23,15 @@ switch(@$_GET[1])
 		}
 		
 		exit;
+	case 'picsave':
+		if ($_FILES["profpic"])
+		if ($user->moveNewPhoto($_FILES["profpic"]["tmp_name"]))
+		{
+			header("location: /mipi/profile/msg:saved");
+		}else{
+			header("location: /mipi/profile/msg:nosaved");
+		}
+		exit;
 	default:
 		$page = new Page("Profile");
 		
