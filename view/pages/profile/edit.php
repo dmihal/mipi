@@ -5,7 +5,14 @@ $user = getUser();
 $left = new Box("left",$user->getName());
 $leftContent = new BCStatic();
 ob_start();
-?><img src="<?php echo $user->getPhotoPath() ?>" style="width: 200px" /><?php
+?>
+<form action="/mipi/profile/picsave" method="post" enctype="multipart/form-data">
+	<img src="<?php echo $user->getPhotoPath() ?>" style="width: 200px" />
+	<input type="file" name="profpic" /><br />
+	<button type="submit">Update Photo</button>
+</form>
+
+<?php
 $leftContent->content = ob_get_clean();
 $left->setContent($leftContent);
 $page->addBox($left,'left');
