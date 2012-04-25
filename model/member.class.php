@@ -24,7 +24,7 @@ class Member extends Person {
 	 */
 	function getPhotoPath()
 	{
-		return "/mipi/img/portrait/user$this->id.jpg";
+		return file_exists("img/portrait/user$this->id.jpg") ? "/mipi/img/portrait/user$this->id.jpg" : "/mipi/img/unavailable.jpg";
 	}
 	/**
 	 * Copies a new file to the correct location
