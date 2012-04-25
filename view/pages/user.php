@@ -1,6 +1,5 @@
 <?php
-$page = new Page("User");
-$page->raw = true;
+$page = new PopupSplit();
 
 $user;
 try{
@@ -14,7 +13,6 @@ try{
 ob_start();
 
 ?>
-<div style="float: left;width: 200px;background: #EEE">
 	<h1><?php echo $user->getName(); ?></h1>
 <?php
 if ($pi = $user->getPiNum())
@@ -22,8 +20,10 @@ if ($pi = $user->getPiNum())
 ?>
 	<img src="<?php echo $user->getPhotoPath(); ?>" style="width: 180px">
 	<a href="#">Send Message</a>
-</div>
-<div style="margin-left: 200px;min-width: 300px;margin-top: 40px;">
+<?php 
+$page->setLeft(ob_get_clean());
+ob_start();
+?>
 	<h2>Info</h2>
 email: <?php echo $user->email ?><br />
 <?php echo isset($user->cell) ? "cell phone: $user->cell<br />" : "";?>
@@ -34,11 +34,8 @@ home address:<br />
 Glastonbury, CT 06033<br />
 year of graduation: 2015<br />
 dob: November, 13 2012<br />
-
-</div>
 <?php
-
-$page->rawData = ob_get_clean();
+$page->setRight(ob_get_clean());
 
 return $page;
 ?>
