@@ -60,15 +60,15 @@ $_GET[0] = ($_GET[0]=="") ? "home" : $_GET[0];
 ChromePhp::log($_GET);
 
 
-try{
+//try{
 	$doc = new Template(Page::getPage($_GET[0]));
 	$html = $doc->buildPage();
-}
+/*}
 catch (Exception $e)
 {
 	$html = "Error: 404";
 	header("HTTP/1.0 404 Not Found");
-}
+}*/
 
 echo preg_replace('/href="(\/)?/', 'href="/mipi/', $html);
 session_write_close(); 
