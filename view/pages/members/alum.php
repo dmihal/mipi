@@ -7,8 +7,14 @@ $peoplelist->defaultState = 'thumbnail';
 $peoplelist->setColumns("Email","Social","Cell Phone","Pi Number","YOG","Birthday");
 $peoplelist->setThumbColumns("Pi Number");
 
-$peoplelist->addPerson("Warren", "Smalle", "user/12345", "",
-			"abeleveau@wpi.edu",'<a href="http://www.facebook.com/andrew.beliveau">Facebook</a>',"123456789","&#960;1643","2012","June 8, 1989");
+$membersList = Member::getMembersFromQuery(Member::QueryAllAlum);
+	
+	ChromePhp::log($membersList);
+	foreach ($membersList as $person) {
+		/* @var $person Member */ 
+		$peoplelist->addPerson($person->first, $person->last, '/mipi/user/'.$person->id, $person->getPhotoPath(),
+							$person->email,"",$person->fieldString('cell'),$person->getPiNum(true),$person->yog,$person->dob->format("n/j/Y"));
+	}
 
 $box->setContent($peoplelist);
 $page->addBox($box,'tripple');
