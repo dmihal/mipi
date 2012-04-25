@@ -49,6 +49,24 @@ class GuestList {
 		
 	}
 	/**
+	 * Get the ratio for an event
+	 *
+	 * @return void
+	 * @author  
+	 */
+	public function getRatio($order=1,$numresults=5) {
+		$order = ($order==self::BEST) ? "DESC" : "ASC";
+		$query = new Query("SELECT event,owner,
+			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='MALE' GROUP BY owner),0) as male,
+			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' GROUP BY owner),0) as female,
+			(SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' GROUP BY owner)/count(*) as ratio
+			FROM guests as g1 WHERE event=$this->event GROUP BY owner ORDER BY ratio $order LIMIT 0,$numresults");
+		return $query->rows;
+	}
+	
+	const BEST = 1;
+	const WORST = 2;
+	/**
 	 * Return member at current pointer
 	 *
 	 * @return Member
