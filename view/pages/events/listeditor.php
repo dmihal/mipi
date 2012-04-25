@@ -27,28 +27,50 @@ $editbox = new Box('listform',"Edit List");
 $form = new BCStatic();
 $myGuests = $eventList->guestsByOwner[$user->id];
 ob_start();
-?><form action="/mipi/events/listsave/" method="post"><?php
+?><form action="/mipi/events/listsave/" method="post">
+	<table><?php
 for($i=0; $i<count(@$myGuests['MALE']) || $i<2; $i++)
 {
 	$guest = @$myGuests['MALE'][$i];
 	list($first,$last) = is_object($guest) ? array($guest->first,$guest->last) : array('','');
-	echo "Male ";
-	echo $i+1 .':<input name="mf[]" value="'.$first.'" /><input name="ml[]" value="'.$last.'" /><br />';
+	echo "<tr><td>Male ";
+	echo $i+1 .'</td><td><input name="mf[]" value="'.$first.'" /><input name="ml[]" value="'.$last.'" /></td></tr>';
 }
 for($i=0; $i<count(@$myGuests['FEMALE']) || $i<5; $i++)
 {
 	$guest = @$myGuests['FEMALE'][$i];
 	list($first,$last) = is_object($guest) ? array($guest->first,$guest->last) : array('','');
-	echo "Female ";
-	echo $i+1 .':<input name="ff[]" value="'.$first.'" /><input name="fl[]" value="'.$last.'" /><br />';
+	echo "<tr><td>Female ";
+	echo $i+1 .'</td><td><input name="ff[]" value="'.$first.'" /><input name="fl[]" value="'.$last.'" /></td></tr>';
 }
 ?>
+	</table>
 	<input type="hidden" name="event" value="<?php echo $eventID ?>" />
 	<button type="submit">Save</button>
 </form><?php
 $form->content= ob_get_clean();
 $editbox->setContent($form);
 $page->addBox($editbox,'left');
+
+$bestRbox = new Box('bestrbox',"Best Ratio");
+$bestRtable = new BCTable();
+$bestRtable->header = array("Name","Guys","Girls","Ratio");
+foreach ($eventList->getRatio(GuestList::BEST) as $row) {
+	$person = Member::getMember($row['owner']);
+	$bestRtable->addRow($person->getName(),$row['male'],$row['female'],$row['ratio']);
+}
+$bestRbox->setContent($bestRtable);
+$page->addBox($bestRbox,'left');
+
+$bestRbox = new Box('bestrbox',"Worst Ratio");
+$bestRtable = new BCTable();
+$bestRtable->header = array("Name","Guys","Girls","Ratio");
+foreach ($eventList->getRatio(GuestList::WORST) as $row) {
+	$person = Member::getMember($row['owner']);
+	$bestRtable->addRow($person->getName(),$row['male'],$row['female'],$row['ratio']);
+}
+$bestRbox->setContent($bestRtable);
+$page->addBox($bestRbox,'left');
 
 $view = new Box('listbox',"List");
 $table = new BCTable();
