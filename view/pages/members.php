@@ -19,7 +19,7 @@ default:
 	$peoplelist->setColumns("Email","Social","Cell Phone","Pi Number","YOG","Birthday");
 	$peoplelist->setThumbColumns("Pi Number");
 
-	$membersList = Member::getMembersFromQuery(Member::QueryAll);
+	$membersList = Member::getMembersFromQuery(Member::QueryAllBrothers);
 	
 	ChromePhp::log($membersList);
 	foreach ($membersList as $person) {
