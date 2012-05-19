@@ -172,7 +172,7 @@ header nav {
 #iconHouse{
 	background-position-y: -195px;
 }
-#iconEvents{
+#iconEvents, #iconCalendar{
 	background-position-y: -210px;
 }
 #iconStew{
@@ -181,8 +181,14 @@ header nav {
 #iconWeb {
 	background-position-y: -240px;
 }
-#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconPhonebook, #iconRecruits {
+#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconRecruits, #iconProfile {
 	background-position-y: -255px;
+}
+#iconSettings {
+	background-position-y: -270px;
+}
+#iconPhonebook {
+	background-position-y: -285px;
 }
 /* Content */
 #content {
@@ -251,7 +257,7 @@ table {
 	border: solid 1px gray;
 }
 td {
-	border: solid 1px lightgrey;
+	border: solid 1px #D3D3D3;
 }
 
 /* == Box Content == */
