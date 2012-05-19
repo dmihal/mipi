@@ -35,10 +35,15 @@ $page->addBox($eventsBox,'center');
 
 $guests = new Box('guests',"Guest Lists");
 $guestList = new BCList();
-$events = Event::getEventsFromQuery(Event::QueryOpenLists);
-foreach ($events as $key => $event) {
-	/* @var $event Event */
-	$guestList->addElement($event->name, "", "","events/list/".$event->id);
+try{
+	$events = Event::getEventsFromQuery(Event::QueryOpenLists);
+	foreach ($events as $key => $event) {
+		/* @var $event Event */
+		$guestList->addElement($event->name, "", "","events/list/".$event->id);
+	}
+	unset($events);
+}catch(Exception $e){
+	$guestList = new BCStatic("No open guest lists");
 }
 //$guestList->addElement("Mardi Gras Party", "", "Saturday","events/list/10");
 $guests->setContent($guestList);
