@@ -23,7 +23,15 @@ ob_start();
 ?>
 <form action="/mipi/profile/save" method="post">
 	<label>Email: <input name="email" type="email" value="<?php echo $user->email ?>" /></label><br />
-	<label>Cell Phone: <input name="cell" type="tel" /></label><br />
+	<label>Cell Phone: <input name="cell" type="tel" value="<?php echo $user->fieldString('cell') ?>" /></label><br />
+	<label>Major: <input name="major" type="text" value="<?php echo $user->fieldString('major') ?>" /></label><br />
+	<label>Year of Graduation: <input name="yog" type="number" min="1913" max="<?php echo date('Y')+4 ?>" value="<?php echo $user->yog ?>" /></label><br />
+	<label>Date of Birth: <input name="dob" type="date" value="<?php echo $user->dob->format('Y-m-d') ?>" /> (YYYY-MM-DD)</label><br />
+	<br />
+	<label>School Address: <input name="schoolloc" type="text" value="<?php echo $user->fieldString('schoolloc'); ?>" /> 
+		(ex. Morgan 412, 85 Salisbury Street)</label><br />
+	<label>Home Address:<br /><textarea name="homeaddr"><?php echo $user->fieldString('homeaddr') ?></textarea></label><br />
+	<br />
 	<button type="submit">Save</button>
 </form>
 
