@@ -3,10 +3,16 @@
  * undocumented class
  *
  * @package default
+ * @property $start DateTime
  * @author  
  */
 class Event {
-	public $id, $name, $start, $end, $hasGL, $owner;
+	/**
+     * Date the event begins
+     * @var DateTime
+     */
+	public $start;
+	public $id, $name, $end, $hasGL, $owner;
 	
 	
 	/**
