@@ -14,7 +14,7 @@ class BCPeopleList implements BoxContent {
 	
 	function getHTML()
 	{
-		
+		ob_start();
 ?>
 <div id="peopleSetings">
 	<a href="#" onclick="peoplestate='thumbnail';buildList();return false;">Thumbnail View</a> - <a href="#" onclick="peoplestate='table';buildList();return false;">Table View</a>
@@ -31,7 +31,9 @@ class BCPeopleList implements BoxContent {
 		<p>Pi1234</p>
 	</div>
 </div>
+<div style="clear: both">&nbsp;</div>
 <?php
+		return ob_get_clean();
 	}
 	function getJS()
 	{
