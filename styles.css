@@ -77,12 +77,24 @@ header nav {
 #shouter {
 	float: right;
 }
+#shouter input {
+	border-radius: 12px;
+	border: solid 1px #AAF;
+	font-size: 12pt;
+	margin: 0;
+	width: 169px;
+	height: 22px;
+	padding: 1px 6px;
+	-moz-box-shadow: inset -2px -1px 4px #999;
+	-webkit-box-shadow: inset -2px -1px 4px #999;
+	box-shadow: inset -2px -1px 4px #999;
+}
 #ticker {
 	position: relative;
 	background: white;
 	display: block;
 	padding: 4px;
-	/*margin-right: 200px;*/
+	margin-right: 200px;
 	margin-left: 5px;
 	border-radius: 10px;
 	height: 18px;
@@ -90,9 +102,15 @@ header nav {
 #stream {
 	margin-top: 4px;
 }
-#shouted {
+.shouted {
 	white-space: nowrap;
 	overflow: hidden;
+	margin-right: 40px;
+	display: block;
+	float: left;
+}
+div.scrollWrapper {
+	width: auto !important;
 }
 /* Sidebar */
 #sidebar {

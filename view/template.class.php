@@ -33,7 +33,8 @@ class Template
 			),
 		"events"	=> array(
 			new NavElement("Calendar","/events","calendar"),
-			new NavElement("Guest Lists","/events/list","glist")
+			new NavElement("Guest Lists","/events/list","glist"),
+			new NavElement("Blacklist","/events/blacklist","blist")
 			),
 		"rush"		=> array(
 			new NavElement("Recruits","/rush","recruits"),
@@ -94,19 +95,24 @@ ob_start();
 		<link rel="stylesheet" href="styles.css"/>
 		<link rel="stylesheet" href="js/fancybox/jquery.fancybox-1.3.4.css" />
 		<link rel="stylesheet" href="js/jquery.jOrgChart.css" />
+		<link rel="stylesheet" href= "http://www.smoothdivscroll.com/css/smoothDivScroll.css" />
 		<script src="/mipi/js/jquery-1.7.1.js" type="application/javascript"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="/mipi/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 		<script src="/mipi/js/jquery.jOrgChart.js"></script>
-		<script src="/mipi/js/jscroller-0.4.js" type="application/javascript"></script>
+		<script src="http://www.smoothdivscroll.com/js/jquery.mousewheel.min.js"></script>
+		<script src="http://www.smoothdivscroll.com/js/jquery.smoothdivscroll-1.2-min.js" type="application/javascript"></script>
 		<script type="application/javascript">
 $(function() {
 
 	$("a.userlink").fancybox();
 
-	$jScroller.add("#ticker", "#stream", "left", 2, true);
-
-	// Start Autoscroller
-	$jScroller.start();
+	$("#stream").smoothDivScroll({
+				autoScrollingMode: "always",
+				autoScrollingDirection: "endlessloopright",
+				autoScrollingStep: 1,
+				autoScrollingInterval: 30 
+			});
 	
 	$("#tree").jOrgChart({
 			chartElement : '#chart'
@@ -145,6 +151,12 @@ foreach ($this->navRight as $name => $uri) {
 					</div>
 					<div id="ticker">
 						<div id="stream">
+							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
+							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
+							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
+							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
+							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
+							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
 							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
 						</div>
 					</div>
