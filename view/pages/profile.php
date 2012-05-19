@@ -35,15 +35,34 @@ switch(@$_GET[1])
 	default:
 		$page = new Page("Profile");
 		
-		$left = new Box('left',$user->getName());
+		$left = new Box('left',"Profile");
 		$leftBox = new BCStatic();
 		ob_start();
 ?>
+<h3><?php echo $user->getName() ?></h3>
 <img src="<?php echo $user->getPhotoPath() ?>" style="width: 200px" />
 <?php
 		$leftBox->content = ob_get_clean();
 		$left->setContent($leftBox);
 		$page->addBox($left,'left');
+		
+		$rightbox = new Box('details','');
+		$details = new BCStatic();
+		ob_start();
+		?>
+email: <?php echo $user->email ?><br />
+<?php echo isset($user->cell) ? "cell phone: $user->cell<br />" : "";?>
+major: Computer Science<br />
+school address: Morgan 412<br />
+home address:<br />
+367 Eastbury Hill Rd<br />
+Glastonbury, CT 06033<br />
+year of graduation: <?php echo $user->yog ?><br />
+dob: <?php echo $user->dob->format('F j, Y') ?><br />
+		<?php
+		$details->content = ob_get_clean();
+		$rightbox->setContent($details);
+		$page->addBox($rightbox,'double');
 		
 		switch (@$_GET['msg']) {
 			case 'saved':
