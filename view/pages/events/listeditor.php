@@ -1,8 +1,7 @@
 <?php
 if(!($eventID=@$_GET[2]))
 {
-	header("Location: /mipi/events/msg:enf");
-	exit;
+	return Page::getPage('events/listoflists');
 }
 if(@$_GET[3]=='print')
 {
