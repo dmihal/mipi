@@ -27,13 +27,12 @@ ob_start();
 	<h2>Info</h2>
 email: <?php echo $user->email ?><br />
 <?php echo isset($user->cell) ? "cell phone: $user->cell<br />" : "";?>
-major: Computer Science<br />
-school address: Morgan 412<br />
+<?php echo isset($user->major) ? "major: $user->major<br />" : "";?>
+<?php echo isset($user->schoolloc) ? "school address: $user->schoolloc<br />" : "";?>
 home address:<br />
-367 Eastbury Hill Rd<br />
-Glastonbury, CT 06033<br />
-year of graduation: 2015<br />
-dob: November, 13 2012<br />
+<?php echo isset($user->homeaddr) ? nl2br($user->homeaddr,true) : "unknown";?><br />
+year of graduation: <?php echo $user->yog ?><br />
+dob: <?php echo $user->dob->format('F jS, Y') ?><br />
 <?php
 $page->setRight(ob_get_clean());
 
