@@ -8,6 +8,11 @@ switch(@$_GET[1])
 	case 'save':
 		$user->email	= $_POST['email'];
 		$user->cell		= $_POST['cell'];
+		$user->major	= $_POST['major'];
+		$user->schoolloc= $_POST['schoolloc'];
+		$user->homeaddr	= $_POST['homeaddr'];
+		$user->yog		= $_POST['yog'];
+		$user->dob		= new DateTime($_POST['dob']);
 		
 		try
 		{
