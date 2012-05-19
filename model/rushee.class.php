@@ -18,6 +18,22 @@ class Rushee extends Person {
 		return file_exists("img/rushpics/$this->id.jpg") ? "/mipi/img/rushpics/$this->id.jpg" : "/mipi/img/unavailable.jpg";
 	}
 	/**
+	 * Copies a new file to the correct location
+	 *
+	 * @return void
+	 * @author  
+	 */
+	function moveNewPhoto($file) {
+		$finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+    	$mime = finfo_file($finfo, $file);
+		finfo_close($finfo);
+		if ($mime == 'image/jpeg') {
+			return move_uploaded_file($file, "/opt/lampp/htdocs/mipi/img/rushpics/$this->id.jpg");
+		} else {
+			return false;
+		}
+	}
+	/**
 	 * undocumented function
 	 *
 	 * @return void
