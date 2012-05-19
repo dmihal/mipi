@@ -4,6 +4,14 @@ switch (@$_GET[1]) {
 	case 'person':
 		$page = Page::getPage('rush/person');
 		break;
+	case 'newphoto':
+		$msg = "msg:error";
+		if ($_POST['rushee'] && $_FILES['newphoto'] && $rushee = Rushee::getRushee($_POST['rushee'])) {
+			$rushee->moveNewPhoto($_FILES['newphoto']['tmp_name']);
+			$msg = "msg:newphoto";
+		}
+		header("Location: /mipi/rush/$msg");
+		break;
 	default:
 		$page = new Page("Rush");
 		
