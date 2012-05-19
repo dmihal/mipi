@@ -15,11 +15,13 @@ class Box
 	{
 ?><div class="wbox" id="box<?php echo $this->name ?>">
 	<h2><?php echo $this->title ?></h2>
+	<div class="wboxbody">
 <?php
 if ($this->content) {
 	echo $this->content->getHTML();
 }
 ?>
+	</div>
 </div><?php
 	}
 	public function getJS()
