@@ -15,8 +15,8 @@ ob_start();
 ?>
 	<h1><?php echo $user->getName(); ?></h1>
 <?php
-if ($pi = $user->getPiNum())
-	echo'<p>$pi</p>';
+if ($pi = $user->getPiNum(true))
+	echo "<p>$pi</p>";
 ?>
 	<img src="<?php echo $user->getPhotoPath(); ?>" style="width: 180px">
 	<a href="#">Send Message</a>
