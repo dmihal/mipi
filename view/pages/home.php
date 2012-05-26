@@ -1,6 +1,7 @@
 <?php
 $page = new Page("Home");
 
+/********** Announcements ****************/
 $announcementBox = new Box('announce','Announcements');
 $announceList = new BCList();
 //print_r($announceList->getJS());
@@ -13,9 +14,11 @@ foreach (Announcement::getAnnouncementsFromQuery(Announcement::QUERYALL." LIMIT 
 $announcementBox->setContent($announceList);
 $page->addBox($announcementBox,'left');
 
+/********** Messages ****************/
 $messages = new Box('messages','Messages');
 $page->addBox($messages,'left');
 
+/********** Upcoming Events ****************/
 $eventsBox = new Box('events','Upcoming Events');
 $eventsList = new BCList();
 try {
@@ -33,6 +36,30 @@ try {
 $eventsBox->setContent($eventsList);
 $page->addBox($eventsBox,'center');
 
+/********** Upcoming Birthdays ****************/
+$birthdayBox = new Box('bday','Upcoming Birthdays');
+$birthdays = new BCTable('Name','Date','Age');
+try {
+	$people = Member::getMembersFromQuery("SELECT *,
+		dob + INTERVAL(YEAR(CURRENT_TIMESTAMP) - YEAR(dob)) + 0 YEAR AS currbirthday
+		FROM users
+		ORDER BY CASE WHEN currbirthday < CURRENT_TIMESTAMP
+		THEN currbirthday + INTERVAL 1 YEAR
+		ELSE currbirthday
+		END
+		LIMIT 0,5");
+	foreach ($people as $person) {
+		/* @var $person Member */
+		$age = $person->dob->diff(new DateTime())->y +1;
+		$birthdays->addRow($person->getName(),$person->dob->format('m/d/Y'),$age);
+	}
+} catch (Exception $e) {
+	$birthdays = new BCStatic("No upcoming birthdays");
+}
+$birthdayBox->setContent($birthdays);
+$page->addBox($birthdayBox,'center');
+
+/********** Guest Lists ****************/
 $guests = new Box('guests',"Guest Lists");
 $guestList = new BCList();
 try{
@@ -49,6 +76,7 @@ try{
 $guests->setContent($guestList);
 $page->addBox($guests,'right');
 
+/********** Surveys ****************/
 $surveys = new Box('surveys','Surveys');
 $surveyList = new BCList();
 $surveyList->addElement("Housing Survey", "Joe Monasky", "Questions about the house","#","user/2");
