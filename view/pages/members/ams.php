@@ -12,7 +12,7 @@ $membersList = Member::getMembersFromQuery(Member::QueryAllAMs);
 	foreach ($membersList as $person) {
 		/* @var $person Member */ 
 		$peoplelist->addPerson($person->first, $person->last, '/mipi/user/'.$person->id, $person->getPhotoPath(),
-							$person->email,"",$person->fieldString('cell'),$person->getPiNum(true),$person->yog,$person->dob->format("n/j/Y"));
+							$person->email,"",$person->fieldString('cell'),$person->yog,$person->dob->format("n/j/Y"));
 	}
 	
 $box->setContent($peoplelist);
