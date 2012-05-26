@@ -57,5 +57,6 @@ class Event {
 	
 	const QueryNextFive		= "SELECT * FROM eventsX WHERE `start`>CURRENT_TIMESTAMP() ORDER BY start LIMIT 0,5";
 	const QueryOpenLists 	= "SELECT * FROM eventsX WHERE `start`>CURRENT_TIMESTAMP() AND `guestlist`='true' ORDER BY start LIMIT 0,5";
+	const QueryClosedLists 	= "SELECT * FROM eventsX WHERE `start`<CURRENT_TIMESTAMP() AND `guestlist`='true' ORDER BY start LIMIT 0,5";
 } // END
 ?>
