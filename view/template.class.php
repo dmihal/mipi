@@ -1,6 +1,7 @@
 <?php
 class Template
 {
+	
 	private $page;
 	public $showTicker = true;
 	const trans = "data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
@@ -18,7 +19,7 @@ class Template
 	function __construct(Page $page){
 		$this->page= $page;
 
-		$this->navRight[$_SESSION['obj']->user->getName()] = "/profile";
+		$this->navRight[getUser()->getName()] = "/profile";
 		
 		$this->secondNav  = array(
 		"home"		=> array(
@@ -113,6 +114,18 @@ $(function() {
 				autoScrollingStep: 1,
 				autoScrollingInterval: 30 
 			});
+	$("#shouter input").keypress(function(event){
+	 
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			var shout = this.value;
+			this.value = "";
+			$("#stream .scrollableArea").append('<span class="shouted"><span class="shoutMsg">"'+shout+'"</span> - <a href="user/<?php echo getUser()->id ?>" class="userlink"><?php echo getUser()->getName() ?></a></span>')
+			$("#stream a.userlink").fancybox();
+			$("#stream").smoothDivScroll("recalculateScrollableArea");
+		}
+		event.stopPropagation();
+	});
 	
 	$("#tree").jOrgChart({
 			chartElement : '#chart'
@@ -151,13 +164,16 @@ foreach ($this->navRight as $name => $uri) {
 					</div>
 					<div id="ticker">
 						<div id="stream">
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
-							<span class="shouted"><span class="shoutMsg">"This is a message"</span> - <a href="user/1" class="userlink">David Mihal</a></span>
+<?php 
+$shouts = Shout::getLastTen();
+foreach ($shouts as $shout) {
+	/* @var $shout Shout */
+	echo '<span class="shouted"><span class="shoutMsg">"' . $shout->message . 
+		'"</span> - <a href="user/'. $shout->getUser()->id .'" class="userlink">'.$shout->getUser()->getName().'</a></span>';
+	
+}
+unset($shouts);
+?>
 						</div>
 					</div>
 <?php } ?>
