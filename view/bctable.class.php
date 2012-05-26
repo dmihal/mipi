@@ -10,6 +10,11 @@ class BCTable implements BoxContent {
 	public $header;
 	public $rows = array();
 	
+	public function __construct()
+	{
+		$this->header = func_get_args();
+	}
+	
 	public function addRow()
 	{
 		$this->rows[] = func_get_args();
