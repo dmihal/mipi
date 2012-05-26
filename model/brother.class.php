@@ -7,10 +7,12 @@
  */
 class Brother extends Member {
 	public $type = Person::BROTHER;
+	private $piNum;
 	
-	public function __construct()
+	public function __construct($data)
 	{
-		
+		parent::__construct($data);
+		$this->piNum = $data['pi'];
 	}
 	function getPiNum($htmlchar=false)
 	{

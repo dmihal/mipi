@@ -14,8 +14,17 @@ class Member extends Person {
 	
 	public $bigNum, $email,$yog;
 	private $initalVars;
-	protected $piNum;
 	
+	public function __construct($data)
+	{
+		$this->id		= $data['ID'];
+		$this->first	= $data['nameFirst'];
+		$this->last		= $data['nameLast'];
+		$this->email	= $data['email'];
+		$this->yog		= $data['yog'];
+		$this->dob		= new DateTime($data['dob']);
+		$this->updateFromDataField($data['data']);
+	}
 	
 	/**
 	 * Return the path to the photo of the person
@@ -76,7 +85,7 @@ class Member extends Person {
 		$array = self::getMembersFromQuery("SELECT * FROM users WHERE
 `username`='$username' AND
 `password`='$password'");
-		print_r($array);
+		
 		if (count($array)==1) {
 			return $array[0];
 		} else {
@@ -100,25 +109,17 @@ class Member extends Person {
 				$member;
 				switch ($row['type']) {
 					case 'AM':
-						$member = new AM();
+						$member = new AM($row);
 						break;
 					case 'BROTHER':
-						$member = new Brother();
+						$member = new Brother($row);
 						break;
 					case 'ALUM':
-						$member = new Alumni();
+						$member = new Alumni($row);
 						break;
 					default:
 						throw new Exception();
 				}
-				
-				$member->id		= $row['ID'];
-				$member->first	= $row['nameFirst'];
-				$member->last	= $row['nameLast'];
-				$member->email	= $row['email'];
-				$member->yog	= $row['yog'];
-				$member->dob	= new DateTime($row['dob']);
-				$member->updateFromDataField($row['data']);
 				
 				$member->start();
 				
@@ -158,6 +159,8 @@ class Member extends Person {
 			"nameFirst"	=>$this->first,
 			"nameLast"	=>$this->last,
 			"email"		=>$this->email,
+			"yog"		=>$this->yog,
+			"dob"		=>$this->dob->format('Y-m-d'),
 			"data"		=>$this->getSerializedDataField()
 			);
 	}
