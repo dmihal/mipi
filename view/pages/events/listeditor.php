@@ -16,7 +16,7 @@ $linkbox = new Box("links","");
 $linkcontent = new BCStatic();
 ob_start();
 ?>
-<a href="/mipi/events/list/<?php echo $eventID ?>/print">Print</a>
+<a href="/events/list/<?php echo $eventID ?>/print">Print</a>
 <?php
 $linkcontent->content = ob_get_clean();
 $linkbox->setContent($linkcontent);
