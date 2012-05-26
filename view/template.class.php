@@ -97,6 +97,7 @@ ob_start();
 		<link rel="stylesheet" href="js/fancybox/jquery.fancybox-1.3.4.css" />
 		<link rel="stylesheet" href="js/jquery.jOrgChart.css" />
 		<link rel="stylesheet" href= "http://www.smoothdivscroll.com/css/smoothDivScroll.css" />
+		<link rel="stylesheet" href= "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
 		<script src="/mipi/js/jquery-1.7.1.js" type="application/javascript"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="/mipi/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
