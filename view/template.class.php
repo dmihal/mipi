@@ -12,13 +12,12 @@ class Template
 		"Events"	=> "/events",
 		"Rush"		=> "/rush"
 		);
-	private $navRight = array(
-		'<div id="msgFlag">5</div>&#9993'	=> "messages"
-		);
+	private $navRight = array();
 	private $secondNav;
 	function __construct(Page $page){
 		$this->page= $page;
 
+        $this->navRight['<div id="msgFlag">'.Message::getNumUnread().'</div>&#9993'] = 'messages';
 		$this->navRight[getUser()->getName()] = "/profile";
 		
 		$this->secondNav  = array(
@@ -42,8 +41,8 @@ class Template
 			new NavElement("Events","/rush/events","rushevents")
 			),
 		"message"	=> array(
-			new NavElement("Compose Message","message/compose","compose"),
-			new NavElement("Inbox","message/inbox","inbox")
+			new NavElement("Compose Message","messages/compose","compose"),
+			new NavElement("Inbox","messages/inbox","inbox")
 			),
 		"profile"	=> array(
 			new NavElement("My Profile","profile","profile"),
@@ -98,10 +97,12 @@ ob_start();
 		<link rel="stylesheet" href="js/jquery.jOrgChart.css" />
 		<link rel="stylesheet" href= "http://www.smoothdivscroll.com/css/smoothDivScroll.css" />
 		<link rel="stylesheet" href= "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
+		<link rel="stylesheet" href= "/mipi/js/token-input-facebook.css" />
 		<script src="/mipi/js/jquery-1.7.1.js" type="application/javascript"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="/mipi/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 		<script src="/mipi/js/jquery.jOrgChart.js"></script>
+		<script src="/mipi/js/jquery.tokeninput.js"></script>
 		<script src="http://www.smoothdivscroll.com/js/jquery.mousewheel.min.js"></script>
 		<script src="http://www.smoothdivscroll.com/js/jquery.smoothdivscroll-1.2-min.js" type="application/javascript"></script>
 		<script type="application/javascript">
