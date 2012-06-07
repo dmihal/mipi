@@ -46,7 +46,7 @@ function getUser() {
 }
 
 @$requestRaw = $_GET['request'];
-$_GET = explode('/', $requestRaw);
+$_GET = array_merge(explode('/', $requestRaw),$_GET);
 foreach ($_GET as $value) {
 	if(($pos = strpos($value,':'))!==false)
 	{
