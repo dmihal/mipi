@@ -15,8 +15,15 @@ $announcementBox->setContent($announceList);
 $page->addBox($announcementBox,'left');
 
 /********** Messages ****************/
-$messages = new Box('messages','Messages');
-$page->addBox($messages,'left');
+$messagesBox = new Box('messages','Messages');
+$messagesContent = new BCList();
+$messages = Message::getUserMessages(getUser(),5);
+foreach ($messages as $message) {
+    /* @var $message Message */
+    $messagesContent->addElement($message->subject, $message->getSender()->getName(), $message->getPreview(),'#','/user/'.$message->getSender()->id,$message->date->format('m/d/Y'));
+}
+$messagesBox->setContent($messagesContent);
+$page->addBox($messagesBox,'left');
 
 /********** Upcoming Events ****************/
 $eventsBox = new Box('events','Upcoming Events');
