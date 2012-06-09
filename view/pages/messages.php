@@ -3,6 +3,11 @@ switch (@$_GET[1]) {
 	case 'compose':
 		$page = Page::getPage('messages/compose');
 		break;
+    case 'send':
+        $to = explode(',', $_POST['to']);
+        Message::sendMessage($to, $_POST['message'],$_POST['subject']);
+        header("Location: /mipi/messages/inbox/msg:success");
+        break;
 	default:
 		$page = new Page("Messages");
         
@@ -17,9 +22,9 @@ switch (@$_GET[1]) {
         $inbox->setContent($msgList);
         $page->addBox($inbox,'tripple');
         
-        $page->section = "message";
 		break;
 }
 
+$page->section = "message";
 return $page;
 ?>
