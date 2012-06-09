@@ -70,6 +70,9 @@ class Query
 	 */
 	static public function insert($query)
 	{
+	    
+        require_once("control/mysql.php");
+        
 		$sql = mysql_query($query);
 		return mysql_insert_id();
 	}
