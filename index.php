@@ -2,6 +2,7 @@
 
 require "control/session.class.php";
 include("control/query.class.php");
+include 'control/sqlquerybuiler.class.php';
 include("control/ChromePhp.php");
 function __autoload($name) {
 	$filename = strtolower($name).".class.php";
