@@ -3,6 +3,9 @@ switch (@$_GET[1]) {
 	case 'compose':
 		$page = Page::getPage('messages/compose');
 		break;
+    case 'popup';
+        $page = Page::getPage('messages/popup');
+        break;
     case 'send':
         $to = explode(',', $_POST['to']);
         Message::sendMessage($to, $_POST['message'],$_POST['subject']);
@@ -17,10 +20,18 @@ switch (@$_GET[1]) {
         $messages = Message::getUserMessages();
         foreach ($messages as $key => $message) {
         	/* @var $message Message */
-        	$msgList->addElement($message->subject, $message->getSender()->getName(), $message->getPreview(),'#','/user/'.$message->getSender()->id,$message->date->format('m/d/Y'));
+        	$msgList->addElement(new Hyperlink($message->subject,'/messages/popup/'.$message->id,'messageLink'), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'));
         }
         $inbox->setContent($msgList);
         $page->addBox($inbox,'tripple');
+        
+        ob_start();
+        ?>
+        function reply(id){
+            window.location.href = "/mipi/messages/compose/r:"+id;
+        }
+        <?php
+        $page->js = ob_get_clean();
         
 		break;
 }
