@@ -31,7 +31,16 @@ class Library {
 	 * @author  
 	 */
 	function get($id) {
-		return array_key_exists($id, $this->library) ? $this->library : NULL;
+		return $this->exists($id) ? $this->library[intval($id)] : NULL;
 	}
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author  
+     */
+    function exists($id) {
+        return array_key_exists(intval($id), $this->library);
+    }
 } // END
 ?>
