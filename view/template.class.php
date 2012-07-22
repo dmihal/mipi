@@ -108,7 +108,10 @@ ob_start();
 		<script type="application/javascript">
 $(function() {
 
-	$("a.userlink").fancybox();
+    var fbLoaded = function(){
+        $("#fancybox-content").find("a.userlink,a.messageLink").fancybox({onComplete:fbLoaded});
+    }
+	$("a.userlink,a.messageLink").fancybox({onComplete:fbLoaded});
 
 	$("#stream").smoothDivScroll({
 				autoScrollingMode: "always",
