@@ -7,10 +7,10 @@ $announceList = new BCList();
 //print_r($announceList->getJS());
 foreach (Announcement::getAnnouncementsFromQuery(Announcement::QUERYALL." LIMIT 0,5") as $value) {
 	/* @var $value Announcement */
-	$announceList->addElement($value->title, $value->getAuthor()->getName(), $value->body,"","user/".$value->authorID);
+	$announceList->addOldElement($value->title, $value->getAuthor()->getName(), $value->body,"","user/".$value->authorID);
 }
 
-//$announceList->addElement("Event this Firday", "Steve Kocienski", "We will be doing some crazy fraternity shit this friday");
+//$announceList->addOldElement("Event this Firday", "Steve Kocienski", "We will be doing some crazy fraternity shit this friday");
 $announcementBox->setContent($announceList);
 $page->addBox($announcementBox,'left');
 
@@ -20,7 +20,7 @@ $messagesContent = new BCList();
 $messages = Message::getUserMessages(getUser(),5);
 foreach ($messages as $message) {
     /* @var $message Message */
-    $messagesContent->addElement($message->subject, $message->getSender()->getName(), $message->getPreview(),'#','/user/'.$message->getSender()->id,$message->date->format('m/d/Y'));
+    $messagesContent->addOldElement($message->subject, $message->getSender()->getName(), $message->getPreview(),'#','/user/'.$message->getSender()->id,$message->date->format('m/d/Y'));
 }
 $messagesBox->setContent($messagesContent);
 $page->addBox($messagesBox,'left');
@@ -32,11 +32,11 @@ try {
 	$events = Event::getEventsFromQuery(Event::QueryNextFive);
 	foreach ($events as $event){
 		/* @var $event Event */
-		$eventsList->addElement($event->name, $event->getOwner()->getName(), "It's an Event!","","user/".$value->authorID);
+		$eventsList->addOldElement($event->name, $event->getOwner()->getName(), "It's an Event!","","user/".$value->authorID);
 	}
 	unset($events);
-	/*$eventsList->addElement("Thurs 9pm - Kappa", "Alex Margiott", "It's Doody week!");
-	$eventsList->addElement("Saturday 9pm - Mardi Gras Party", "Landon Aires", "Bring beads...");*/
+	/*$eventsList->addOldElement("Thurs 9pm - Kappa", "Alex Margiott", "It's Doody week!");
+	$eventsList->addOldElement("Saturday 9pm - Mardi Gras Party", "Landon Aires", "Bring beads...");*/
 } catch (Exception $e) {
 	$eventsList = new BCStatic("No upcoming events");
 }
@@ -73,20 +73,20 @@ try{
 	$events = Event::getEventsFromQuery(Event::QueryOpenLists);
 	foreach ($events as $key => $event) {
 		/* @var $event Event */
-		$guestList->addElement($event->name, "", "","events/list/".$event->id);
+		$guestList->addOldElement($event->name, "", "","events/list/".$event->id);
 	}
 	unset($events);
 }catch(Exception $e){
 	$guestList = new BCStatic("No open guest lists");
 }
-//$guestList->addElement("Mardi Gras Party", "", "Saturday","events/list/10");
+//$guestList->addOldElement("Mardi Gras Party", "", "Saturday","events/list/10");
 $guests->setContent($guestList);
 $page->addBox($guests,'right');
 
 /********** Surveys ****************/
 $surveys = new Box('surveys','Surveys');
 $surveyList = new BCList();
-$surveyList->addElement("Housing Survey", "Joe Monasky", "Questions about the house","#","user/2");
+$surveyList->addOldElement("Housing Survey", "Joe Monasky", "Questions about the house","#","user/2");
 $surveys->setContent($surveyList);
 $page->addBox($surveys,'right');
 

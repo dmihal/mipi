@@ -7,7 +7,7 @@ try{
 	$events = Event::getEventsFromQuery(Event::QueryOpenLists);
 	foreach ($events as $key => $event) {
 		/* @var $event Event */
-		$guestList->addElement($event->name, "", "","events/list/".$event->id);
+		$guestList->addOldElement($event->name, "", "","events/list/".$event->id);
 	}
 	unset($events);
 }catch(Exception $e){
@@ -22,7 +22,7 @@ try{
 	$events = Event::getEventsFromQuery(Event::QueryClosedLists);
 	foreach ($events as $key => $event) {
 		/* @var $event Event */
-		$guestList->addElement($event->name, "", "","events/list/".$event->id);
+		$guestList->addOldElement($event->name, "", "","events/list/".$event->id);
 	}
 	unset($events);
 }catch(Exception $e){

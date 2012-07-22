@@ -24,7 +24,7 @@ try
 {
 	$announceList = new BCList();
 	foreach ($officer->getAnnouncements() as $announcement) {
-		$announceList->addElement($announcement->title, "", $announcement->body);
+		$announceList->addOldElement($announcement->title, "", $announcement->body);
 	}
 } catch (Exception $e) {
 	$announceList = new BCStatic("No announcements!");
