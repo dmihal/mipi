@@ -120,3 +120,18 @@ div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-faceb
     background-color: #3b5998;
     color: #fff;
 }
+
+ul.token-input-disabled-facebook,
+ul.token-input-disabled-facebook li input {
+  background-color: #E8E8E8;
+}
+
+ul.token-input-disabled-facebook li.token-input-token-facebook {
+  background-color: #D9E3CA;
+  color: #7D7D7D
+}
+
+ul.token-input-disabled-facebook li.token-input-token-facebook span {
+  color: #CFCFCF;
+  cursor: default;
+}
