@@ -19,7 +19,7 @@ if ($pi = $user->getPiNum(true))
 	echo "<p>$pi</p>";
 ?>
 	<img src="<?php echo $user->getPhotoPath(); ?>" style="width: 180px">
-	<a href="#">Send Message</a>
+	<a href="/messages/compose/to:<?php echo $user->id ?>">Send Message</a>
 <?php 
 $page->setLeft(ob_get_clean());
 ob_start();
