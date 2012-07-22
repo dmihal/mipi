@@ -14,6 +14,7 @@ class Member extends Person {
 	
 	public $bigNum, $email,$yog;
 	private $initalVars;
+    private static $library;
 	
 	public function __construct($data)
 	{
@@ -24,6 +25,8 @@ class Member extends Person {
 		$this->yog		= $data['yog'];
 		$this->dob		= new DateTime($data['dob']);
 		$this->updateFromDataField($data['data']);
+        
+        self::$library->add($this->id,$this);
 	}
 	
 	/**
@@ -65,6 +68,22 @@ class Member extends Person {
 	{
 		return self::getMember($this->bigNum);
 	}
+    /**
+     * Returns Hyperlink object to user
+     *
+     * @return Hyperlink
+     * @author  
+     */
+    function getLink() {
+        return new Hyperlink($this->getName(),"/user/$this->id",'userlink');
+    }
+    public function __wakeup()
+    {
+        if(!isset(self::$library)){
+            self::$library = new Library();
+        }
+        self::$library->add($this->id,$this);
+    }
 	/**
 	 * Return member with the given database ID
 	 * 
@@ -101,28 +120,35 @@ class Member extends Person {
 	 */
 	static function getMembersFromQuery($query)
 	{
+	    if(!isset(self::$library)){
+	        self::$library = new Library();
+	    }
+        
 		$query = new Query($query);
 		if ($query->numRows >= 1) {
 			$array = array();
 			while($row = $query->nextRow())
 			{
 				$member;
-				switch ($row['type']) {
-					case 'AM':
-						$member = new AM($row);
-						break;
-					case 'BROTHER':
-						$member = new Brother($row);
-						break;
-					case 'ALUM':
-						$member = new Alumni($row);
-						break;
-					default:
-						throw new Exception();
-				}
-				
-				$member->start();
-				
+                if (self::$library->exists($row['ID'])){
+                    $member = self::$library->get($row['ID']);
+                } else {
+                    switch ($row['type']) {
+                    case 'AM':
+                        $member = new AM($row);
+                        break;
+                    case 'BROTHER':
+                        $member = new Brother($row);
+                        break;
+                    case 'ALUM':
+                        $member = new Alumni($row);
+                        break;
+                    default:
+                        throw new Exception("Member type not defined");
+                    }
+                    $member->start();
+                }
+                
 				$array[] = $member;
 				unset($member);
 			}
