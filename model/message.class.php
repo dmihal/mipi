@@ -30,6 +30,32 @@ class Message {
         return Member::getMember($this->sender);
     }
     /**
+     * get array of recipients
+     *
+     * @return array(Member)
+     * @author  
+     */
+    function getRecipients($includeSender=false) {
+        $q = new Query("SELECT `user` FROM message_status WHERE message=".$this->id);
+        $people = array();
+        for ($i=$q->numRows-1; $i >= 0; $i--) { 
+            array_unshift($people,Member::getMember($q->getField('user',$i)));
+        }
+        if ($includeSender){
+            array_unshift($people,$this->getSender());
+        }
+        return $people;
+    }
+    /**
+     * Get message that this message replied to
+     *
+     * @return Message
+     * @author  
+     */
+    function getReplied() {
+        return $this->reply ? self::getMessage($this->reply) : NULL;
+    }
+    /**
      * undocumented function
      *
      * @return void
@@ -72,6 +98,23 @@ class Message {
      */
     function getPreview($length=50) {
         return (strlen($this->message) > $length) ? substr($this->message,0,$length-3).'...' : $this->message;
+    }
+    /**
+     * Get message object. If $secure=true, messages will only be fetched if the current user has access to them
+     *
+     * @return Message
+     * @author  
+     */
+    static function getMessage($id,$secure=true) {
+        $query = "SELECT m.*, s.read as `read` FROM message_status as s, messages as m
+            WHERE m.ID = $id ". ($secure ? "AND (s.user = ".getUser()->id." OR m.sender =".getUser()->id.")" : "") .
+            " AND s.message=m.ID";
+        $result = self::getMessagesFromQuery($query);
+        if (count($result)==1) {
+            return $result[0];
+        } else {
+            throw new Exception("Message not found", 1);
+        }
     }
     /**
      * Gets all messages to a user, defaults to the signed in user
