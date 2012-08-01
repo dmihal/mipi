@@ -20,7 +20,7 @@ switch (@$_GET[1]) {
         $messages = Message::getUserMessages();
         foreach ($messages as $key => $message) {
         	/* @var $message Message */
-        	$msgList->addElement(new Hyperlink($message->subject,'/messages/popup/'.$message->id,'messageLink'), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'));
+        	$msgList->addElement($message->getLink(), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'));
         }
         $inbox->setContent($msgList);
         $page->addBox($inbox,'tripple');
