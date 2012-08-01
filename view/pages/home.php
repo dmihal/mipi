@@ -7,7 +7,7 @@ $announceList = new BCList();
 //print_r($announceList->getJS());
 foreach (Announcement::getAnnouncementsFromQuery(Announcement::QUERYALL." LIMIT 0,5") as $value) {
 	/* @var $value Announcement */
-	$announceList->addOldElement($value->title, $value->getAuthor()->getName(), $value->body,"","user/".$value->authorID);
+	$announceList->addElement($value->getLink(), $value->getAuthor()->getLink(),$value->body);
 }
 
 //$announceList->addOldElement("Event this Firday", "Steve Kocienski", "We will be doing some crazy fraternity shit this friday");
@@ -20,7 +20,7 @@ $messagesContent = new BCList();
 $messages = Message::getUserMessages(getUser(),5);
 foreach ($messages as $message) {
     /* @var $message Message */
-    $messagesContent->addOldElement($message->subject, $message->getSender()->getName(), $message->getPreview(),'#','/user/'.$message->getSender()->id,$message->date->format('m/d/Y'));
+    $messagesContent->addElement($message->getLink(), $message->getSender()->getLink(),$message->getPreview(),$message->date->format('m/d/Y'));
 }
 $messagesBox->setContent($messagesContent);
 $page->addBox($messagesBox,'left');
