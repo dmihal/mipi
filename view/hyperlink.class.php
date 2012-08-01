@@ -5,7 +5,7 @@
  * @package default
  * @author  
  */
-class Hyperlink {
+class Hyperlink implements HTMLElement {
     public $title,$url,$class;
     
     public function __construct($title,$url='#',$class='')
