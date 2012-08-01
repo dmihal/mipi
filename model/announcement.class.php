@@ -10,6 +10,13 @@ class Announcement {
 	public $title,$body;
 	public $id,$officerID, $authorID;
 	
+    public function __construct($data){
+        $this->id       = $data['ID'];
+        $this->title    = $data['title'];
+        $this->body     = $data['body'];
+        $this->officerID= $data['officer'];
+        $this->authorID = $data['author'];
+    }
 	/**
 	 * undocumented function
 	 *
@@ -17,6 +24,7 @@ class Announcement {
 	 * @author  
 	 */
 	function getOfficer() {
+	    
 	}
 	/**
 	 * undocumented function
@@ -26,7 +34,26 @@ class Announcement {
 	function getAuthor() {
 		return Member::getMember($this->authorID);
 	}
-	
+	/**
+     * Returns Hyperlink to announcement
+     *
+     * @return Hyperlink
+     * @author  
+     */
+    function getLink() {
+        return new Hyperlink($this->title,"/announcement/$this->id","announceLink");
+    }
+	/**
+	 * Get Announcement object
+	 * 
+	 * @param $query string
+	 * @return Announcement
+	 */
+	static function getAnnouncement($id)
+	{
+		$announcements = self::getAnnouncementsFromQuery("SELECT * FROM `announcements` WHERE `ID`=$id");
+        return $announcements[0];
+	}
 	/**
 	 * Return array of announcements generated from SQL Query
 	 * 
@@ -40,12 +67,7 @@ class Announcement {
 			$announcements = array();
 			while($row = $query->nextRow())
 			{
-				$announcement = new Announcement();
-				$announcement->id		= $row['ID'];
-				$announcement->title	= $row['title'];
-				$announcement->body		= $row['body'];
-				$announcement->officerID= $row['officer'];
-				$announcement->authorID	= $row['author'];
+				$announcement = new Announcement($row);
 				
 				$announcements[] = $announcement;
 			}
