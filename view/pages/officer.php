@@ -1,5 +1,5 @@
 <?php
-$officer = new Officer($_GET[1]);
+$officer = Officer::getOfficerByName($_GET[1]);
 $person = $officer->getMember();
 
 $page = new Page("$officer->title");
@@ -24,7 +24,8 @@ try
 {
 	$announceList = new BCList();
 	foreach ($officer->getAnnouncements() as $announcement) {
-		$announceList->addOldElement($announcement->title, "", $announcement->body);
+	    /* @var $announcement Announcement */
+	    $announceList->addElement($announcement->getLink(), $announcement->getAuthor()->getLink(),$announcement->body);
 	}
 } catch (Exception $e) {
 	$announceList = new BCStatic("No announcements!");
