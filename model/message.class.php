@@ -56,6 +56,15 @@ class Message {
         return $this->reply ? self::getMessage($this->reply) : NULL;
     }
     /**
+     * Returns Hyperlink for message
+     *
+     * @return Hyperlink
+     * @author  
+     */
+    function getLink() {
+        return new Hyperlink($this->subject,'/messages/popup/'.$this->id,'messageLink');
+    }
+    /**
      * undocumented function
      *
      * @return void
