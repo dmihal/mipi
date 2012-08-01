@@ -4,7 +4,6 @@ class Template
 	
 	private $page;
 	public $showTicker = true;
-	const trans = "data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 	
 	private $navLeft = array(
 		"Home"		=> "/",
@@ -47,7 +46,8 @@ class Template
 		"profile"	=> array(
 			new NavElement("My Profile","profile","profile"),
 			new NavElement("Edit My Profile","profile/edit","editprofile"),
-			new NavElement("Settings","profile/settings","settings")
+			new NavElement("Settings","profile/settings","settings"),
+			new Spacer()
 			)
 		);
 
@@ -57,6 +57,15 @@ class Template
 		//$this->secondNav['home'][] = new NavElement("","","spacer");
 		foreach (Officer::getOfficerLists(false) as $name => $title) {
 			$this->secondNav['home'][] = new NavElement($title,"/officer/$name",$name);
+		}
+		
+		foreach (Officer::getOfficersByUser(getUser()) as $officer) {
+		    /* @var $officer Officer */
+			if (isset($officer->adminPages)) {
+				foreach ($officer->adminPages as $name => $path) {
+					$this->secondNav['profile'][] = new NavElement($name,$path,trim($name));
+				}
+			}
 		}
 	
 	}
@@ -109,9 +118,9 @@ ob_start();
 $(function() {
 
     var fbLoaded = function(){
-        $("#fancybox-content").find("a.userlink,a.messageLink").fancybox({onComplete:fbLoaded});
+        $("#fancybox-content").find("a.userlink,a.messageLink,a.announceLink").fancybox({onComplete:fbLoaded});
     }
-	$("a.userlink,a.messageLink").fancybox({onComplete:fbLoaded});
+	$("a.userlink,a.messageLink,a.announceLink").fancybox({onComplete:fbLoaded});
 
 	$("#stream").smoothDivScroll({
 				autoScrollingMode: "always",
@@ -189,16 +198,8 @@ unset($shouts);
 <?php 
 $navs = $this->getSecondNav();
 foreach ($navs as $value) {
-?>
-<li>
-	<a href="<?php echo $value->link ?>">
-		<div class="navIcon">
-			<img src="<?php echo self::trans ?>" alt="<?php echo $value->title ?>" id="icon<?php echo ucfirst($value->class) ?>" />
-		</div>
-		<?php echo $value->title ?>
-	</a>
-</li>
-<?php
+    /* @var $value HTMLElement */
+   echo $value->getHTML();
 }
 ?>
 				</ul>
