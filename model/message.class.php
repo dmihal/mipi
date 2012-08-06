@@ -9,6 +9,7 @@ class Message {
     
     public $id, $subject, $message, $date;
     private $sender, $reply;
+    public $read;
     
     function __construct($data)
     {
@@ -18,6 +19,7 @@ class Message {
         $this->date     = new DateTime($data['date']);
         $this->sender   = $data['sender'];
         $this->reply    = $data['reply'];
+        $this->read     = $data['read'];
     }
     
     /**
@@ -107,6 +109,18 @@ class Message {
      */
     function getPreview($length=50) {
         return (strlen($this->message) > $length) ? substr($this->message,0,$length-3).'...' : $this->message;
+    }
+    /**
+     * Mark the message as read
+     *
+     * @return void
+     * @author  
+     */
+    function setRead($read=true,Member $user = NULL) {
+        $user = is_null($user) ? getUser() : $user;
+        
+        Query::update('message_status', "`message`=$this->id AND `user`=$user->id", array("read"=>""), array("read"=>$read? 'TRUE' : 'FALSE'));
+        return $read;
     }
     /**
      * Get message object. If $secure=true, messages will only be fetched if the current user has access to them
