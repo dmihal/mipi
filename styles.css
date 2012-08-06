@@ -295,3 +295,7 @@ td {
 	max-height: 175px;
 	max-width: 130px;
 }
+
+.unread {
+    background: lightPink;
+}
