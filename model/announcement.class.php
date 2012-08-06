@@ -9,6 +9,7 @@ class Announcement {
 	
 	public $title,$body;
 	public $id,$officerID, $authorID;
+    public $date;
 	
     public function __construct($data){
         $this->id       = $data['ID'];
@@ -16,6 +17,7 @@ class Announcement {
         $this->body     = $data['body'];
         $this->officerID= $data['officer'];
         $this->authorID = $data['author'];
+        $this->date     = new DateTime($data['date']);
     }
 	/**
 	 * undocumented function
@@ -24,7 +26,7 @@ class Announcement {
 	 * @author  
 	 */
 	function getOfficer() {
-	    
+	    return Officer::getOfficer($this->officerID);
 	}
 	/**
 	 * undocumented function
