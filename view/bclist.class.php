@@ -15,14 +15,13 @@ class BCList implements BoxContent {
      * @return BCList
      * @author  
      */
-    function addElement($title,$subtitle,$body='',$date=null) {
-        $datetag = "";
-		if($date)
-			$datetag = "<div style=\"float:right\">$date</div>";
+    function addElement($title,$subtitle,$body='',$date=null,$class=NULL) {
+        $datetag = $date ? "<div style=\"float:right\">$date</div>" : "";
         $this->elements[] = array(
             'title' => $datetag.(($title instanceof Hyperlink) ? $title->addClass('title' )->getHTML() : $title),
             'subtitle'  => ($subtitle instanceof Hyperlink) ? $subtitle->addClass('author')->getHTML() : $subtitle,
-            'body'  => $body);
+            'body'  => $body,
+            'class' => $class);
         return $this;
     }
 	public function addOldElement($title,$subtitle,$body,$titlelink= "#",$authorlink="user/12345",$date=NULL)
@@ -37,7 +36,7 @@ class BCList implements BoxContent {
 	{
 		$html = '<div class="wboxbody"><ul class="desclist">';
 		foreach ($this->elements as $element) {
-			$html .= '<li>';
+			$html .= $element['class'] ? "<li class=\"$element[class]\">" : '<li>';
 			$html .= $element['title'].$element['subtitle'];
 			$html .= '<div>';
 			$html .= $element['body'];
