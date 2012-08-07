@@ -26,14 +26,6 @@ switch (@$_GET[1]) {
         $inbox->setContent($msgList);
         $page->addBox($inbox,'tripple');
         
-        ob_start();
-        ?>
-        function reply(id){
-            window.location.href = "/mipi/messages/compose/r:"+id;
-        }
-        <?php
-        $page->js = ob_get_clean();
-        
 		break;
 }
 
