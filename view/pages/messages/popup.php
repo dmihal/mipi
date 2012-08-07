@@ -15,7 +15,7 @@ ob_start();
 ?>
 <div style="background-color: #FFF2D3">
     <button onclick="reply(<?php echo $message->id ?>)">Reply All</button>
-    <button>Mark Unread</button>
+    <button onclick="unread(<?php echo $message->id ?>,this)">Mark Unread</button>
 </div>
 <div style="width: 600px;">
     <div style="float: left;background: #E5E5E5;padding: 5px;margin: 5px;">
@@ -32,6 +32,7 @@ while ($last = $message->getReplied())
 }
 
 $page->rawData = ob_get_clean();
+$message->setRead();
 
 return $page;
 ?>
