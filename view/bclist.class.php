@@ -8,6 +8,7 @@
 class BCList implements BoxContent {
 	
 	public $elements = array();
+    public $header = "";
 	
     /**
      * Add element to list
@@ -34,7 +35,7 @@ class BCList implements BoxContent {
 	
 	public function getHTML()
 	{
-		$html = '<div class="wboxbody"><ul class="desclist">';
+		$html = $this->header.'<div class="wboxbody"><ul class="desclist">';
 		foreach ($this->elements as $element) {
 			$html .= $element['class'] ? "<li class=\"$element[class]\">" : '<li>';
 			$html .= $element['title'].$element['subtitle'];
