@@ -13,6 +13,7 @@ class Template
 		);
 	private $navRight = array();
 	private $secondNav;
+    
 	function __construct(Page $page){
 		$this->page= $page;
 
@@ -54,7 +55,7 @@ class Template
 		foreach (Officer::getOfficerLists(true) as $name => $title) {
 			$this->secondNav['home'][] = new NavElement($title,"/officer/$name",$name);
 		}
-		//$this->secondNav['home'][] = new NavElement("","","spacer");
+		$this->secondNav['home'][] = new Spacer();
 		foreach (Officer::getOfficerLists(false) as $name => $title) {
 			$this->secondNav['home'][] = new NavElement($title,"/officer/$name",$name);
 		}
@@ -149,7 +150,7 @@ function reply(id){
     window.location.href = "/mipi/messages/compose/r:"+id;
 }
 function unread(id,e){
-    $.ajax({url:'/messages/setunread/'+id,
+    $.ajax({url:'/mipi/messages/setunread/'+id,
             success: function(){
                 e.innerHTML = "Mark Read";
             }});
@@ -220,6 +221,9 @@ if ($this->page->message)
 <div class="message"><?php echo $this->page->message ?></div>
 <?php
 }
+if ($this->page->form){
+    echo $this->page->form;
+}
 ?>
 				<div class="column">
 <?php
@@ -260,6 +264,9 @@ if (!empty($this->page->boxes['tripple']))
 		echo $box->getHTML();
 	}
 	echo "</div>";
+}
+if ($this->page->form){
+    echo "</form>";
 }
 ?>					<div style="clear: both">&nbsp;</div>
 				</div>

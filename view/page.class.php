@@ -14,6 +14,7 @@ class Page
 	public $section = "home";
 	public $js;
 	public $message = NULL;
+    public $form = NULL;
 	
 	public function __construct($title)
 	{
@@ -93,6 +94,15 @@ class Page
 	function setMessage($message) {
 		$this->message = $message;
 	}
+    /**
+     * Wraps the page in a form tag
+     *
+     * @return void
+     * @author  
+     */
+    function setForm($url,$method='POST') {
+        $this->form = "<form action=\"$url\" method=\"$method\" >";
+    }
 	static function getPage($name)
 	{
 		if (file_exists("view/pages/$name.php")) {
