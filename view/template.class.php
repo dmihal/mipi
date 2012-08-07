@@ -63,7 +63,7 @@ class Template
 		    /* @var $officer Officer */
 			if (isset($officer->adminPages)) {
 				foreach ($officer->adminPages as $name => $path) {
-					$this->secondNav['profile'][] = new NavElement($name,$path,trim($name));
+					$this->secondNav['profile'][] = new NavElement($name,$path,$officer->name);
 				}
 			}
 		}
@@ -145,7 +145,15 @@ $(function() {
 			chartElement : '#chart'
 		});
 });
-
+function reply(id){
+    window.location.href = "/mipi/messages/compose/r:"+id;
+}
+function unread(id,e){
+    $.ajax({url:'/messages/setunread/'+id,
+            success: function(){
+                e.innerHTML = "Mark Read";
+            }});
+}
 		</script>
 <?php
 echo $this->page->getJS();
