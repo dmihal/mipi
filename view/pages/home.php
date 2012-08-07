@@ -20,7 +20,8 @@ $messagesContent = new BCList();
 $messages = Message::getUserMessages(getUser(),5);
 foreach ($messages as $message) {
     /* @var $message Message */
-    $messagesContent->addElement($message->getLink(), $message->getSender()->getLink(),$message->getPreview(),$message->date->format('m/d/Y'));
+    $read = $message->read ? NULL : "unread";
+    $messagesContent->addElement($message->getLink(), $message->getSender()->getLink(),$message->getPreview(),$message->date->format('m/d/Y'),$read);
 }
 $messagesBox->setContent($messagesContent);
 $page->addBox($messagesBox,'left');

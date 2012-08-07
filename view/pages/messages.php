@@ -20,7 +20,8 @@ switch (@$_GET[1]) {
         $messages = Message::getUserMessages();
         foreach ($messages as $key => $message) {
         	/* @var $message Message */
-        	$msgList->addElement($message->getLink(), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'));
+        	$read = $message->read ? NULL : "unread";
+        	$msgList->addElement($message->getLink(), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'),$read);
         }
         $inbox->setContent($msgList);
         $page->addBox($inbox,'tripple');
