@@ -119,6 +119,8 @@ class Message {
     function setRead($read=true,Member $user = NULL) {
         $user = is_null($user) ? getUser() : $user;
         
+        $this->read = $read;
+        
         Query::update('message_status', "`message`=$this->id AND `user`=$user->id", array("read"=>""), array("read"=>$read? 'TRUE' : 'FALSE'));
         return $read;
     }
