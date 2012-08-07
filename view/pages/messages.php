@@ -11,6 +11,12 @@ switch (@$_GET[1]) {
         Message::sendMessage($to, $_POST['message'],$_POST['subject']);
         header("Location: /mipi/messages/inbox/msg:success");
         break;
+    case 'setunread':
+        echo 'test';
+        $message = Message::getMessage($_GET[2]);
+        $message->setRead(false);
+        var_dump($message);
+        exit;
 	default:
 		$page = new Page("Messages");
         
