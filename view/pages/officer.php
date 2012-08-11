@@ -4,6 +4,12 @@ $person = $officer->getMember();
 
 $page = new Page("$officer->title");
 
+if (in_array($officer, Officer::getOfficersByUser(getUser()))){
+    $admin = new Box('admin','');
+    $admin->setContent(new BCStatic('<a href="/admin/officer:'.$officer->name.'">Admin Page</a>'));
+    $page->addBox($admin);
+}
+
 
 $details = new Box("details",$officer->title);
 $detContent = new BCStatic();
