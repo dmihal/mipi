@@ -21,7 +21,11 @@ if ($pi = $user->getPiNum(true))
 	<img src="<?php echo $user->getPhotoPath(); ?>" style="width: 180px">
 	<a href="/messages/compose/to:<?php echo $user->id ?>">Send Message</a>
 <?php 
+echo $user->getFBLink()->setStyle("display:block;background-image:url(".$user->getFBPic().");padding-left:55px;line-height:50px;");
+echo $user->getTwitterLink()->setStyle("display:block;background-image:url(".$user->getTwitterPic().");padding-left:55px;line-height:48px;"); 
+
 $page->setLeft(ob_get_clean());
+
 ob_start();
 ?>
 	<h2>Info</h2>

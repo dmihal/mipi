@@ -13,6 +13,8 @@ switch(@$_GET[1])
 		$user->homeaddr	= $_POST['homeaddr'];
 		$user->yog		= $_POST['yog'];
 		$user->dob		= new DateTime($_POST['dob']);
+        $user->fbid     = $_POST['fbid'];
+        $user->twitid   = $_POST['twitid'];
 		
 		try
 		{

@@ -296,6 +296,17 @@ td {
 	max-width: 130px;
 }
 
+/* Link Styles */
 .unread {
     background: lightPink;
+}
+.facebook {
+    background: url(http://www.onlinesafety411.com/wp-content/themes/default/images/facebook-icon.png);
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+.twitter {
+    background: url(http://shoryuken.com/wp-content/themes/shoryuken/img/twitter-mini.png);
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }

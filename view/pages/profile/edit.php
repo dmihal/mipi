@@ -32,6 +32,13 @@ ob_start();
 		(ex. Morgan 412, 85 Salisbury Street)</label><br />
 	<label>Home Address:<br /><textarea name="homeaddr"><?php echo $user->fieldString('homeaddr') ?></textarea></label><br />
 	<br />
+	<br />
+	<h3>Social</h3>
+	<label>Facebook Username: <input name="fbid" id="fbid" value="<?php echo $user->fieldString('fbid') ?>" /></label>
+	<div id="fbpic" style="height: 50px;width: 50px;display:inline-block;vertical-align: bottom;background:gray;">&nbsp;</div><br />
+	<label>Twitter Name: @<input name="twitid" id="twitid" value="<?php echo $user->fieldString('twitid') ?>" /></label>
+	<div id="twitpic" style="height:48px;width:48px;display:inline-block;vertical-align: bottom;background:gray;">&nbsp;</div><br />
+	<br/>
 	<button type="submit">Save</button>
 </form>
 
@@ -48,6 +55,13 @@ $(function() {
 			changeYear: true,
 			dateFormat: 'yy-mm-dd'
 		});
+		
+		$("#fbid").change(function(){
+			document.getElementById("fbpic").style.background = 'url(http://graph.facebook.com/' + $("#fbid").val() + '/picture)';
+		}).change();
+		$("#twitid").change(function(){
+            document.getElementById("twitpic").style.background = 'url(https://api.twitter.com/1/users/profile_image?screen_name=' + $("#twitid").val() + ')';
+        }).change();
 	})
 <?php
 $page->js = ob_get_clean();
