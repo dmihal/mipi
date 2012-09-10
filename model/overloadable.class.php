@@ -9,10 +9,9 @@ abstract class Overloadable {
 	private $data;
 	
 	/**
-	 * undocumented function
+	 * Set the hidden data array
 	 *
-	 * @return void
-	 * @author  
+	 * @param $data array Data to store
 	 */
 	function hiddenData(array $data=NULL) {
 		if (is_null($data)) {

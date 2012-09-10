@@ -76,6 +76,12 @@ class Query
 		$sql = mysql_query($query);
 		return mysql_insert_id();
 	}
+    /**
+     * Executes an update query based on array of values
+     *
+     * @param tablename Name of the table to update
+     * @return array Changed Values
+     */
 	static public function update($tablename, $whereclause, $old, $new)
 	{
 		require_once("control/mysql.php");
