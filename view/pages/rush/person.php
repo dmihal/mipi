@@ -15,7 +15,7 @@ ob_start();
 ?>
 	<h1><?php echo $user->getName(); ?></h1>
 	<img src="<?php echo $user->getPhotoPath(); ?>" style="width: 180px">
-	<form method="post" action="/mipi/rush/newphoto" enctype="multipart/form-data">
+	<form method="post" action="/rush/newphoto" enctype="multipart/form-data">
 		<label>New Photo: <input type="file" name="newphoto" /></label>
 		<input type="hidden" name="rushee" value="<?php echo $user->id ?>" />
 		<button type="submit">Upload</button>

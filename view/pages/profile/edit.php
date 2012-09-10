@@ -6,7 +6,7 @@ $left = new Box("left",$user->getName());
 $leftContent = new BCStatic();
 ob_start();
 ?>
-<form action="/mipi/profile/picsave" method="post" enctype="multipart/form-data">
+<form action="/profile/picsave" method="post" enctype="multipart/form-data">
 	<img src="<?php echo $user->getPhotoPath() ?>" style="width: 200px" />
 	<input type="file" name="profpic" /><br />
 	<button type="submit">Update Photo</button>
@@ -21,7 +21,7 @@ $mainForm = new Box("main","Edit Profile");
 $formContent = new BCStatic();
 ob_start();
 ?>
-<form action="/mipi/profile/save" method="post">
+<form action="/profile/save" method="post">
 	<label>Email: <input name="email" type="email" value="<?php echo $user->email ?>" /></label><br />
 	<label>Cell Phone: <input name="cell" type="tel" value="<?php echo $user->fieldString('cell') ?>" /></label><br />
 	<label>Major: <input name="major" type="text" value="<?php echo $user->fieldString('major') ?>" /></label><br />

@@ -11,7 +11,7 @@ $membersList = Member::getMembersFromQuery(Member::QueryAllAMs);
 	ChromePhp::log($membersList);
 	foreach ($membersList as $person) {
 		/* @var $person Member */ 
-		$peoplelist->addPerson($person->first, $person->last, '/mipi/user/'.$person->id, $person->getPhotoPath(),
+		$peoplelist->addPerson($person->first, $person->last, '/user/'.$person->id, $person->getPhotoPath(),
 							$person->email,$person->getFBLink().'<br />'.$person->getTwitterLink(),$person->fieldString('cell'),$person->yog,$person->dob->format("n/j/Y"));
 	}
 	

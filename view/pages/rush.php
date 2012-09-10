@@ -10,7 +10,7 @@ switch (@$_GET[1]) {
 			$rushee->moveNewPhoto($_FILES['newphoto']['tmp_name']);
 			$msg = "msg:newphoto";
 		}
-		header("Location: /mipi/rush/$msg");
+		header("Location: /rush/$msg");
 		break;
 	default:
 		$page = new Page("Rush");

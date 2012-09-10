@@ -17,7 +17,7 @@ switch (@$_GET[1]) {
 			$females[] = new Person($_POST['ff'][$i],$_POST['fl'][$i]);
 		}
 		$list->updateUserList($user, $males, $females);
-		header("Location: /mipi/events/list/$_POST[event]/msg:updated");
+		header("Location: /events/list/$_POST[event]/msg:updated");
 		exit;
 		break;
 	default:

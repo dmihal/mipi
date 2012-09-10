@@ -32,7 +32,7 @@ if ($reply){
 ?>
 
 $(function(){
-    $("#tofield").tokenInput("/mipi/ajax/membertoken",{theme:'facebook'<?php echo $tolkenSetings; ?>});
+    $("#tofield").tokenInput("/ajax/membertoken",{theme:'facebook'<?php echo $tolkenSetings; ?>});
 });
 <?php
 $page->js = ob_get_clean();
@@ -42,7 +42,7 @@ ob_start();
 
 $rSubj = $reply ? 'disabled="true" value="'.$reply->subject.'" ' : "";
 ?>
-<form method="post" action="/mipi/messages/send">
+<form method="post" action="/messages/send">
     <label>To: <input id="tofield" name="to" /></label><br />
     <label>Subject: <input name="subject" <?php echo $rSubj ?>/></label><br />
     <label>Confidential: <input type="checkbox" name="confidential" /></label><br />

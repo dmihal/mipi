@@ -102,19 +102,19 @@ ob_start();
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-		<link rel="stylesheet" href="styles.css"/>
+		<link rel="stylesheet" href="/styles.css"/>
 		<link rel="stylesheet" href="js/fancybox/jquery.fancybox-1.3.4.css" />
 		<link rel="stylesheet" href="js/jquery.jOrgChart.css" />
-		<link rel="stylesheet" href= "http://www.smoothdivscroll.com/css/smoothDivScroll.css" />
-		<link rel="stylesheet" href= "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
-		<link rel="stylesheet" href= "/mipi/js/token-input-facebook.css" />
-		<script src="/mipi/js/jquery-1.7.1.js" type="application/javascript"></script>
+		<link rel="stylesheet" href= "/js/smoothDivScroll.css" />
+		<link rel="stylesheet" href= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
+		<link rel="stylesheet" href= "/js/token-input-facebook.css" />
+		<script src="/js/jquery-1.7.1.js" type="application/javascript"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
-		<script src="/mipi/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-		<script src="/mipi/js/jquery.jOrgChart.js"></script>
-		<script src="/mipi/js/jquery.tokeninput.js"></script>
-		<script src="http://www.smoothdivscroll.com/js/jquery.mousewheel.min.js"></script>
-		<script src="http://www.smoothdivscroll.com/js/jquery.smoothdivscroll-1.2-min.js" type="application/javascript"></script>
+		<script src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="/js/jquery.jOrgChart.js"></script>
+		<script src="/js/jquery.tokeninput.js"></script>
+		<script src="/js/jquery.mousewheel.min.js"></script>
+		<script src="/js/jquery.smoothdivscroll-1.2-min.js" type="application/javascript"></script>
 		<script type="application/javascript">
 $(function() {
 
@@ -147,10 +147,10 @@ $(function() {
 		});
 });
 function reply(id){
-    window.location.href = "/mipi/messages/compose/r:"+id;
+    window.location.href = "/messages/compose/r:"+id;
 }
 function unread(id,e){
-    $.ajax({url:'/mipi/messages/setunread/'+id,
+    $.ajax({url:'/messages/setunread/'+id,
             success: function(){
                 e.innerHTML = "Mark Read";
             }});
@@ -192,7 +192,7 @@ $shouts = Shout::getLastTen();
 foreach ($shouts as $shout) {
 	/* @var $shout Shout */
 	echo '<span class="shouted"><span class="shoutMsg">"' . $shout->message . 
-		'"</span> - <a href="user/'. $shout->getUser()->id .'" class="userlink">'.$shout->getUser()->getName().'</a></span>';
+		'"</span> - '.$shout->getUser()->getLink().' </span>';
 	
 }
 unset($shouts);

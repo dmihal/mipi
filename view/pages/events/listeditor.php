@@ -26,7 +26,7 @@ $editbox = new Box('listform',"Edit List");
 $form = new BCStatic();
 $myGuests = $eventList->guestsByOwner[$user->id];
 ob_start();
-?><form action="/mipi/events/listsave/" method="post">
+?><form action="/events/listsave/" method="post">
 	<table><?php
 for($i=0; $i<count(@$myGuests['MALE']) || $i<2; $i++)
 {

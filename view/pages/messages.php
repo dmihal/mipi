@@ -9,7 +9,7 @@ switch (@$_GET[1]) {
     case 'send':
         $to = explode(',', $_POST['to']);
         Message::sendMessage($to, $_POST['message'],$_POST['subject']);
-        header("Location: /mipi/messages/inbox/msg:success");
+        header("Location: /messages/inbox/msg:success");
         break;
     case 'setunread':
         echo 'test';

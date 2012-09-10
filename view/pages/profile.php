@@ -20,9 +20,9 @@ switch(@$_GET[1])
 		{
 			if ($user->save())
 			{
-				header("location: /mipi/profile/msg:saved");
+				header("location: /profile/msg:saved");
 			}else{
-				header("location: /mipi/profile/msg:nosaved");
+				header("location: /profile/msg:nosaved");
 			}
 			$user->start();
 		} catch (Exception $e) {
@@ -34,9 +34,9 @@ switch(@$_GET[1])
 		if ($_FILES["profpic"])
 		if ($user->moveNewPhoto($_FILES["profpic"]["tmp_name"]))
 		{
-			header("location: /mipi/profile/msg:saved");
+			header("location: /profile/msg:saved");
 		}else{
-			header("location: /mipi/profile/msg:nosaved");
+			header("location: /profile/msg:nosaved");
 		}
 		exit;
 	default:
