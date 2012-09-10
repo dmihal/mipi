@@ -27,11 +27,11 @@ if(!isset($_SESSION['obj']) || !is_object($_SESSION['obj']))
 		}
 		catch (Exception $e)
 		{
-			header("Location: /mipi/login.php");
+			header("Location: /login.php");
 			exit;
 		}
 	} else {
-		header("Location: /mipi/login.php");
+		header("Location: /login.php");
 		exit;
 	}
 }
@@ -71,6 +71,7 @@ catch (Exception $e)
 	header("HTTP/1.0 404 Not Found");
 }*/
 
-echo preg_replace('/href="(\/)?/', 'href="/mipi/', $html);
+echo $html;
+//echo preg_replace('/href="(\/)?/', 'href="/mipi/', $html);
 session_write_close(); 
 ?>

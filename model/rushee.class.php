@@ -15,7 +15,7 @@ class Rushee extends Person {
 	 */
 	function getPhotoPath()
 	{
-		return file_exists("img/rushpics/$this->id.jpg") ? "/mipi/img/rushpics/$this->id.jpg" : "/mipi/img/unavailable.jpg";
+		return file_exists("img/rushpics/$this->id.jpg") ? "/img/rushpics/$this->id.jpg" : "/img/unavailable.jpg";
 	}
 	/**
 	 * Copies a new file to the correct location
@@ -28,7 +28,7 @@ class Rushee extends Person {
     	$mime = finfo_file($finfo, $file);
 		finfo_close($finfo);
 		if ($mime == 'image/jpeg') {
-			return move_uploaded_file($file, "/opt/lampp/htdocs/mipi/img/rushpics/$this->id.jpg");
+			return move_uploaded_file($file, "./img/rushpics/$this->id.jpg");
 		} else {
 			return false;
 		}

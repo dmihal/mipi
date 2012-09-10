@@ -25,7 +25,7 @@
     </header>
 
     <div>
-      <form action="/mipi/" method="post">
+      <form action="/" method="post">
       	<label>Username: <input name="user" /></label><br />
       	<label>Password: <input type="password" name="password" /></label><br />
       	<button type="submit">Login</button>

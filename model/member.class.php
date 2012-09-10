@@ -36,7 +36,7 @@ class Member extends Person {
 	 */
 	function getPhotoPath()
 	{
-		return file_exists("img/portrait/user$this->id.jpg") ? "/mipi/img/portrait/user$this->id.jpg" : "/mipi/img/unavailable.jpg";
+		return file_exists("img/portrait/user$this->id.jpg") ? "/img/portrait/user$this->id.jpg" : "/img/unavailable.jpg";
 	}
 	/**
 	 * Copies a new file to the correct location
@@ -49,7 +49,7 @@ class Member extends Person {
     	$mime = finfo_file($finfo, $file);
 		finfo_close($finfo);
 		if ($mime == 'image/jpeg') {
-			return move_uploaded_file($file, "/opt/lampp/htdocs/mipi/img/portrait/user$this->id.jpg");
+			return move_uploaded_file($file, "./img/portrait/user$this->id.jpg");
 		} else {
 			return false;
 		}
