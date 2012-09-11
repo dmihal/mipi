@@ -7,7 +7,7 @@
  */
 class Person extends Overloadable {
 	public $first, $last, $yog, $id;
-	public $phone, $email;
+	public $phone, $email, $dob;
 	
 	public $type;
 	const RUSHEE = 1;
