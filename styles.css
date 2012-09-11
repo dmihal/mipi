@@ -98,6 +98,7 @@ header nav {
 	margin-left: 5px;
 	border-radius: 10px;
 	height: 18px;
+	overflow: hidden;
 }
 #stream {
 	margin-top: 4px;
@@ -218,7 +219,7 @@ div.scrollWrapper {
 	margin-right: 15px;
 }
 .column {
-	width: 32.5%;
+	width: 32%;
 	float: left;
 	margin: 0 5px;
 }
