@@ -100,8 +100,9 @@ class Page
      * @return void
      * @author  
      */
-    function setForm($url,$method='POST') {
-        $this->form = "<form action=\"$url\" method=\"$method\" >";
+    function setForm($url,$method='POST',$file=false) {
+        $fileatt = $file ? 'enctype="multipart/form-data" ' : '';
+        $this->form = "<form action=\"$url\" method=\"$method\" $fileatt>";
     }
 	static function getPage($name)
 	{
