@@ -7,6 +7,22 @@
  */
 class Rushee extends Person {
 	public $type = Person::RUSHEE;
+    
+    private $initialVars;
+    
+    public function __construct($data)
+    {
+        $this->id     = $data['ID'];
+        $this->first  = $data['first'];
+        $this->last   = $data['last'];
+        $this->email  = $data['email'];
+        $this->phone  = $data['phone'];
+        $this->yog    = $data['class'];
+        $this->dob    = new DateTime($data['dob']);
+        $this->hiddenData(unserialize($data['data']));
+        
+        $this->initialVars = $this->getDBArray();
+    }
 	
 	/**
 	 * Return the path to the photo of the person
@@ -40,12 +56,24 @@ class Rushee extends Person {
 	 * @author  
 	 */
 	function getYearName() {
+	    if (!$this->yog){
+	        return "n/a";
+	    }
 		$thisYear = new DateTime();
 		$thisYear->modify('+6 months');
 		$yearsLeft = $this->yog - $thisYear->format('Y');
 		$names = array("Senior","Junior","Sophamore","Freshman");
 		return $names[$yearsLeft];
 	}
+    /**
+     * Writes changes to the database
+     *
+     * @return void
+     * @author  
+     */
+    function save() {
+        return Query::update('rushees', "`ID`=".$this->id, $this->initialVars, $this->getDBArray());
+    }
 	/**
 	 * Get Rushee by ID
 	 *
@@ -73,23 +101,50 @@ class Rushee extends Person {
 			$array = array();
 			while($row = $query->nextRow())
 			{
-				$rushee = new self();
-				
-				$rushee->id		= $row['ID'];
-				$rushee->first	= $row['first'];
-				$rushee->last	= $row['last'];
-				$rushee->email	= $row['email'];
-				$rushee->phone	= $row['phone'];
-				$rushee->yog	= $row['class'];
-				
+				$rushee = new self($row);
 				$array[] = $rushee;
-				unset($rushee);
 			}
 			return $array;
 		} else {
 			throw new Exception();
 		}
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return Rushee
+	 * @author  
+	 */
+	static function addNew($first,$last,$email="",$owner=NULL) {
+	    if(is_null($owner)){
+	        $owner = getUser();
+	    }
+        if($owner instanceof Member){
+            $owner = $owner->id;
+        }
+	    $id = Query::insert(sprintf("INSERT INTO `rushees` (
+            `owner` ,`first` ,`last` ,`email`, `data`, `dob`
+            ) VALUES (
+            '%d','%s','%s','%s','a:0:{}',NULL);",$owner,mysql_escape_string($first),mysql_escape_string($last),mysql_escape_string($email)));
+        if ($id) {
+            return self::getRushee($id);
+        } else {
+            throw new Exception("Error creating Rushee", 1);
+        }
+        
+	}
+    private function getDBArray()
+    {
+        return array(
+            "first"     => $this->first,
+            "last"      => $this->last,
+            "email"     => $this->email,
+            "phone"     => $this->phone,
+            "class"     => $this->yog,
+            "dob"       => $this->dob->format('Y-m-d'),
+            "data"      => serialize($this->hiddenData())
+            );
+    }
 	
 } // END
 ?>
