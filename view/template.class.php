@@ -104,8 +104,8 @@ ob_start();
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="stylesheet" href="/styles.css"/>
-		<link rel="stylesheet" href="js/fancybox/jquery.fancybox-1.3.4.css" />
-		<link rel="stylesheet" href="js/jquery.jOrgChart.css" />
+		<link rel="stylesheet" href="/js/fancybox/jquery.fancybox-1.3.4.css" />
+		<link rel="stylesheet" href="/js/jquery.jOrgChart.css" />
 		<link rel="stylesheet" href="/js/smoothDivScroll.css" />
 		<link rel="stylesheet" href= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
 		<link rel="stylesheet" href="/js/token-input-facebook.css" />
@@ -119,8 +119,9 @@ ob_start();
 		<script type="application/javascript">
 $(function() {
 
-    var fbLoaded = function(){
+    window.fbLoaded = function(){
         $("#fancybox-content").find("a.userlink,a.messageLink,a.announceLink").fancybox({onComplete:fbLoaded});
+        $("#fancybox-content").find(".tabs").tabs();
     }
 	$("a.userlink,a.messageLink,a.announceLink").fancybox({onComplete:fbLoaded});
 
