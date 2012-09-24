@@ -8,8 +8,8 @@
 class GuestList {
 	
 	public $event;
-	public $guests;
-	public $guestsByOwner; 
+	public $guests = array();
+	public $guestsByOwner = array(); 
 	private $pointer =0;
     public $guestsPerPerson;
     public $listUnlocks;
@@ -42,7 +42,7 @@ class GuestList {
         require_once("control/mysql.php");
         
         mysql_query("DELETE FROM `guests` WHERE `event`=".$this->event->id." AND `owner`=$user->id;");
-        mysql_query("INSERT INTO  `guests` (`event` ,`owner` ,`sex` ,`first` ,`last`) VALUES $insertstring;");
+        mysql_query("INSERT IGNORE INTO `guests` (`event` ,`owner` ,`sex` ,`first` ,`last`) VALUES $insertstring;");
     }
 	/**
 	 * undocumented function
