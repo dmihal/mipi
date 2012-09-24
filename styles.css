@@ -311,3 +311,13 @@ td {
     background-repeat: no-repeat;
     padding-left: 18px;
 }
+/* Guest List */
+#guestFields {
+    padding-left: 25px;
+}
+#guestFields li {
+    /*list-style: none;*/
+}
+#guestFields li input {
+    width: 125px;
+}
