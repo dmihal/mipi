@@ -12,9 +12,23 @@ class Event {
      * @var DateTime
      */
 	public $start;
-	public $id, $name, $end, $hasGL, $owner;
+    /**
+     * Date the event list is unlocked
+     * @var DateTime
+     */
+    public $unlock;
+	public $id, $name, $end, $hasGL, $owner, $guestsPerPerson;
 	
-	
+	public function __construct($data){
+	    $this->id       = $data['ID'];
+        $this->name     = $data['name'];
+        $this->start    = new DateTime($data['start']);
+        $this->end      = new DateTime($data['end']);
+        $this->hasGL    = $data['guestlist'];
+        $this->owner    = $data['owner'];
+        $this->unlock   = $data['listunlocks'] ? new DateTime($data['listunlocks']) : NULL;
+        $this->guestsPerPerson = $data['guestsperperson'];
+	}
 	/**
 	 * Get owner of event
 	 *
@@ -30,7 +44,8 @@ class Event {
 	 * @return Event
 	 */
 	static function getEvent($id) {
-		return self::getEventsFromQuery("SELECT * FROM `eventsX` WHERE `id`=$id;");
+	    $events = self::getEventsFromQuery("SELECT * FROM `eventsX` WHERE `id`=$id;");
+		return $events[0];
 	}
 	static function getEventsFromQuery($query)
 	{
@@ -39,13 +54,7 @@ class Event {
 			$events = array();
 			while($row = $query->nextRow())
 			{
-				$event = new Event();
-				$event->id		= $row['ID'];
-				$event->name	= $row['name'];
-				$event->start	= new DateTime($row['start']);
-				$event->end		= new DateTime($row['end']);
-				$event->hasGL	= $row['guestlist'];
-				$event->owner	= $row['owner'];
+				$event = new Event($row);
 				
 				$events[] = $event;
 			}
