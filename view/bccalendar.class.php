@@ -58,7 +58,7 @@ for($day = 1;$day<=$days;$day++)
 	$links = "";
 	if(isset($this->events[$this->year][$this->month][$day])){
 		foreach ($this->events[$this->year][$this->month][$day] as $value) {
-			$links .= '<a href="#">'.$value["name"].'</a>';
+			$links .= '<a href="'.$value['link'].'">'.$value["name"].'</a>';
 		}
 	}
 	echo "<td>$day<br />$links</td>";

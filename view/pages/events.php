@@ -13,7 +13,7 @@ switch (@$_GET[1]) {
             }
         }
         $list->updateList(getUser(), $guests);
-        header("Location: /mipi/events/list/$_POST[event]/msg:updated");
+        header("Location: /events/list/$_POST[event]/msg:updated");
         break;
 	case 'listsave':
 		$list = new GuestList($_POST['event']);
@@ -41,11 +41,10 @@ switch (@$_GET[1]) {
 			$events = Event::getEventsFromQuery("SELECT * FROM eventsX WHERE MONTH(start)=$calendar->month AND YEAR(start)=$calendar->year ORDER BY start");
 			foreach ($events as $event) {
 				/* @var $event Event */
-				$calendar->addEvent($event->name, "#", $event->start->format('m'));
+				$calendar->addEvent($event->name, "/events/list/$event->id", $event->start->format('d'));
 			}
 		} catch(Exception $e){}
 		
-		$calendar->addEvent("Test Event", "#", 12);
 		$cal->setContent($calendar);
 		$page->addBox($cal,'tripple');
 		
