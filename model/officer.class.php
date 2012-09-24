@@ -78,7 +78,12 @@ class Officer extends Overloadable{
      */
     static function getOfficersByUser($user) {
         $id = ($user instanceof Member) ? $user->id : $user;
-        return self::getOfficersByQuery("SELECT * FROM officers WHERE `member`=$id;");
+        try {
+            return self::getOfficersByQuery("SELECT * FROM officers WHERE `member`=$id;");
+        } catch (Exception $e){
+            return array();
+        }
+        
     }
     /**
      * undocumented function
@@ -107,7 +112,7 @@ class Officer extends Overloadable{
             }
             return $array;
         } else {
-            throw new Exception();
+            throw new Exception("Error querying for officers");
         }
     }
 	static function getOfficerLists($elected=true)
