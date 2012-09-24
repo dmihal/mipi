@@ -4,6 +4,9 @@ switch (@$_GET[1]) {
 	case 'list':
 		$page = Page::getPage('events/listeditor');
 		break;
+    case 'blacklist':
+        $page = Page::getPage('events/blacklist');
+        break;
     case 'update':
         $list = new GuestList($_POST['event']);
         $guests = array();
