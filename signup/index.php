@@ -23,7 +23,7 @@
     </head>
     <body>
         <h1>Signup for Mipi</h1>
-        <form enctype="multipart/form-data" method="post">
+        <form enctype="multipart/form-data" method="post" action="signup.php">
             <fieldset>
                 <legend>Account</legend>
                 <label>Username: <input type="text" name="username" /></label> (should be the same as your WPI username)<br />
@@ -59,6 +59,7 @@
                 <input type="file" name="photo" accept="image/jpg" /><br />
                 Please upload a photo of yourself for your profile picture
             </fieldset>
+            <button type="submit">Sign Up!</button>
         </form>
     </body>
 </html>
