@@ -7,6 +7,7 @@
  */
 class Rushee extends Person {
 	public $type = Person::RUSHEE;
+    public $brother = NULL;
     
     private $initialVars;
     
@@ -19,6 +20,7 @@ class Rushee extends Person {
         $this->phone  = $data['phone'];
         $this->yog    = $data['class'];
         $this->dob    = new DateTime($data['dob']);
+        $this->brother= $data['brother'];
         $this->hiddenData(unserialize($data['data']));
         
         $this->initialVars = $this->getDBArray();
@@ -65,6 +67,14 @@ class Rushee extends Person {
 		$names = array("Senior","Junior","Sophamore","Freshman");
 		return $names[$yearsLeft];
 	}
+    /**
+     * Return the brother assigned to the rushee
+     *
+     * @return Member
+     */
+    function getBrother() {
+        return (!is_null($this->brother)) ? Member::getMember($this->brother) : NULL;
+    }
     /**
      * Writes changes to the database
      *
@@ -142,6 +152,7 @@ class Rushee extends Person {
             "phone"     => $this->phone,
             "class"     => $this->yog,
             "dob"       => $this->dob->format('Y-m-d'),
+            "brother"   => $this->brother,
             "data"      => serialize($this->hiddenData())
             );
     }
