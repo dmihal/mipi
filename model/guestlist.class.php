@@ -11,19 +11,39 @@ class GuestList {
 	public $guests;
 	public $guestsByOwner; 
 	private $pointer =0;
+    public $guestsPerPerson;
+    public $listUnlocks;
 	
 	public function __construct($event)
 	{
-		$this->event = $event;
-		$query = new Query("SELECT * FROM `guests` WHERE `event`=$event ORDER BY `last`;");
+		$this->event = Event::getEvent($event);
+	    $this->listUnlocks = $this->event->unlock;
+        $this->guestsPerPerson = $this->event->guestsPerPerson;
+        
+		$query = new Query("SELECT `ID`, `event`, `owner`, `order`, `first`, `last`, (sex+5) AS sex FROM `guests` WHERE `event`=".$this->event->id." ORDER BY `last`;");
 		
 		while ($row = $query->nextRow()) {
-			$guest = new Person($row['first'],$row['last'],$row['ID']);
+			$guest = new Person($row['first'],$row['last'],$row['ID'],$row['sex']);
 			$this->guests[] = array("guest"=>$guest, "owner"=>$row['owner']);
-			$this->guestsByOwner[$row['owner']][$row['sex']][$row['order']] = $guest;
+			$this->guestsByOwner[$row['owner']][/*$row['order']*/] = $guest;
 		}
 		
 	}
+    public function updateList(Member $user,$list)
+    {
+        $insertstrings = array();
+        foreach ($list as $person) {
+            /* @var $person Person */
+           $sex = $person->sex == Person::FEMALE ? 'FEMALE' : 'MALE';
+           $insertstrings[] = "('".$this->event->id."', '$user->id', '$sex', '$person->first', '$person->last')";
+        }
+        $insertstring = implode(',', $insertstrings);
+        
+        require_once("control/mysql.php");
+        
+        mysql_query("DELETE FROM `guests` WHERE `event`=".$this->event->id." AND `owner`=$user->id;");
+        mysql_query("INSERT INTO  `guests` (`event` ,`owner` ,`sex` ,`first` ,`last`) VALUES $insertstring;");
+    }
 	/**
 	 * undocumented function
 	 *
@@ -48,6 +68,19 @@ class GuestList {
 		}
 		
 	}
+    /**
+     * undocumented function
+     *
+     * @return int
+     * @author  
+     */
+    function getGuestsAllowed() {
+        if ($this->listUnlocks && $this->listUnlocks < new DateTime()){
+            $numq = new Query("SELECT COUNT( * ) AS num FROM  `users` WHERE `type`= 'BROTHER' OR `type`= 'AM';");
+            return $this->guestsPerPerson * $numq->getField('num');
+        }
+        return $this->guestsPerPerson;
+    }
 	/**
 	 * Get the ratio for an event
 	 *
@@ -57,10 +90,10 @@ class GuestList {
 	public function getRatio($order=1,$numresults=5) {
 		$order = ($order==self::BEST) ? "DESC" : "ASC";
 		$query = new Query("SELECT event,owner,
-			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='MALE' GROUP BY owner),0) as male,
-			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' GROUP BY owner),0) as female,
-			(SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' GROUP BY owner)/count(*) as ratio
-			FROM guests as g1 WHERE event=$this->event GROUP BY owner ORDER BY ratio $order LIMIT 0,$numresults");
+			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='MALE' AND event=".$this->event->id." GROUP BY owner),0) as male,
+			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0) as female,
+			(SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner)/count(*) as ratio
+			FROM guests as g1 WHERE event=".$this->event->id." GROUP BY owner ORDER BY ratio $order LIMIT 0,$numresults");
 		return $query->rows;
 	}
 	

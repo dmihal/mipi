@@ -4,6 +4,17 @@ switch (@$_GET[1]) {
 	case 'list':
 		$page = Page::getPage('events/listeditor');
 		break;
+    case 'update':
+        $list = new GuestList($_POST['event']);
+        $guests = array();
+        for ($i=0; $i < count($_POST['sex']) && $i < count($_POST['first']) && $i < count($_POST['last']); $i++) {
+            if($_POST['first'][$i]!=="" and $_POST['last'][$i]!=""){
+                $guests[] = new Person($_POST['first'][$i],$_POST['last'][$i],0,$_POST['sex'][$i]);
+            }
+        }
+        $list->updateList(getUser(), $guests);
+        header("Location: /mipi/events/list/$_POST[event]/msg:updated");
+        break;
 	case 'listsave':
 		$list = new GuestList($_POST['event']);
 		$males = array();

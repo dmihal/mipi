@@ -9,8 +9,26 @@ if(@$_GET[3]=='print')
 }
 $user = getUser();
 $eventList=new GuestList($eventID);
-//var_dump($eventList);
+$myGuests = $eventList->guestsByOwner[$user->id];
+$maxguests = $eventList->getGuestsAllowed();
+$numMyGuests = count($myGuests);
 $page = new Page("List Editor");
+
+ob_start();
+?>
+var availableSpots = <?php echo $maxguests ?>;
+var spots = <?php echo $numMyGuests ?>;
+
+function newEntry(sex){
+    if (spots<availableSpots){
+        ++spots;
+        $("#remain").html(availableSpots-spots);
+        $("#guestFields").append('<li>'+ sex +'<input type="hidden" name="sex[]" value="'+ sex +'" /> - <input name="first[]" /> <input name="last[]" /></li>');
+    }
+    return false;
+}
+<?php
+$page->js = ob_get_clean();
 
 $linkbox = new Box("links","");
 $linkcontent = new BCStatic();
@@ -22,34 +40,26 @@ $linkcontent->content = ob_get_clean();
 $linkbox->setContent($linkcontent);
 $page->addBox($linkbox);
 
-$editbox = new Box('listform',"Edit List");
-$form = new BCStatic();
-$myGuests = $eventList->guestsByOwner[$user->id];
-ob_start();
-?><form action="/events/listsave/" method="post">
-	<table><?php
-for($i=0; $i<count(@$myGuests['MALE']) || $i<2; $i++)
-{
-	$guest = @$myGuests['MALE'][$i];
-	list($first,$last) = is_object($guest) ? array($guest->first,$guest->last) : array('','');
-	echo "<tr><td>Male ";
-	echo $i+1 .'</td><td><input name="mf[]" value="'.$first.'" /><input name="ml[]" value="'.$last.'" /></td></tr>';
-}
-for($i=0; $i<count(@$myGuests['FEMALE']) || $i<5; $i++)
-{
-	$guest = @$myGuests['FEMALE'][$i];
-	list($first,$last) = is_object($guest) ? array($guest->first,$guest->last) : array('','');
-	echo "<tr><td>Female ";
-	echo $i+1 .'</td><td><input name="ff[]" value="'.$first.'" /><input name="fl[]" value="'.$last.'" /></td></tr>';
+$edit = new Box("edit","Edit List");
+?>
+<form method="POST" action="/events/update" >
+    <input type="hidden" name="event" value="<?php echo $eventID ?>" />
+    <div>You have <span id="remain"><?php echo $maxguests-$numMyGuests ?></span> spots remaining</div>
+    <ol id="guestFields">
+<?php
+for ($i=0; $i< intval(count(@$myGuests)); $i++) {
+	$guest = $myGuests[$i];
+    /* @var $guest Person */
+   echo '<li>' . $guest->getSex().'<input type="hidden" name="sex[]" value="'.$guest->sex.'" /> - <input name="first[]" value="'.$guest->first.'" /> <input name="last[]" value="'.$guest->last.'" /></li>';
 }
 ?>
-	</table>
-	<input type="hidden" name="event" value="<?php echo $eventID ?>" />
-	<button type="submit">Save</button>
-</form><?php
-$form->content= ob_get_clean();
-$editbox->setContent($form);
-$page->addBox($editbox,'left');
+    </ol>
+    <div><a href="#" onclick="return newEntry('Guy')" >Add Guy</a> | <a href="#" onclick="return newEntry('Girl')" >Add Girl</a></div>
+    <button>Save</button>
+</form>
+<?php
+$edit->setContent(new BCStatic(ob_get_clean()));
+$page->addBox($edit);
 
 $bestRbox = new Box('bestrbox',"Best Ratio");
 $bestRtable = new BCTable();
@@ -73,8 +83,13 @@ $page->addBox($bestRbox,'left');
 
 $view = new Box('listbox',"List");
 $table = new BCTable();
-$table->header = array("Member","Guy 1","Guy 2","Girl 1","Girl 2","Girl 3","Girl 4","Girl 5");
-foreach ($eventList->guestsByOwner as $key => $row) {
+$table->header = array("Guest","Sex","Member");
+foreach ($eventList->guests as $value) {
+	$member = Member::getMember($value['owner']);
+    $guest = $value['guest'];
+    $table->addRow($guest->getName(),$guest->getSex(),$member->getLink());
+}
+/*foreach ($eventList->guestsByOwner as $key => $row) {
 	$member = Member::getMember($key);
 	$m1 = @$row['MALE'][0];
 	$m2	= @$row['MALE'][1];
@@ -91,8 +106,8 @@ foreach ($eventList->guestsByOwner as $key => $row) {
 							tryName($f3),
 							tryName($f4),
 							tryName($f5));
-}
-$table->addRow("Mihal, David","Bond, James","","Perry, Katy","Fox, Meghan");
+}*/
+//$table->addRow("Mihal, David","Bond, James","","Perry, Katy","Fox, Meghan");
 $view->setContent($table);
 $page->addBox($view,'double');
 
