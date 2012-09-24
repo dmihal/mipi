@@ -24,16 +24,44 @@ ob_start();
 $page->setLeft(ob_get_clean());
 ob_start();
 ?>
-	<h2>Info</h2>
-email: <?php echo $user->email ?><br />
-<?php echo isset($user->cell) ? "cell phone: $user->cell<br />" : "";?>
-major: Computer Science<br />
-school address: Morgan 412<br />
-home address:<br />
-367 Eastbury Hill Rd<br />
-Glastonbury, CT 06033<br />
-year of graduation: 2015<br />
-dob: November, 13 2012<br />
+<div class="tabs" style="width:400px;">
+    <div style="float:left;margin-bottom: 10px;">
+    <ul>
+        <li><a href= "#tabs-1">Info</a></li>
+        <li><a href= "#tabs-2">Edit</a></li>
+        <li><a href= "#tabs-3">Comments</a></li>
+        <li><a href= "#tabs-4">Attendance</a></li>
+    </ul>
+    </div>
+    <div id="tabs-1">
+        email: <?php echo $user->email ?><br />
+        <?php echo $user->fieldString('cell');?>
+        major: <?php echo $user->fieldString('major') ?><br />
+        school address: <?php echo $user->fieldString('location') ?><br />
+        room: <?php echo $user->fieldString('room'); ?><br />
+        home address:<br />
+        year of graduation: <?php echo $user->yog ?><br />
+        dob: <?php echo $user->dob->format('F jS, Y') ?><br />
+        assigned brother: <?php //echo $user->getBrother()->getName() ?><br />
+        
+    </div>
+    <div id="tabs-2">
+        <form>
+            <label></label>
+        </form>
+    </div>
+    <div id="tabs-3">
+        <form id="postComment">
+            <textarea name="comment"></textarea>
+            <button type="submit">Post</button>
+        </form>
+        <ul>
+            
+        </ul>
+    </div>
+    <div id="tabs-4"></div>
+</div>
+
 <?php
 $page->setRight(ob_get_clean());
 

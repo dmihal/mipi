@@ -8,6 +8,12 @@ switch (@$_GET[1]) {
         $rushee = Rushee::addNew($_POST['name_f'], $_POST['name_l'], $_POST['email'],getUser());
         $rushee->phone = $_POST['phone'];
         $rushee->yog = $_POST['yog'];
+        $rushee->fbid = $_POST['fbid'];
+        $rushee->twitid= $_POST['twitid'];
+        $rushee->brother = $_POST['brother'];
+        $rushee->location = $_POST['location'];
+        $rushee->room = $_POST['room'];
+        $rushee->major = $_POST['major'];
         if ($_FILES['photo'] && file_exists($_FILES['photo']['tmp_name'])){
             $rushee->moveNewPhoto($_FILES['photo']['tmp_name']);
         }
