@@ -129,6 +129,16 @@ class Member extends Person {
         }
         self::$library->add($this->id,$this);
     }
+    /**
+     * Creates new member & returns it
+     *
+     * @return Member
+     * @author  
+     */
+    static function newMember($username,$password,$type='BROTHER') {
+        $id = Query::insert("INSERT INTO `users` (`username`,`password`,`type`,`data`) VALUES ('$username',  '$password', '$type', 'a:0:{}');");
+        return Member::getMember($id);
+    }
 	/**
 	 * Return member with the given database ID
 	 * 
@@ -211,6 +221,9 @@ class Member extends Person {
 	{
 		return Query::update('users', "`ID`=".$this->id, $this->initalVars, $this->getDBArray());
 	}
+    public function setPi($num){
+        return Query::update('users', "`ID`=".$this->id, array("pi"=>""), array("pi"=>$num));
+    }
 	public function start()
 	{
 		//$this->initalVars = get_object_vars($this);
