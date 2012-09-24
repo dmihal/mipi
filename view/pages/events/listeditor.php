@@ -3,9 +3,10 @@ if(!($eventID=@$_GET[2]))
 {
 	return Page::getPage('events/listoflists');
 }
-if(@$_GET[3]=='print')
-{
+if(@$_GET[3]=='print'){
 	return Page::getPage('events/listprint');
+} elseif(@$_GET[3]=='excel'){
+    return Page::getPage('events/excel');
 }
 
 $user = getUser();
