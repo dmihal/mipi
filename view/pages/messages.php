@@ -21,15 +21,19 @@ switch (@$_GET[1]) {
 		$page = new Page("Messages");
         
         $inbox = new Box("inbox","Inbox");
-        
-        $msgList = new BCList();
-        $messages = Message::getUserMessages();
-        foreach ($messages as $key => $message) {
-        	/* @var $message Message */
-        	$read = $message->read ? NULL : "unread";
-        	$msgList->addElement($message->getLink(), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'),$read);
+        try{
+            $msgList = new BCList();
+            $messages = Message::getUserMessages();
+            foreach ($messages as $key => $message) {
+                /* @var $message Message */
+                $read = $message->read ? NULL : "unread";
+                $msgList->addElement($message->getLink(), $message->getSender()->getLink(), $message->getPreview(),$message->date->format('m/d/Y'),$read);
+            }
+            $inbox->setContent($msgList);
+        } catch (Exception $e){
+            $inbox->setContent(new BCStatic("No Messages!"));
         }
-        $inbox->setContent($msgList);
+        
         $page->addBox($inbox,'tripple');
         
 		break;

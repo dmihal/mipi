@@ -16,14 +16,18 @@ $page->addBox($announcementBox,'left');
 
 /********** Messages ****************/
 $messagesBox = new Box('messages','Messages');
-$messagesContent = new BCList();
-$messages = Message::getUserMessages(getUser(),5);
-foreach ($messages as $message) {
-    /* @var $message Message */
-    $read = $message->read ? NULL : "unread";
-    $messagesContent->addElement($message->getLink(), $message->getSender()->getLink(),$message->getPreview(),$message->date->format('m/d/Y'),$read);
+try {
+    $messagesContent = new BCList();
+    $messages = Message::getUserMessages(getUser(),5);
+    foreach ($messages as $message) {
+        /* @var $message Message */
+        $read = $message->read ? NULL : "unread";
+        $messagesContent->addElement($message->getLink(), $message->getSender()->getLink(),$message->getPreview(),$message->date->format('m/d/Y'),$read);
+    }
+    $messagesBox->setContent($messagesContent);
+} catch(Exception $e) {
+    $messagesBox->setContent(new BCStatic("No Messages!"));
 }
-$messagesBox->setContent($messagesContent);
 $page->addBox($messagesBox,'left');
 
 /********** Upcoming Events ****************/
