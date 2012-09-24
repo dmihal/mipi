@@ -7,12 +7,17 @@ if(@$_GET[3]=='print')
 {
 	return Page::getPage('events/listprint');
 }
+
 $user = getUser();
 $eventList=new GuestList($eventID);
-$myGuests = $eventList->guestsByOwner[$user->id];
+$myGuests = array_key_exists(intval($user->id), $eventList->guestsByOwner) ? $eventList->guestsByOwner[$user->id] : array();
 $maxguests = $eventList->getGuestsAllowed();
 $numMyGuests = count($myGuests);
 $page = new Page("List Editor");
+
+if(@$_GET['msg']=='updated'){
+    $page->message = "List Updated!";
+}
 
 ob_start();
 ?>
@@ -45,6 +50,9 @@ $edit = new Box("edit","Edit List");
 <form method="POST" action="/events/update" >
     <input type="hidden" name="event" value="<?php echo $eventID ?>" />
     <div>You have <span id="remain"><?php echo $maxguests-$numMyGuests ?></span> spots remaining</div>
+    <?php if($eventList->listUnlocks){
+        echo '<div>All spots unlock on '. $eventList->listUnlocks->format('F jS \a\t h:i A') .'</div>';
+    }?>
     <ol id="guestFields">
 <?php
 for ($i=0; $i< intval(count(@$myGuests)); $i++) {
@@ -81,7 +89,7 @@ foreach ($eventList->getRatio(GuestList::WORST) as $row) {
 $bestRbox->setContent($bestRtable);
 $page->addBox($bestRbox,'left');
 
-$view = new Box('listbox',"List");
+$view = new Box('listbox',"Guest List for ".$eventList->event->name);
 $table = new BCTable();
 $table->header = array("Guest","Sex","Member");
 foreach ($eventList->guests as $value) {
@@ -89,32 +97,9 @@ foreach ($eventList->guests as $value) {
     $guest = $value['guest'];
     $table->addRow($guest->getName(),$guest->getSex(),$member->getLink());
 }
-/*foreach ($eventList->guestsByOwner as $key => $row) {
-	$member = Member::getMember($key);
-	$m1 = @$row['MALE'][0];
-	$m2	= @$row['MALE'][1];
-	$f1	= @$row['FEMALE'][0];
-	$f2	= @$row['FEMALE'][1];
-	$f3	= @$row['FEMALE'][2];
-	$f4	= @$row['FEMALE'][3];
-	$f5	= @$row['FEMALE'][4];
-	$table->addRow('<a href="user/'.$key.'" class="userlink">'.$member->getName(true)."</a>",
-							tryName($m1),
-							tryName($m2),
-							tryName($f1),
-							tryName($f2),
-							tryName($f3),
-							tryName($f4),
-							tryName($f5));
-}*/
-//$table->addRow("Mihal, David","Bond, James","","Perry, Katy","Fox, Meghan");
 $view->setContent($table);
 $page->addBox($view,'double');
 
 return $page;
 
-function tryName($person)
-{
-	return is_object($person) ? $person->getName(true) : "";
-}
 ?>
