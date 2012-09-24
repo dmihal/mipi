@@ -12,6 +12,7 @@ class AdminPage extends Page {
     public function __construct($title,Member $user,$officers)
     {
         parent::__construct($title);
+        $officers[] = 'web';
         $this->authenticate($user, $officers);
     }
     public function authenticate(Member $user,$officers){
