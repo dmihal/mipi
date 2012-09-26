@@ -17,7 +17,7 @@ class Template
 	function __construct(Page $page){
 		$this->page= $page;
 
-        $this->navRight['<div id="msgFlag">'.Message::getNumUnread().'</div>&#9993'] = 'messages';
+        $this->navRight['<div id="msgFlag">'.Message::getNumUnread().'</div>&#9993'] = '/messages';
 		$this->navRight[getUser()->getName()] = "/profile";
 		
 		$this->secondNav  = array(
@@ -42,13 +42,13 @@ class Template
 			new NavElement("Events","/rush/events","rushevents")
 			),
 		"message"	=> array(
-			new NavElement("Compose Message","messages/compose","compose"),
-			new NavElement("Inbox","messages/inbox","inbox")
+			new NavElement("Compose Message","/messages/compose","compose"),
+			new NavElement("Inbox","/messages/inbox","inbox")
 			),
 		"profile"	=> array(
-			new NavElement("My Profile","profile","profile"),
-			new NavElement("Edit My Profile","profile/edit","editprofile"),
-			new NavElement("Settings","profile/settings","settings"),
+			new NavElement("My Profile","/profile","profile"),
+			new NavElement("Edit My Profile","/profile/edit","editprofile"),
+			new NavElement("Settings","/profile/settings","settings"),
 			new Spacer()
 			)
 		);
@@ -140,6 +140,7 @@ $(function() {
 			$("#stream .scrollableArea").append('<span class="shouted"><span class="shoutMsg">"'+shout+'"</span> - <a href="user/<?php echo getUser()->id ?>" class="userlink"><?php echo getUser()->getName() ?></a></span>')
 			$("#stream a.userlink").fancybox();
 			$("#stream").smoothDivScroll("recalculateScrollableArea");
+			$
 		}
 		event.stopPropagation();
 	});
@@ -185,7 +186,7 @@ foreach ($this->navRight as $name => $uri) {
 				<div id="shout">
 <?php if($this->showTicker) { ?>
 					<div id="shouter">
-						<input />
+						<input placeholder="Write a quick message..." />
 					</div>
 					<div id="ticker">
 						<div id="stream">
