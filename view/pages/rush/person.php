@@ -51,12 +51,21 @@ ob_start();
         </form>
     </div>
     <div id="tabs-3">
-        <form id="postComment">
-            <textarea name="comment"></textarea>
+        <form id="postComment" onsubmit="addComment(this);return false;">
+            <textarea name="comment"></textarea><input type="hidden" name="rushee" value="<?php echo $user->id ?>" />
             <button type="submit">Post</button>
         </form>
-        <ul>
-            
+        <ul class="comments">
+<?php
+try {
+    foreach ($user->getComments() as $comment){
+        /* @var $comment Comment */
+        echo "<li><div>".$comment->getOwner()->getLink().'<br />'.$comment->date->format('F j, Y, g:i a')."</div>".$comment->message."</li>";
+    }
+} catch(Exception $e){
+    echo "No comments!";
+}
+?>
         </ul>
     </div>
     <div id="tabs-4"></div>

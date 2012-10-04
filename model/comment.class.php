@@ -12,7 +12,7 @@ class Comment {
     public function __construct($data)
     {
         $this->owner    = $data['owner'];
-        $this->item     = $data['item'];
+        $this->item     = $data['subject'];
         $this->date     = new DateTime($data['date']);
         $this->message  = $data['body'];
     }
@@ -32,7 +32,27 @@ class Comment {
             ) VALUES (
             '%d','%d','%s','%s');",
             $owner, $subject, mysql_escape_string($type), mysql_escape_string($body));
-        return Query::insert($query);
+        $id = Query::insert($query);
+        return self::getComment($id);
+    }
+    static function getComment($id)
+    {
+        $comments = self::getCommentsFromQuery("SELECT * FROM `comments` WHERE `ID`=$id");
+        return $comments[0];
+    }
+    static function getCommentsFromQuery($query)
+    {
+        $query = new Query($query);
+        if ($query->numRows >= 1) {
+            $array = array();
+            while($row = $query->nextRow())
+            {
+                $array[] = new self($row);
+            }
+            return $array;
+        } else {
+            throw new Exception("Error Querying Comments", 1);
+        }
     }
     
 } // END

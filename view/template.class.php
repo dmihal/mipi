@@ -140,7 +140,6 @@ $(function() {
 			$("#stream .scrollableArea").append('<span class="shouted"><span class="shoutMsg">"'+shout+'"</span> - <a href="user/<?php echo getUser()->id ?>" class="userlink"><?php echo getUser()->getName() ?></a></span>')
 			$("#stream a.userlink").fancybox();
 			$("#stream").smoothDivScroll("recalculateScrollableArea");
-			$
 		}
 		event.stopPropagation();
 	});
@@ -157,6 +156,13 @@ function unread(id,e){
             success: function(){
                 e.innerHTML = "Mark Read";
             }});
+}
+function addComment(form) {
+    $.ajax({
+        url     : '/rush/comment/',
+        data    : $(form).serialize(),
+        type    : 'POST'
+    }); 
 }
 		</script>
 <?php

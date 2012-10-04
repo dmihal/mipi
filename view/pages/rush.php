@@ -31,6 +31,13 @@ switch (@$_GET[1]) {
 		}
 		header("Location: /rush/$msg");
 		break;
+    case 'comment':
+        if ($_POST['rushee']) {
+            Comment::addComment($_POST['rushee'], getUser(), 'RUSHEE', $_POST['comment']);
+            echo "comment added";
+            exit;
+        }
+        break;
 	default:
 		$page = new Page("Rush");
 		
