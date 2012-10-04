@@ -41,7 +41,7 @@ $page->addBox($status,'double');
 $list = new Box('list',"Blacklist");
 $table = new BCTable();
 $table->header = array("First","Last","YOG","Reason");
-$query = new Query("SELECT * FROM  `blacklist` ORDER BY  `lastname` DESC ");
+$query = new Query("SELECT * FROM  `blacklist` ORDER BY  `lastname` ASC ");
 while($row = $query->nextRow()){
     $table->addRow($row['firstname'],$row['lastname'],$row['yog'],$row['reason']);
 }
