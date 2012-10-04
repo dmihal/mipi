@@ -84,7 +84,7 @@ class Member extends Person {
      * @author  
      */
     function getFBLink() {
-        if(isset($this->fbid)){
+        if(isset($this->fbid) && $this->fbid){
             return new Hyperlink('Facebook',"http://www.facebook.com/".$this->fbid,'facebook');
         } else {
             return new Hyperlink('','','nulllink');
@@ -106,7 +106,7 @@ class Member extends Person {
      * @author  
      */
     function getTwitterLink() {
-        if(isset($this->twitid)){
+        if(isset($this->twitid) && $this->twitid){
             return new Hyperlink('Twitter',"http://www.twitter.com/".$this->twitid,'twitter');
         } else {
             return new Hyperlink('','','nulllink');
@@ -136,7 +136,8 @@ class Member extends Person {
      * @author  
      */
     static function newMember($username,$password,$type='BROTHER') {
-        $id = Query::insert("INSERT INTO `users` (`username`,`password`,`type`,`data`) VALUES ('$username',  '$password', '$type', 'a:0:{}');");
+        $query = sprintf("INSERT INTO `users` (`username`,`password`,`type`,`data`) VALUES ('$username',  '%s', '$type', 'a:0:{}');",md5($password));
+        $id = Query::insert($query);
         return Member::getMember($id);
     }
 	/**
@@ -156,9 +157,10 @@ class Member extends Person {
 	}
 	static function getMemberLogin($username,$password)
 	{
+	    $hash = md5($password);
 		$array = self::getMembersFromQuery("SELECT * FROM users WHERE
 `username`='$username' AND
-`password`='$password'");
+`password`='$hash'");
 		
 		if (count($array)==1) {
 			return $array[0];
