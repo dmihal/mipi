@@ -71,7 +71,12 @@ catch (Exception $e)
 	header("HTTP/1.0 404 Not Found");
 }*/
 
+if ('10.0.2.2' == $_SERVER["REMOTE_ADDR"]){
+    $html = preg_replace('/href="(\/)?/', 'href="/mipi/', $html);
+    $html = preg_replace('/src="(\/)?/', 'src="/mipi/', $html);
+    $html = preg_replace('/action="(\/)?/', 'action="/mipi/', $html);
+}
 echo $html;
-//echo preg_replace('/href="(\/)?/', 'href="/mipi/', $html);
+
 session_write_close(); 
 ?>
