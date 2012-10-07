@@ -215,6 +215,7 @@ class Member extends Person {
 		}
 	}
 	const QueryAll = "SELECT *,pi IS NULL AS isnull FROM users ORDER BY isnull ASC, pi ASC, nameLast ASC";
+    const QueryAllByName = "SELECT *,pi IS NULL AS isnull FROM users ORDER BY nameLast ASC";
 	const QueryAllBrothers = "SELECT *,pi IS NULL AS isnull FROM users WHERE `type`='BROTHER' ORDER BY isnull ASC, pi ASC, nameLast ASC";
 	const QueryAllAlum = "SELECT * FROM users WHERE `type`='ALUM' ORDER BY pi ASC";
 	const QueryAllAMs = "SELECT * FROM users WHERE `type`='AM' ORDER BY nameLast";
