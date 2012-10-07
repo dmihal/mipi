@@ -68,6 +68,15 @@ class Rushee extends Person {
 		return $names[$yearsLeft];
 	}
     /**
+     * Return an array of comments about the rushee
+     *
+     * @return array
+     * @author  
+     */
+    function getComments() {
+        return Comment::getCommentsFromQuery(sprintf("SELECT * FROM `comments` WHERE `type`='RUSHEE' AND `subject`=%d ORDER BY `date` DESC;",$this->id));
+    }
+    /**
      * Return the brother assigned to the rushee
      *
      * @return Member
