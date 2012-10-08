@@ -16,8 +16,9 @@ class Template
     
 	function __construct(Page $page){
 		$this->page= $page;
-
-        $this->navRight['<div id="msgFlag">'.Message::getNumUnread().'</div>&#9993'] = '/messages';
+        $unreadMsg = Message::getNumUnread();
+        
+        $this->navRight['<div id="msgFlag">'.($unreadMsg ? $unreadMsg : '').'</div>&#9993'] = '/messages';
 		$this->navRight[getUser()->getName()] = "/profile";
 		
 		$this->secondNav  = array(
@@ -140,6 +141,11 @@ $(function() {
 			$("#stream .scrollableArea").append('<span class="shouted"><span class="shoutMsg">"'+shout+'"</span> - <a href="user/<?php echo getUser()->id ?>" class="userlink"><?php echo getUser()->getName() ?></a></span>')
 			$("#stream a.userlink").fancybox();
 			$("#stream").smoothDivScroll("recalculateScrollableArea");
+			$.ajax({
+			    url:'/ajax/shout',
+			    data: {message:shout},
+			    type: 'POST'
+			    });
 		}
 		event.stopPropagation();
 	});
