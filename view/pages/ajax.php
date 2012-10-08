@@ -14,6 +14,12 @@ switch ($_GET[1]) {
         }
 		echo json_encode($suggest);
 		break;
+    case 'shout':
+        if (array_key_exists('message', $_POST)) {
+            Shout::newShout($_POST['message']);
+            echo 'true';
+        }
+        break;
 	default:
 		
 		break;
