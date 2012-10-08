@@ -46,17 +46,21 @@ switch (@$_GET[1]) {
         }
         
 		$box = new Box("rush","Rush");
-		$peoplelist = new BCPeopleList();
-		$peoplelist->defaultState = 'thumbnail';
-		$peoplelist->setColumns("Email","Social","Cell Phone","Year");
-		$peoplelist->setThumbColumns("Year");
-		
-		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees ") as $rushee) {
-			/* @var $rushee Rushee */
-			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,'',$rushee->phone,$rushee->getYearName());
+        try{
+    		$peoplelist = new BCPeopleList();
+    		$peoplelist->defaultState = 'thumbnail';
+    		$peoplelist->setColumns("Email","Social","Cell Phone","Year");
+    		$peoplelist->setThumbColumns("Year");
+    		
+    		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees ") as $rushee) {
+    			/* @var $rushee Rushee */
+    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,'',$rushee->phone,$rushee->getYearName());
+    		}
+    		
+    		$box->setContent($peoplelist);
+		} catch (Exception $e){
+		    $box->setContent(new BCStatic("No Rushees!"));
 		}
-		
-		$box->setContent($peoplelist);
 		$page->addBox($box,'tripple');
 		break;
 }
