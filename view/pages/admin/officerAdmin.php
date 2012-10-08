@@ -12,7 +12,7 @@ ob_start();
 $announceList->header = ob_get_clean();
 foreach ($officer->getAnnouncements() as $announcement) {
     /* @var $announcement Announcement */
-    $link = new Hyperlink($announcement->title,"admin/announcement/".$announcement->id,"");
+    $link = new Hyperlink($announcement->title,"/admin/announcement/".$announcement->id,"");
   	$announceList->addElement($link, "",$announcement->body,$announcement->date->format('m/d/Y'));
 }
 $announcements->setContent($announceList);
