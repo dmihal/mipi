@@ -63,7 +63,8 @@ try {
 	foreach ($people as $person) {
 		/* @var $person Member */
 		$age = $person->dob->diff(new DateTime())->y +1;
-		$birthdays->addRow($person->getName(),$person->dob->format('m/d/Y'),$age);
+        $dob = clone $person->dob;
+		$birthdays->addRow($person->getLink(),$dob->modify("+$age years")->format('m/d/Y'),$age);
 	}
 } catch (Exception $e) {
 	$birthdays = new BCStatic("No upcoming birthdays");
