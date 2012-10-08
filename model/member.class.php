@@ -24,6 +24,7 @@ class Member extends Person {
 		$this->email	= $data['email'];
 		$this->yog		= $data['yog'];
 		$this->dob		= new DateTime($data['dob']);
+
 		$this->updateFromDataField($data['data']);
         
         self::$library->add($this->id,$this);
@@ -234,11 +235,19 @@ class Member extends Person {
 	}
 	public function getSerializedDataField()
 	{
-		return serialize($this->hiddenData());
+	    $data = $this->hiddenData();
+        if (key_exists('homeaddr', $data)) {
+            $data['homeaddr'] = urlencode($data['homeaddr']);
+        }
+		return serialize($data);
 	}
 	public function updateFromDataField($data)
 	{
-		$this->hiddenData(unserialize($data));
+	    $data = unserialize($data);
+	    if (key_exists('homeaddr', $data)) {
+			$data['homeaddr'] = urldecode($data['homeaddr']);
+		}
+		$this->hiddenData($data);
 	}
 	protected function getDBArray()
 	{
