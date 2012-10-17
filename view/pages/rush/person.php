@@ -10,6 +10,13 @@ try{
 	return $page;
 }
 
+try{
+    $comments = $user->getComments();
+} catch(Exception $e){
+    $comments = array();
+}
+$numComments = count($comments);
+
 ob_start();
 
 ?>
@@ -29,7 +36,7 @@ ob_start();
     <ul>
         <li><a href= "#tabs-1">Info</a></li>
         <li><a href= "#tabs-2">Edit</a></li>
-        <li><a href= "#tabs-3">Comments</a></li>
+        <li><a href= "#tabs-3">Comments<?php echo $numComments ? " ($numComments)" : '' ?></a></li>
         <li><a href= "#tabs-4">Attendance</a></li>
     </ul>
     </div>
@@ -58,7 +65,7 @@ ob_start();
         <ul class="comments">
 <?php
 try {
-    foreach ($user->getComments() as $comment){
+    foreach ($comments as $comment){
         /* @var $comment Comment */
         echo "<li><div>".$comment->getOwner()->getLink().'<br />'.$comment->date->format('F j, Y, g:i a')."</div>".$comment->message."</li>";
     }
