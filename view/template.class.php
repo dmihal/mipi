@@ -128,7 +128,7 @@ $(function() {
 
 	$("#stream").smoothDivScroll({
 				autoScrollingMode: "always",
-				autoScrollingDirection: "endlessloopright",
+				autoScrollingDirection: "endlessloopleft",
 				autoScrollingStep: 1,
 				autoScrollingInterval: 30 
 			});
@@ -178,7 +178,7 @@ echo $this->page->getJS();
 	<body>
 		<div id="container">
 			<header>
-				<h1><img src="img/pizetalogo.gif" alt="My Pi Zeta" /></h1>
+				<h1><img src="/img/pizetalogo.gif" alt="My Pi Zeta" /></h1>
 				<nav>
 					<ul id="navLeft" class="topNav">
 <?php 

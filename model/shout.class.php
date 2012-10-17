@@ -40,8 +40,8 @@ class Shout {
 	 * @author  
 	 */
 	static function getLastTen() {
-		return self::getShoutsFromQuery("SELECT  `user` , `message` FROM  `shouts` 
-			ORDER BY  `date` ASC LIMIT 0 , 15");
+		return self::getShoutsFromQuery("SELECT `user` , `message` FROM (SELECT  * FROM  `shouts` 
+			ORDER BY  `date` DESC LIMIT 0 , 15) as tbl ORDER BY tbl.date ASC;");
 	}
 	/**
 	 * Returns an array of shouts from SQL query
