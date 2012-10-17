@@ -39,7 +39,6 @@ class Template
 			),
 		"rush"		=> array(
 			new NavElement("Recruits","/rush","recruits"),
-			new NavElement("Add Rushee","/rush/add","newrushee"),
 			new NavElement("Events","/rush/events","rushevents")
 			),
 		"message"	=> array(
@@ -62,6 +61,7 @@ class Template
 			$this->secondNav['home'][] = new NavElement($title,"/officer/$name",$name);
 		}
 		
+        $addRushees = false;
 		foreach (Officer::getOfficersByUser(getUser()) as $officer) {
 		    /* @var $officer Officer */
 			if (isset($officer->adminPages)) {
@@ -69,6 +69,10 @@ class Template
 					$this->secondNav['profile'][] = new NavElement($name,$path,$officer->name);
 				}
 			}
+            if (isset($officer->addRushees) and $officer->addRushees and !$addRushees){
+                $this->secondNav['rush'][] = new NavElement("Add Rushee","/rush/add","newrushee");
+                $addRushees = true;
+            }
 		}
 	
 	}
