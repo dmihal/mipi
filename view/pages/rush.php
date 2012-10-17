@@ -18,7 +18,7 @@ switch (@$_GET[1]) {
             $rushee->moveNewPhoto($_FILES['photo']['tmp_name']);
         }
         $rushee->save();
-        header("Location: /mipi/rush/msg:added");
+        header("Location: /rush/msg:added");
         break;
 	case 'person':
 		$page = Page::getPage('rush/person');
