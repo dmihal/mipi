@@ -159,9 +159,9 @@ class Member extends Person {
 	static function getMemberLogin($username,$password)
 	{
 	    $hash = md5($password);
-		$array = self::getMembersFromQuery("SELECT * FROM users WHERE
-`username`='$username' AND
-`password`='$hash'");
+		$array = self::getMembersFromQuery(sprintf("SELECT * FROM users WHERE
+(`username`='%s' OR `pi`=%d) AND
+`password`='%s'",$username,intval($username),$hash));
 		
 		if (count($array)==1) {
 			return $array[0];
