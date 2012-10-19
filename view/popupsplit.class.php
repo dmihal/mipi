@@ -24,8 +24,18 @@ class PopupSplit extends Page {
 	}
 	private function updateRaw()
 	{
-		$this->rawData = '<div style="float: left;width: 200px;background: #EEE">'.$this->left.'</div>
-<div style="margin-left: 200px;min-width: 300px;margin-top: 40px;">'.$this->right.'</div>';
+	    ob_start();
+?>
+<div style="min-width:500px;">
+    <div style="float: left;width: 200px;background: #EEE">
+        <?php echo $this->left ?>
+    </div>
+    <div style="float:left;width:400px;"><?php //style="margin-left: 200px;min-width: 300px;margin-top: 40px;"> ?>
+        <?php echo $this->right ?>
+    </div>
+</div>
+<?php
+		$this->rawData = ob_get_clean();
 	}
 } // END
 ?>
