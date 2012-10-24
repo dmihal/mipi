@@ -47,7 +47,11 @@ function getUser() {
 }
 
 @$requestRaw = $_GET['request'];
-$_GET = array_merge(explode('/', $requestRaw),$_GET);
+$oldget = array();
+if ($q = strpos($_SERVER['REQUEST_URI'], '?')) {
+	parse_str(substr($_SERVER['REQUEST_URI'], $q+1),$oldget);
+}
+$_GET = array_merge(explode('/', $requestRaw),$_GET,$oldget);
 foreach ($_GET as $value) {
 	if(($pos = strpos($value,':'))!==false)
 	{
@@ -60,10 +64,9 @@ unset($requestRaw);
 $_GET[0] = ($_GET[0]=="") ? "home" : $_GET[0];
 ChromePhp::log($_GET);
 
-
 //try{
 	$doc = new Template(Page::getPage($_GET[0]));
-	$html = $doc->buildPage();
+    $html = $doc->buildPage();
 /*}
 catch (Exception $e)
 {
@@ -71,11 +74,6 @@ catch (Exception $e)
 	header("HTTP/1.0 404 Not Found");
 }*/
 
-if ('10.0.2.2' == $_SERVER["REMOTE_ADDR"]){
-    $html = preg_replace('/href="(\/)?/', 'href="/mipi/', $html);
-    $html = preg_replace('/src="(\/)?/', 'src="/mipi/', $html);
-    $html = preg_replace('/action="(\/)?/', 'action="/mipi/', $html);
-}
 echo $html;
 
 session_write_close(); 

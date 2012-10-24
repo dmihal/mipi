@@ -6,7 +6,7 @@ ob_start();
 switch ($_GET[1]) {
 	case 'membertoken':
         $q = $_GET['q'];
-        $members = Member::getMembersFromQuery("SELECT * FROM users WHERE nameFirst LIKE '$q%' OR nameLast LIKE '$q%' ORDER BY nameLast");
+        $members = Member::getMembersFromQuery("SELECT * FROM users WHERE nameFirst LIKE '$q%' OR nameLast LIKE '$q%' ORDER BY nameLast;");
         $suggest = array();
         foreach ($members as $member) {
             /* @var $member Member */
