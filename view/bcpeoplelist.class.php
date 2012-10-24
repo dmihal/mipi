@@ -52,7 +52,7 @@ function buildList()
 		for(var i in peoplelist.people)
 		{
 			var person = peoplelist.people[i];
-			div.append('<div class="personBox"><img src="'+person.img+'" />' +
+			div.append('<div class="personBox"><div style="height:175px"><img src="'+person.img+'" /></div>' +
 			"<h3><a href=\""+person.url+"\" class=\"userlink\">"+person.first+" "+person.last+"</a></h3>");
 		}
 	} else if (peoplestate == 'table')
@@ -72,10 +72,10 @@ function buildList()
 			{
 				values += "<td>"+person.values[n]+"</td>";
 			}
-			tbody.append('<tr><td><img src="'+person.img+'" style="width:75px;"/></td><td><a href="'+person.url+'" class=\"userlink\">'+person.first+' '+person.last+'</a></td>'+values+'</tr>')
+			tbody.append('<tr><td><img src="'+person.img+'" style="width:75px;"/></td><td><a href= "'+person.url+'" class=\"userlink\">'+person.first+' '+person.last+'</a></td>'+values+'</tr>')
 		}
 	}
-	$("#list a.userlink").fancybox();
+	$("#list a.userlink").fancybox({onComplete:fbLoaded});
 }
 $(buildList);
 
