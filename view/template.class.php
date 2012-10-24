@@ -171,7 +171,15 @@ function addComment(form) {
     $.ajax({
         url     : '/rush/comment/',
         data    : $(form).serialize(),
-        type    : 'POST'
+        type    : 'POST',
+        complete: function(){
+            var d = new Date();
+            var curr_month = d.getMonth() +1;
+            var date = ""+curr_month +"/"+ d.getDate() +"/"+ d.getFullYear()+" "+d.getHours()+':'+d.getMinutes();
+            var comment = $(form).find('textarea').val();
+            $(".comments").append('<li><div class="lcol"><?php echo getUser()->getLink() ?><br \>'+date+"</div><div>"+comment+"</div><br style=\"clear:both\"></li>");
+            $(form).find('textarea').val('');
+        }
     }); 
 }
 		</script>
