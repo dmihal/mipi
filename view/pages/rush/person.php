@@ -67,7 +67,7 @@ ob_start();
 try {
     foreach ($comments as $comment){
         /* @var $comment Comment */
-        echo "<li><div>".$comment->getOwner()->getLink().'<br />'.$comment->date->format('F j, Y, g:i a')."</div>".$comment->message."</li>";
+        echo '<li><div class="lcol">'.$comment->getOwner()->getLink().'<br />'.$comment->date->format('m/d/Y h:i').'</div><div>'.$comment->message."</div><br style=\"clear:both\"/></li>";
     }
 } catch(Exception $e){
     echo "No comments!";
