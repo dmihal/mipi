@@ -90,11 +90,36 @@ $guests->setContent($guestList);
 $page->addBox($guests,'right');
 
 /********** Surveys ****************/
-$surveys = new Box('surveys','Surveys');
+/*$surveys = new Box('surveys','Surveys');
 $surveyList = new BCList();
 $surveyList->addOldElement("Housing Survey", "Joe Monasky", "Questions about the house","#","user/2");
 $surveys->setContent($surveyList);
-$page->addBox($surveys,'right');
+$page->addBox($surveys,'right');*/
+
+/********* Featured Rushee ********/
+try{
+    $featuredBox = new Box('featrushee','Do You Know Him?');
+    ob_start();
+    $rushees = Rushee::getRusheesFromQuery('SELECT * FROM `rushees` ORDER BY RAND() LIMIT 0,1');
+    $rushee = $rushees[0];
+    /* @var $rushee Rushee */
+?>
+<a href="/rush/person/<?php echo $rushee->id ?>" style="font-weight: bold" class="userlink">
+    <img src="<?php echo $rushee->getPhotoPath() ?>" style="width: 75px;float: left;margin-right:10px;" />
+</a>
+<a href="/rush/person/<?php echo $rushee->id ?>" style="font-weight: bold" class="userlink"><?php echo $rushee->getName() ?></a>
+<p>
+    <?php echo $rushee->getYearName() ?><br />
+    <?php echo $rushee->fieldString('major') ?>
+</p>
+<br style="clear: both" />
+<?php
+    $featuredBox->setContent(new BCStatic(ob_get_clean()));
+    $page->addBox($featuredBox,'right');
+} catch(Exception $e){
+    $emptybox = new Box('emptybox',"No Rushees the DB");
+    $emptybox->setContent(new BCStatic('There\'s no rushees in the database! Go meet some freshmen!'));
+}
 
 return $page;
 ?>
