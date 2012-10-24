@@ -17,7 +17,7 @@ class Event {
      * @var DateTime
      */
     public $unlock;
-	public $id, $name, $end, $hasGL, $owner, $guestsPerPerson;
+	public $id, $name, $end, $hasGL, $owner, $guestsPerPerson, $description;
 	
 	public function __construct($data){
 	    $this->id       = $data['ID'];
@@ -28,6 +28,7 @@ class Event {
         $this->owner    = $data['owner'];
         $this->unlock   = $data['listunlocks'] ? new DateTime($data['listunlocks']) : NULL;
         $this->guestsPerPerson = $data['guestsperperson'];
+        $this->description = $data['description'];
 	}
 	/**
 	 * Get owner of event
