@@ -18,6 +18,12 @@ ob_start();
 if ($pi = $user->getPiNum(true))
 	echo "<p>$pi</p>";
 ?>
+    <p><?php
+foreach (Officer::getOfficersByUser($user) as $officer) {
+	/* @var $officer Officer */
+	echo $officer->title . "<br />";
+}
+?></p>
 	<img src="<?php echo $user->getPhotoPath(); ?>" style="width: 180px">
 	<a href="/messages/compose/to:<?php echo $user->id ?>">Send Message</a>
 <?php 
