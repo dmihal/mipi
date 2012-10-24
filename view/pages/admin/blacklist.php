@@ -22,7 +22,11 @@ $add->setContent(new BCStatic(ob_get_clean()));
 $page->addBox($add,'left');
 
 $status = new Box('status',"Issues");
-$query = new Query("SELECT guests.*, blacklist.yog, blacklist.reason FROM `guests`,`blacklist` WHERE guests.first LIKE blacklist.firstname AND guests.last LIKE blacklist.lastname ORDER BY `event`");
+$query = new Query("SELECT guests.*, blacklist.yog, blacklist.reason
+    FROM `guests`,`blacklist`
+    WHERE guests.first SOUNDS LIKE blacklist.firstname
+        AND guests.last SOUNDS LIKE blacklist.lastname
+    ORDER BY `event`;");
 $issueTable = new BCTable();
 $issueTable->header = array("Name","Added By","YOG","Reason");
 $event = 0;
