@@ -21,7 +21,7 @@ class Rushee extends Person {
         $this->yog    = $data['class'];
         $this->dob    = new DateTime($data['dob']);
         $this->brother= $data['brother'];
-        $this->hiddenData(unserialize($data['data']));
+        $this->hiddenData(json_decode($data['data'],true));
         
         $this->initialVars = $this->getDBArray();
     }
@@ -64,7 +64,7 @@ class Rushee extends Person {
 		$thisYear = new DateTime();
 		$thisYear->modify('+6 months');
 		$yearsLeft = $this->yog - $thisYear->format('Y');
-		$names = array("Senior","Junior","Sophamore","Freshman");
+		$names = array("Senior","Junior","Sophomore","Freshman");
 		return $names[$yearsLeft];
 	}
     /**
@@ -162,7 +162,7 @@ class Rushee extends Person {
             "class"     => $this->yog,
             "dob"       => $this->dob->format('Y-m-d'),
             "brother"   => $this->brother,
-            "data"      => serialize($this->hiddenData())
+            "data"      => json_encode($this->hiddenData())
             );
     }
 	
