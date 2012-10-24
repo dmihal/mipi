@@ -47,5 +47,49 @@ class Person extends Overloadable {
             $this->sex = self::MALE;
         }
     }
+    /**
+     * Get a link to the user's facebook profile
+     *
+     * @return Hyperlink
+     * @author  
+     */
+    function getFBLink() {
+        if(isset($this->fbid) && $this->fbid){
+            return new Hyperlink('Facebook',"http://www.facebook.com/".$this->fbid,'facebook');
+        } else {
+            return new Hyperlink('','','nulllink');
+        }
+    }
+    /**
+     * Returns URL to facebook profile thumbnal
+     *
+     * @return string
+     * @author  
+     */
+    function getFBPic() {
+        return isset($this->fbid) ? "http://graph.facebook.com/".$this->fieldString('fbid')."/picture" : '';
+    }
+    /**
+     * Return Hyperlink to twitter profile
+     *
+     * @return Hyperlink
+     * @author  
+     */
+    function getTwitterLink() {
+        if(isset($this->twitid) && $this->twitid){
+            return new Hyperlink('Twitter',"http://www.twitter.com/".$this->twitid,'twitter');
+        } else {
+            return new Hyperlink('','','nulllink');
+        }
+    }
+    /**
+     * Return URL to twitter prof pic
+     *
+     * @return string
+     * @author  
+     */
+    function getTwitterPic() {
+        return isset($this->twitid) ? "https://api.twitter.com/1/users/profile_image?screen_name=".$this->fieldString('twitid') : '';
+    }
 } // END
 ?>
