@@ -80,7 +80,7 @@ header nav {
 #shouter input {
 	border-radius: 12px;
 	border: solid 1px #AAF;
-	font-size: 12pt;
+	font-size: 12px;
 	margin: 0;
 	width: 169px;
 	height: 22px;
@@ -191,7 +191,7 @@ div.scrollWrapper {
 #iconHouse{
 	background-position-y: -195px;
 }
-#iconEvents, #iconCalendar{
+#iconEvents, #iconCalendar, #iconRushevents{
 	background-position-y: -210px;
 }
 #iconStew{
@@ -200,7 +200,7 @@ div.scrollWrapper {
 #iconWeb {
 	background-position-y: -240px;
 }
-#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconRecruits, #iconProfile {
+#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconRecruits, #iconProfile, #iconBlist, #iconGlist, #iconNewrushee {
 	background-position-y: -255px;
 }
 #iconSettings {
@@ -320,4 +320,22 @@ td {
 }
 #guestFields li input {
     width: 125px;
+}
+/* Comments */
+.comments {
+    padding: 0;
+    font-size: 10pt;
+}
+.comments li {
+    list-style: none;
+    margin-bottom: 3px;
+    background: #FFE2C3;
+}
+.comments li div {
+    padding: 5px;
+}
+.comments li .lcol {
+    background: #FFF2D3;
+    float: left;
+    margin-right:5px;
 }
