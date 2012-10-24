@@ -37,7 +37,7 @@ try {
 	$events = Event::getEventsFromQuery(Event::QueryNextFive);
 	foreach ($events as $event){
 		/* @var $event Event */
-		$eventsList->addOldElement($event->name, $event->getOwner()->getName(), "It's an Event!","","user/".$value->authorID);
+		$eventsList->addElement(new Hyperlink($event->name,"/event/description/$event->id"), $event->getOwner()->getLink(),$event->description);
 	}
 	unset($events);
 	/*$eventsList->addOldElement("Thurs 9pm - Kappa", "Alex Margiott", "It's Doody week!");
