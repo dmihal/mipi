@@ -54,7 +54,7 @@ switch (@$_GET[1]) {
     		
     		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees ") as $rushee) {
     			/* @var $rushee Rushee */
-    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,'',$rushee->phone,$rushee->getYearName());
+    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),$rushee->phone,$rushee->getYearName());
     		}
     		
     		$box->setContent($peoplelist);
