@@ -115,11 +115,12 @@ class Officer extends Overloadable{
             throw new Exception("Error querying for officers");
         }
     }
-	static function getOfficerLists($elected=true)
+	static function getOfficerLists($elected=true,$page=true)
 	{
 		$elected = $elected ? 'true' : 'false';
+        $page    = $page ? " AND `page`='1'" : "";
 		$officers = array();
-		$q = new Query("SELECT name,title FROM officers WHERE `elected` like '$elected' ORDER BY `sort`");
+		$q = new Query("SELECT name,title FROM officers WHERE `elected` like '$elected'$page ORDER BY `sort`");
 		while($officer = $q->nextRow())
 		{
 			$officers[$officer['name']] = $officer['title'];
