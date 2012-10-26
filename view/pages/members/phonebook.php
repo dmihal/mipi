@@ -3,7 +3,7 @@ $page = new Page("Phonebook");
 
 $members = Member::getMembersFromQuery(Member::QueryAllByName);
 
-$phonebook = new Box("inbox","Inbox");
+$phonebook = new Box("phonebook","Phonebook");
 $list = new BCStatic();
 ob_start();
 ?>
