@@ -42,7 +42,7 @@ ob_start();
     </div>
     <div id="tabs-1">
         email: <?php echo $user->email ?><br />
-        <?php echo $user->fieldString('cell');?>
+        phone: <?php echo $user->phone;?><br />
         major: <?php echo $user->fieldString('major') ?><br />
         school address: <?php echo $user->fieldString('location') ?><br />
         room: <?php echo $user->fieldString('room'); ?><br />
@@ -50,6 +50,9 @@ ob_start();
         year of graduation: <?php echo $user->yog ?><br />
         dob: <?php echo $user->dob->format('F jS, Y') ?><br />
         assigned brother: <?php //echo $user->getBrother()->getName() ?><br />
+        <br />
+        <?php echo $user->getFBLink() ?><br />
+        <?php echo $user->getTwitterLink() ?>
         
     </div>
     <div id="tabs-2">
