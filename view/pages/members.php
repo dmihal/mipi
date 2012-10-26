@@ -21,7 +21,6 @@ default:
 
 	$membersList = Member::getMembersFromQuery(Member::QueryAllBrothers);
 	
-	ChromePhp::log($membersList);
 	foreach ($membersList as $person) {
 		/* @var $person Member */ 
 		$peoplelist->addPerson($person->first, $person->last, 'user/'.$person->id, $person->getPhotoPath(),
