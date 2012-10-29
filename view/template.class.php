@@ -182,6 +182,13 @@ function addComment(form) {
         }
     }); 
 }
+function vote(id,dir,link){
+    $.ajax({
+        url     : '/ajax/vote',
+        data    : {'id':id, 'dir':dir},
+        type    : 'POST'
+    });
+}
 		</script>
 <?php
 echo $this->page->getJS();

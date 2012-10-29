@@ -23,6 +23,9 @@ switch (@$_GET[1]) {
 	case 'person':
 		$page = Page::getPage('rush/person');
 		break;
+    case 'votes':
+        $page = Page::getPage('rush/votes');
+        break;
 	case 'newphoto':
 		$msg = "msg:error";
 		if ($_POST['rushee'] && $_FILES['newphoto'] && $rushee = Rushee::getRushee($_POST['rushee'])) {

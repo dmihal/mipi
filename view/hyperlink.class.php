@@ -6,7 +6,7 @@
  * @author  
  */
 class Hyperlink implements HTMLElement {
-    public $title,$url,$class;
+    public $title,$url,$class,$onclick;
     public $style = NULL;
     
     public function __construct($title,$url='#',$class='')
@@ -24,7 +24,8 @@ class Hyperlink implements HTMLElement {
      */
     public function getHTML() {
         $style = ($this->style) ? " style=\"$this->style\"" : "";
-        return "<a href=\"$this->url\" class=\"$this->class\"$style>$this->title</a>";
+        $onclick = ($this->onclick) ? " onclick=\"$this->onclick\"" : "";
+        return "<a href=\"$this->url\" class=\"$this->class\"$style $onclick>$this->title</a>";
     }
     public function __toString() {
         return $this->getHTML();

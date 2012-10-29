@@ -20,6 +20,21 @@ switch ($_GET[1]) {
             echo 'true';
         }
         break;
+    case 'vote':
+        $dir = "";
+        if (strcasecmp($_POST['dir'], 'UP') == 0) {
+            $dir = "UP";
+        } elseif(strcasecmp($_POST['dir'], 'DOWN') == 0) {
+            $dir = "DOWN";
+        } else {
+            exit;
+        }
+        $user = getUser();
+        $rusheeID = $_POST['id'];
+        
+        Query::insert("INSERT INTO `rush_votes`  (`user`,`rushee`,`vote`) VALUES ('$user->id', '$rusheeID', '$dir')
+  ON DUPLICATE KEY UPDATE `vote`='$dir';");
+        break;
 	default:
 		
 		break;
