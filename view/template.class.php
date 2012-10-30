@@ -190,6 +190,7 @@ function vote(id,dir,link){
         type    : 'POST'
     });
     link.className = 'voted';
+    return false;
 }
 		</script>
 <?php
