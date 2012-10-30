@@ -16,6 +16,10 @@ class Brother extends Member {
 	}
 	function getPiNum($htmlchar=false)
 	{
+	    //Brother Morin gets his own 3 lines of code!
+	    if ($this->piNum==750 and $htmlchar) {
+			return "<span style=\"font-family: serif\">&beta;&nu;</span>$this->piNum";
+		}
 		return ($htmlchar) ? "<span style=\"font-family: serif\">&pi;</span>$this->piNum" : $this->piNum;
 	}
 	
