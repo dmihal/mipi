@@ -56,7 +56,7 @@ switch (@$_GET[1]) {
     		$peoplelist->setColumns("Email","Social","Cell Phone","Year");
     		$peoplelist->setThumbColumns("Year");
     		
-    		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees ") as $rushee) {
+    		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees ORDER BY `last`") as $rushee) {
     			/* @var $rushee Rushee */
     			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),$rushee->phone,$rushee->getYearName());
     		}
