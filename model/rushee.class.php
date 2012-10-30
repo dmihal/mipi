@@ -92,7 +92,7 @@ class Rushee extends Person {
      * @return Hyperlink
      */
     function getLink() {
-        return new Hyperlink($this->getName(),"/rush/person/$this->id",'personlink');
+        return new Hyperlink($this->getName(),"/rush/person/$this->id",'userlink');
     }
     /**
      * Return the brother assigned to the rushee
