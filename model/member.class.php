@@ -177,7 +177,24 @@ class Member extends Person {
 	const QueryAllBrothers = "SELECT *,pi IS NULL AS isnull FROM users WHERE `type`='BROTHER' ORDER BY isnull ASC, pi ASC, nameLast ASC";
 	const QueryAllAlum = "SELECT * FROM users WHERE `type`='ALUM' ORDER BY pi ASC";
 	const QueryAllAMs = "SELECT * FROM users WHERE `type`='AM' ORDER BY nameLast";
-
+    
+    static function buildTree($parent = NULL)
+    {
+        if(is_null($parent)){
+            $query = new Query("SELECT `ID` FROM `users` WHERE `big` IS NULL;");
+        } else {
+            $query = new Query("SELECT `ID` FROM `users` WHERE `big`=$parent");
+        }
+        if($query->numRows==0){
+            return NULL;
+        }
+        $subtree = array();
+        while ($row = $query->nextRow()) {
+            $subtree[$row['ID']] = self::buildTree($row['ID']);
+        }
+        return $subtree;
+    }
+    
 	public function save()
 	{
 		return Query::update('users', "`ID`=".$this->id, $this->initalVars, $this->getDBArray());
