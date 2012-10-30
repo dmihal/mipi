@@ -10,6 +10,9 @@ case 'alum':
 case 'phonebook':
 	$page = Page::getPage('members/phonebook');
 	break;
+case 'getTree':
+    $page = Page::getPage('members/getTree');
+    break;
 default:
 	$page = new Page("Brothers");
 	
