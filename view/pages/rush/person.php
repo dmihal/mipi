@@ -49,7 +49,8 @@ ob_start();
         home address:<br />
         year of graduation: <?php echo $user->yog ?><br />
         dob: <?php echo $user->dob->format('F jS, Y') ?><br />
-        assigned brother: <?php echo $user->getBrother() ? $user->getBrother()->getName() : '';?><br />
+        assigned brother: <?php echo $user->getBrother() ? $user->getBrother()->getLink() : '';?><br />
+        campus involvement: <?php echo $user->fieldString('involvement'); ?><br />
         <br />
         <?php echo $user->getFBLink() ?><br />
         <?php echo $user->getTwitterLink() ?>

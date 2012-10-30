@@ -14,6 +14,7 @@ switch (@$_GET[1]) {
         $rushee->location = $_POST['location'];
         $rushee->room = $_POST['room'];
         $rushee->major = $_POST['major'];
+        $rushee->involvement = $_POST['involvement'];
         if ($_FILES['photo'] && file_exists($_FILES['photo']['tmp_name'])){
             $rushee->moveNewPhoto($_FILES['photo']['tmp_name']);
         }

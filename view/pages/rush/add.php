@@ -35,7 +35,8 @@ ob_start();
     <option value="ECE"/>
     <option value="Computer Science"/>
     <option value="Civil Engineering"/>
-</datalist>   
+</datalist>
+<label>Campus Involvement: <textarea name="involvement"></textarea></label>
 <label>Location: <input name="location" list="locations"></label><br />
 <datalist id="locations">
     <option value="Morgan Hall"/>
