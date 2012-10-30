@@ -183,6 +183,25 @@ class Rushee extends Person {
             "data"      => json_encode($this->hiddenData())
             );
     }
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author  
+     */
+    static function setVote($user,$rusheeID,$dir2) {
+        $dir = "";
+        if (strcasecmp($dir2, 'UP') == 0) {
+            $dir = "UP";
+        } elseif(strcasecmp($dir2, 'DOWN') == 0) {
+            $dir = "DOWN";
+        } else {
+            throw new Exception();
+        }
+        
+        return Query::insert("INSERT INTO `rush_votes`  (`user`,`rushee`,`vote`) VALUES ('$user', '$rusheeID', '$dir')
+  ON DUPLICATE KEY UPDATE `vote`='$dir';");
+    }
 	
 } // END
 ?>
