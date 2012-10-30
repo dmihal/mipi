@@ -5,14 +5,18 @@ $rushees = Rushee::getRusheesFromQuery("SELECT * FROM `rushees` ORDER BY rush_ra
 
 $box = new Box('rushees',"Rushees");
 $table = new BCTable();
-$table->header = array("","Name");
+$table->header = array("","Photo","Name","Year");
 foreach ($rushees as $rushee) {
 	/* @var $rushee Rushee */
-	$up = new Hyperlink("Up","#");
+	$vote = $rushee->getVotes(getUser());
+    $upclass   = ($vote == "UP")   ? "voted" : "";
+    $downclass = ($vote == "DOWN") ? "voted" : "";
+    
+	$up = new Hyperlink("Ready to Vote","#",$upclass);
     $up->onclick = "return vote($rushee->id,'up',this)";
-    $down = new Hyperlink("Down","#");
+    $down = new Hyperlink("Abstain","#",$downclass);
     $down->onclick = "return vote($rushee->id,'down',this)";
-	$table->addRow("$up<br />$down",$rushee->getName());
+	$table->addRow("$up<br />$down",'<img src="'.$rushee->getPhotoPath().'" style="width:75px;" />',$rushee->getLink(),$rushee->getYearName());
 }
 $box->setContent($table);
 $page->addBox($box,'tripple');

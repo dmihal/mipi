@@ -68,6 +68,16 @@ class Rushee extends Person {
 		return $names[$yearsLeft];
 	}
     /**
+     * undocumented function
+     *
+     * @return void
+     * @author  
+     */
+    function getVotes(Member $user) {
+        $q = new Query("SELECT `vote` FROM `rush_votes` WHERE `user`=$user->id AND `rushee`=$this->id;");
+        return ($q->numRows>0) ? $q->getField('vote') : NULL;
+    }
+    /**
      * Return an array of comments about the rushee
      *
      * @return array
@@ -75,6 +85,14 @@ class Rushee extends Person {
      */
     function getComments() {
         return Comment::getCommentsFromQuery(sprintf("SELECT * FROM `comments` WHERE `type`='RUSHEE' AND `subject`=%d ORDER BY `date` ASC;",$this->id));
+    }
+    /**
+     * undocumented function
+     *
+     * @return Hyperlink
+     */
+    function getLink() {
+        return new Hyperlink($this->getName(),"/rush/person/$this->id",'personlink');
     }
     /**
      * Return the brother assigned to the rushee

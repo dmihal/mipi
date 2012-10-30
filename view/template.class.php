@@ -39,7 +39,8 @@ class Template
 			),
 		"rush"		=> array(
 			new NavElement("Recruits","/rush","recruits"),
-			new NavElement("Events","/rush/events","rushevents")
+			new NavElement("Events","/rush/events","rushevents"),
+			new NavElement("Voting List","/rush/votes","rushvote")
 			),
 		"message"	=> array(
 			new NavElement("Compose Message","/messages/compose","compose"),
@@ -188,6 +189,7 @@ function vote(id,dir,link){
         data    : {'id':id, 'dir':dir},
         type    : 'POST'
     });
+    link.className = 'voted';
 }
 		</script>
 <?php

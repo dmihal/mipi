@@ -200,7 +200,7 @@ div.scrollWrapper {
 #iconWeb {
 	background-position-y: -240px;
 }
-#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconRecruits, #iconProfile, #iconBlist, #iconGlist, #iconNewrushee {
+#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconRecruits, #iconProfile, #iconBlist, #iconGlist, #iconNewrushee, #iconRushvote {
 	background-position-y: -255px;
 }
 #iconSettings {
@@ -338,4 +338,7 @@ td {
     background: #FFF2D3;
     float: left;
     margin-right:5px;
+}
+.voted {
+    background: #BBF;
 }
