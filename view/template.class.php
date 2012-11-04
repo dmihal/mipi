@@ -282,19 +282,18 @@ if (!empty($this->page->boxes['center']))
 	}
 	echo "</div>";
 }
-
+if (!empty($this->page->boxes['double']))
+{
+    echo '<div class="column double">';
+    foreach ($this->page->boxes['double'] as $box) {
+        echo $box->getHTML();
+    }
+    echo "</div>";
+}
 if (!empty($this->page->boxes['right']))
 {
 	echo '<div class="column">';
 	foreach ($this->page->boxes['right'] as $box) {
-		echo $box->getHTML();
-	}
-	echo "</div>";
-}
-if (!empty($this->page->boxes['double']))
-{
-	echo '<div class="column double">';
-	foreach ($this->page->boxes['double'] as $box) {
 		echo $box->getHTML();
 	}
 	echo "</div>";
