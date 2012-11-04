@@ -56,9 +56,13 @@ if ($eventList->listOpen()){
     <input type="hidden" name="event" value="<?php echo $eventID ?>" />
 <?php
 if ($eventList->listOpen()) {
-	echo '<div>You have <span id="remain">'.$maxguests-$numMyGuests .'</span> spots remaining</div>';
+	echo '<div>You have <span id="remain">';
+	echo ($maxguests-$numMyGuests) . '</span> spots remaining</div>';
     if($eventList->listUnlocks){
         echo '<div>All spots unlock on '. $eventList->listUnlocks->format('F jS \a\t h:i A') .'</div>';
+    }
+    if ($eventList->listCloses) {
+        echo '<div>The list will close on '.$eventList->listCloses->format('F jS \a\t h:i A') .'</div>';
     }
 } else {
 	echo '<div>This guest list is closed</div>';
