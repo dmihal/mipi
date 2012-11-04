@@ -9,14 +9,17 @@ ob_start();
 	<tr>
 		<th>Guest</th>
 		<th>Brother</th>
+		<th>Pi</th>
 	</tr>
 
 <?php
 while($guest = $eventList->getCurrentGuest())
 {
 	$owner = $eventList->getCurrentOwner();
+    
+    $pi = ($owner->type == Member::BROTHER or $owner->type == Member::ALUMNI) ? $owner->getPiNum(true) : "AM";
 	
-	echo '<tr><td>'.$guest->getName(true).'</td><td>'.$owner->getName().'</td></tr>';
+	echo '<tr><td>'.$guest->getName(true).'</td><td>'.$owner->getName().'</td><td>'.$pi.'</td></tr>';
 	
 	$eventList->advance();
 }
