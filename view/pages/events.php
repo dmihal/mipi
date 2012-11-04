@@ -34,6 +34,9 @@ switch (@$_GET[1]) {
 		header("Location: /events/list/$_POST[event]/msg:updated");
 		exit;
 		break;
+    case 'description':
+        $page = Page::getPage('events/description');
+        break;
 	default:
 		$page = new Page("Events");
 	
