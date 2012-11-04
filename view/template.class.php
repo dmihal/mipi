@@ -75,6 +75,10 @@ class Template
                 $addRushees = true;
             }
 		}
+        
+        if (getUser()->type == Member::ALUMNI){
+            $this->showTicker = false;
+        }
 	
 	}
 	
