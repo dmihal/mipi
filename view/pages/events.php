@@ -22,22 +22,6 @@ switch (@$_GET[1]) {
         $list->updateList(getUser(), $guests);
         header("Location: /events/list/$_POST[event]/msg:updated");
         break;
-	case 'listsave':
-		$list = new GuestList($_POST['event']);
-		$males = array();
-		$females = array();
-		for($i=0;$i<count($_POST['mf']);$i++)
-		{
-			$males[] = new Person($_POST['mf'][$i],$_POST['ml'][$i]);
-		}
-		for($i=0;$i<count($_POST['ff']);$i++)
-		{
-			$females[] = new Person($_POST['ff'][$i],$_POST['fl'][$i]);
-		}
-		$list->updateUserList($user, $males, $females);
-		header("Location: /events/list/$_POST[event]/msg:updated");
-		exit;
-		break;
     case 'description':
         $page = Page::getPage('events/description');
         break;
