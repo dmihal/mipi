@@ -9,6 +9,9 @@ switch (@$_GET[1]) {
         break;
     case 'update':
         $list = new GuestList($_POST['event']);
+        if (!$list->listOpen()){
+            echo 'List is closed. Stop fucking with my program';
+            exit;
         $guests = array();
         for ($i=0; $i < count($_POST['sex']) && $i < count($_POST['first']) && $i < count($_POST['last']); $i++) {
             if($_POST['first'][$i]!=="" and $_POST['last'][$i]!=""){

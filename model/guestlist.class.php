@@ -18,6 +18,7 @@ class GuestList {
 	{
 		$this->event = Event::getEvent($event);
 	    $this->listUnlocks = $this->event->unlock;
+        $this->listCloses = $this->event->close;
         $this->guestsPerPerson = $this->event->guestsPerPerson;
         
 		$query = new Query("SELECT `ID`, `event`, `owner`, `order`, `first`, `last`, (sex+5) AS sex FROM `guests` WHERE `event`=".$this->event->id." ORDER BY `last`;");
@@ -126,6 +127,14 @@ class GuestList {
 	function advance() {
 		$this->pointer++;
 	}
-	
+	/**
+	 * undocumented function
+	 *
+	 * @return boolean
+	 * @author  
+	 */
+	function listOpen() {
+	    return !$this->listCloses or ($this->listCloses > new DateTime());
+	}
 } // END
 ?>
