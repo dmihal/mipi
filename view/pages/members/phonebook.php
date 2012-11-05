@@ -14,7 +14,7 @@ ob_start();
 foreach ($members as $member) {
     /* @var $member Member */
 	if (isset($member->cell) && $member->cell) {
-		echo '<li><div style="float: right">'.$member->cell.'</div><a href="#" class="userlink">'.$member->getLink().'</a></li>';
+		echo '<li><div style="float: right">'.new PhoneNumber($member->cell).'</div><a href="#" class="userlink">'.$member->getLink().'</a></li>';
 	}
 }
 
