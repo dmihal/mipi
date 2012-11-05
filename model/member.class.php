@@ -181,9 +181,9 @@ class Member extends Person {
     static function buildTree($parent = NULL)
     {
         if(is_null($parent)){
-            $query = new Query("SELECT `ID` FROM `users` WHERE `big` IS NULL;");
+            $query = new Query("SELECT `ID` FROM `users` WHERE `big` IS NULL ORDER BY `pi`;");
         } else {
-            $query = new Query("SELECT `ID` FROM `users` WHERE `big`=$parent");
+            $query = new Query("SELECT `ID` FROM `users` WHERE `big`=$parent ORDER BY `pi`;");
         }
         if($query->numRows==0){
             return NULL;
