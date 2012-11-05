@@ -6,7 +6,7 @@ ob_start();
 ?>
 $(function(){
     var width = 960,
-        height = 300;
+        height = 800;
     
     var cluster = d3.layout.cluster()
         .size([height, width - 160]);
