@@ -36,14 +36,18 @@ ob_start();
 ?>
 	<h2>Info</h2>
 email: <?php echo $user->email ?><br />
-<?php echo isset($user->cell) ? "cell phone: $user->cell<br />" : "";?>
+<?php echo isset($user->cell) ? "cell phone: ".new PhoneNumber($user->cell)."<br />" : "";?>
 <?php echo isset($user->major) ? "major: $user->major<br />" : "";?>
 <?php echo isset($user->schoolloc) ? "school address: $user->schoolloc<br />" : "";?>
 home address:<br />
 <?php echo isset($user->homeaddr) ? nl2br($user->homeaddr,true) : "unknown";?><br />
 year of graduation: <?php echo $user->yog ?><br />
 dob: <?php echo $user->dob->format('F jS, Y') ?><br />
+<br />
 <?php
+if ($user == getUser()){
+    echo '<a href="/profile/edit">Edit My Profile</a>';
+}
 $page->setRight(ob_get_clean());
 
 return $page;
