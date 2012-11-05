@@ -25,7 +25,7 @@ ob_start();
 <div id="twitpic" style="height:48px;width:48px;display:inline-block;vertical-align: bottom;background:gray;">&nbsp;</div><br />
 <br/>
 <br />
-<label>YOG: <input name="yog" type="number" min="<?php echo date('Y') ?>" max="<?php echo date('Y')+4 ?>" value="<?php echo date('Y')+3 ?>" /></label><br />
+<label>YOG: <input name="yog" type="number" min="<?php echo date('Y') ?>" max="<?php echo date('Y')+4 ?>" value="<?php echo date('Y')+4 ?>" /></label><br />
 <label>Major: <input name="major" list="majors" /></label><br />
 <datalist id="majors">
     <option value="Mechanical Engineering"/>
@@ -54,6 +54,7 @@ ob_start();
 <br />
 <br />
 <label>Photo: <input name="photo" type="file" accept="image/jpeg" /></label><br />
+Try to crop the picture to just their face<br />
 <br />
 <button type="submit">Add</button>
 <?php
