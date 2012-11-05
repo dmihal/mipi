@@ -35,7 +35,7 @@ switch (@$_GET[1]) {
 			$events = Event::getEventsFromQuery("SELECT * FROM eventsX WHERE MONTH(start)=$calendar->month AND YEAR(start)=$calendar->year ORDER BY start");
 			foreach ($events as $event) {
 				/* @var $event Event */
-				$calendar->addEvent($event->name, "/events/list/$event->id", $event->start->format('d'));
+				$calendar->addEvent($event->name, "/events/description/$event->id", $event->start->format('d'));
 			}
 		} catch(Exception $e){}
 		
