@@ -93,7 +93,7 @@ class GuestList {
 		$query = new Query("SELECT event,owner,
 			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='MALE' AND event=".$this->event->id." GROUP BY owner),0) as male,
 			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0) as female,
-			(SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner)/count(*) as ratio
+			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0)/count(*) as ratio
 			FROM guests as g1 WHERE event=".$this->event->id." GROUP BY owner ORDER BY ratio $order LIMIT 0,$numresults");
 		return $query->rows;
 	}
