@@ -39,6 +39,7 @@ class Template
 			),
 		"rush"		=> array(
 			new NavElement("Recruits","/rush","recruits"),
+			new NavElement("Recieved Bids","/rush/bids","bids"),
 			new NavElement("Events","/rush/events","rushevents"),
 			new NavElement("Voting List","/rush/votes","rushvote")
 			),

@@ -18,6 +18,9 @@ switch (@$_GET[1]) {
         if ($_FILES['photo'] && file_exists($_FILES['photo']['tmp_name'])){
             $rushee->moveNewPhoto($_FILES['photo']['tmp_name']);
         }
+        if (intval($_POST['brother'])){
+            Rushee::setVote($_POST['brother'], $rushee->id, 'UP');
+        }
         $rushee->save();
         header("Location: /rush/msg:added");
         break;
@@ -42,6 +45,9 @@ switch (@$_GET[1]) {
             exit;
         }
         break;
+    case 'bids':
+    	$page = Page::getPage('rush/bids');
+    	break;
 	default:
 		$page = new Page("Rush");
 		
@@ -56,7 +62,7 @@ switch (@$_GET[1]) {
     		$peoplelist->setColumns("Email","Social","Cell Phone","Year");
     		$peoplelist->setThumbColumns("Year");
     		
-    		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees ORDER BY `last`") as $rushee) {
+    		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees WHERE `bid`='FALSE' ORDER BY `last`") as $rushee) {
     			/* @var $rushee Rushee */
     			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),$rushee->phone,$rushee->getYearName());
     		}
