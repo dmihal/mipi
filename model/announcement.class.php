@@ -7,7 +7,7 @@
  */
 class Announcement {
 	
-	public $title,$body;
+	public $title,$body,$summary;
 	public $id,$officerID, $authorID;
     public $date;
 	
@@ -18,6 +18,7 @@ class Announcement {
         $this->officerID= $data['officer'];
         $this->authorID = $data['author'];
         $this->date     = new DateTime($data['date']);
+        $this->summary  = strlen($data['summary']) ? $data['summary'] : substr($data['body'], 0,100);
     }
 	/**
 	 * undocumented function
@@ -80,5 +81,15 @@ class Announcement {
 		
 	}
 	const QUERYALL = "SELECT * FROM `announcements` ORDER BY `date`";
+    /**
+     * Insert and return an announcement
+     * 
+     * @return Announcement
+     */
+    static function newAnnouncement($officer,$author,$title,$body){
+        $id = Query::insert(sprintf("INSERT INTO `announcements` (`author` ,`officer` ,`title` ,`body`) VALUES ('%d',  '%d',  '%s',  '%s');"),
+            $author,$officer,mysql_escape_string($title),mysql_escape_string($body));
+        return self::getAnnouncement($id);
+    }
 } // END
 ?>

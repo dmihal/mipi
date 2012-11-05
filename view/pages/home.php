@@ -7,7 +7,7 @@ $announceList = new BCList();
 //print_r($announceList->getJS());
 foreach (Announcement::getAnnouncementsFromQuery(Announcement::QUERYALL." LIMIT 0,5") as $value) {
 	/* @var $value Announcement */
-	$announceList->addElement($value->getLink(), $value->getAuthor()->getLink(),$value->body);
+	$announceList->addElement($value->getLink(), $value->getAuthor()->getLink(),$value->summary);
 }
 
 //$announceList->addOldElement("Event this Firday", "Steve Kocienski", "We will be doing some crazy fraternity shit this friday");
@@ -37,7 +37,7 @@ try {
 	$events = Event::getEventsFromQuery(Event::QueryNextFive);
 	foreach ($events as $event){
 		/* @var $event Event */
-		$eventsList->addElement(new Hyperlink($event->name,"/event/description/$event->id"), $event->getOwner()->getLink(),$event->description);
+		$eventsList->addElement(new Hyperlink($event->name,"/events/description/$event->id"), $event->getOwner()->getLink(),$event->description);
 	}
 	unset($events);
 	/*$eventsList->addOldElement("Thurs 9pm - Kappa", "Alex Margiott", "It's Doody week!");

@@ -42,14 +42,14 @@ $page->addBox($sidebar,'left');
 $editorBox = new Box('editBox',"Editor");
 ob_start();
 ?>
-<input type="text" value="<?php echo $title ?>" /><br />
+<input type="text" name="title" value="<?php echo $title ?>" /><br />
 <textarea name="content" style="width: 95%;height: 300px;font-family: sans-serif"><?php echo $body ?></textarea>
 <?php
 echo array2hidden($hidden);
 $editorBox->setContent(new BCStatic(ob_get_clean()));
 $page->addBox($editorBox,'double');
 
-$page->setForm("/mipi/admin/saveannounce/");
+$page->setForm("/admin/saveannounce/");
 
 return $page;
 
