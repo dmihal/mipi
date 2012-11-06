@@ -36,7 +36,7 @@ class GuestList {
         foreach ($list as $person) {
             /* @var $person Person */
            $sex = $person->sex == Person::FEMALE ? 'FEMALE' : 'MALE';
-           $insertstrings[] = "('".$this->event->id."', '$user->id', '$sex', '$person->first', '$person->last')";
+           $insertstrings[] = sprintf("('%d','%d','%s','%s','%s')",$this->event->id,$user->id,$sex,mysql_escape_string($person->first),mysql_escape_string($person->last));
         }
         $insertstring = implode(',', $insertstrings);
         
