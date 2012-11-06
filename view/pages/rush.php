@@ -59,12 +59,12 @@ switch (@$_GET[1]) {
         try{
     		$peoplelist = new BCPeopleList();
     		$peoplelist->defaultState = 'thumbnail';
-    		$peoplelist->setColumns("Email","Social","Cell Phone","Year");
+    		$peoplelist->setColumns("Involvement","Email","Social","Cell Phone","Year","Comments");
     		$peoplelist->setThumbColumns("Year");
     		
-    		foreach (Rushee::getRusheesFromQuery("SELECT * FROM rushees WHERE `bid`='FALSE' ORDER BY `last`") as $rushee) {
+    		foreach (Rushee::getRusheesFromQuery("SELECT *,(SELECT count(*) FROM `comments` WHERE subject=rushees.ID) as comments FROM rushees WHERE `bid`='FALSE' ORDER BY `last`") as $rushee) {
     			/* @var $rushee Rushee */
-    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),$rushee->phone,$rushee->getYearName());
+    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->fieldString('involvement'),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),$rushee->phone,$rushee->getYearName(),$rushee->comments);
     		}
     		
     		$box->setContent($peoplelist);
