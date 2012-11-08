@@ -14,7 +14,7 @@ foreach ($rushees as $rushee) {
     
 	$up = new Hyperlink("Ready to Vote","#",$upclass);
     $up->onclick = "return vote($rushee->id,'up',this)";
-    $down = new Hyperlink("Abstain","#",$downclass);
+    $down = new Hyperlink("Not Ready to Vote","#",$downclass);
     $down->onclick = "return vote($rushee->id,'down',this)";
 	$table->addRow("$up<br />$down",'<img src="'.$rushee->getPhotoPath().'" style="width:75px;" />',$rushee->getLink(),$rushee->getYearName());
 }
