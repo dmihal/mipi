@@ -24,8 +24,8 @@ $page->addBox($add,'left');
 $status = new Box('status',"Issues");
 $query = new Query("SELECT guests.*, blacklist.yog, blacklist.reason
     FROM `guests`,`blacklist`
-    WHERE guests.first SOUNDS LIKE blacklist.firstname
-        AND guests.last SOUNDS LIKE blacklist.lastname
+    WHERE CONCAT(SOUNDEX(guests.first),'%') LIKE CONCAT(SOUNDEX(blacklist.firstname),'%')
+        AND CONCAT(SOUNDEX(guests.last),'%') LIKE CONCAT(SOUNDEX(blacklist.lastname),'%')
     ORDER BY `event`;");
 $issueTable = new BCTable();
 $issueTable->header = array("Name","Added By","YOG","Reason");
