@@ -77,8 +77,11 @@ class GuestList {
      */
     function getGuestsAllowed() {
         if ($this->listUnlocks && $this->listUnlocks < new DateTime()){
-            $numq = new Query("SELECT COUNT( * ) AS num FROM  `users` WHERE `type`= 'BROTHER' OR `type`= 'AM';");
-            return $this->guestsPerPerson * $numq->getField('num');
+            $numq = new Query("SELECT (
+                (SELECT COUNT(*)FROM  `users` WHERE `type`= 'BROTHER' OR `type`= 'AM')
+                *(SELECT `guestsperperson` FROM `eventsX` WHERE `ID`=".$this->event->id.")
+                - (SELECT COUNT(*) FROM `guests` WHERE event=".$this->event->id.")) as num;");
+            return $numq->getField('num');
         }
         return $this->guestsPerPerson;
     }
