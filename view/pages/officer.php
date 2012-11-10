@@ -40,5 +40,14 @@ try
 $announce->setContent($announceList);
 $page->addBox($announce,'double');
 
+if (isset($officer->boxes)) {
+	foreach ($officer->boxes as $column=> $array) {
+		foreach ($array as $path) {
+			$box = include("view/boxes/$path");
+            $page->addBox($box,$column);
+		}
+	}
+}
+
 return $page
 ?>
