@@ -13,6 +13,7 @@ class GuestList {
 	private $pointer =0;
     public $guestsPerPerson;
     public $listUnlocks;
+    private $maxid = 0;
 	
 	public function __construct($event)
 	{
@@ -21,12 +22,15 @@ class GuestList {
         $this->listCloses = $this->event->close;
         $this->guestsPerPerson = $this->event->guestsPerPerson;
         
-		$query = new Query("SELECT `ID`, `event`, `owner`, `order`, `first`, `last`, (sex+5) AS sex FROM `guests` WHERE `event`=".$this->event->id." ORDER BY `last`;");
+		$query = new Query("SELECT `ID`, `event`, `owner`, `first`, `last`, (sex+5) AS sex FROM `guests` WHERE `event`=".$this->event->id." ORDER BY `last`;");
 		
 		while ($row = $query->nextRow()) {
 			$guest = new Person($row['first'],$row['last'],$row['ID'],$row['sex']);
 			$this->guests[] = array("guest"=>$guest, "owner"=>$row['owner']);
 			$this->guestsByOwner[$row['owner']][/*$row['order']*/] = $guest;
+            if ($row['ID']>$this->maxid) {
+                $this->maxid = $row['ID'];
+            }
 		}
 		
 	}
@@ -91,14 +95,23 @@ class GuestList {
 	 * @return void
 	 * @author  
 	 */
-	public function getRatio($order=1,$numresults=5) {
-		$order = ($order==self::BEST) ? "DESC" : "ASC";
-		$query = new Query("SELECT event,owner,
-			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='MALE' AND event=".$this->event->id." GROUP BY owner),0) as male,
-			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0) as female,
-			IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0)/count(*) as ratio
-			FROM guests as g1 WHERE event=".$this->event->id." GROUP BY owner ORDER BY ratio $order, female $order LIMIT 0,$numresults");
-		return $query->rows;
+	public function getRatio($order=1,$cached=true,$numresults=5) {
+	    $filename = 'data/'.sprintf('ratio_e%d_o%d_n%d_m%d.txt',$this->event->id,$order,$numresults,$this->maxid);
+	    if ($cached and file_exists($filename)) {
+	        header('X-cache: used');
+			return unserialize(file_get_contents($filename));
+		} else {
+            $order = ($order==self::BEST) ? "DESC" : "ASC";
+            $query = new Query("SELECT event,owner,
+                IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='MALE' AND event=".$this->event->id." GROUP BY owner),0) as male,
+                IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0) as female,
+                IFNULL((SELECT count(*) FROM guests WHERE owner=g1.owner AND sex='FEMALE' AND event=".$this->event->id." GROUP BY owner),0)/count(*) as ratio
+                FROM guests as g1 WHERE event=".$this->event->id." GROUP BY owner ORDER BY ratio $order, female $order LIMIT 0,$numresults");
+            file_put_contents($filename, serialize($query->rows));
+            return $query->rows;
+		}
+		
+
 	}
 	
 	const BEST = 1;
