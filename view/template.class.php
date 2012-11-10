@@ -139,7 +139,7 @@ $(function() {
 
 	$("#stream").smoothDivScroll({
 				autoScrollingMode: "always",
-				autoScrollingDirection: "endlessloopleft",
+				autoScrollingDirection: "endlessloopright",
 				autoScrollingStep: 1,
 				autoScrollingInterval: 30 
 			});
