@@ -41,7 +41,9 @@ class Template
 			new NavElement("Recruits","/rush","recruits"),
 			new NavElement("Recieved Bids","/rush/bids","bids"),
 			new NavElement("Events","/rush/events","rushevents"),
-			new NavElement("Voting List","/rush/votes","rushvote")
+			new NavElement("Voting List","/rush/votes","rushvote"),
+			new NavElement("Stats","/rush/stats","rushstats"),
+			new NavElement("Add Rushee","/rush/add","newrushee")
 			),
 		"message"	=> array(
 			new NavElement("Compose Message","/messages/compose","compose"),
@@ -71,10 +73,6 @@ class Template
 					$this->secondNav['profile'][] = new NavElement($name,$path,$officer->name);
 				}
 			}
-            if (isset($officer->addRushees) and $officer->addRushees and !$addRushees){
-                $this->secondNav['rush'][] = new NavElement("Add Rushee","/rush/add","newrushee");
-                $addRushees = true;
-            }
 		}
         
         if (getUser()->type == Member::ALUMNI){
