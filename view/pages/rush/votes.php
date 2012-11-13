@@ -1,7 +1,7 @@
 <?php
 $page = new Page('Rush Votes');
 
-$rushees = Rushee::getRusheesFromQuery("SELECT * FROM `rushees` ORDER BY rush_rank(ID) DESC;");
+$rushees = Rushee::getRusheesFromQuery("SELECT * FROM `rushees` WHERE `bid`='FALSE' ORDER BY rush_rank(ID) DESC;");
 
 $box = new Box('rushees',"Rushees");
 $table = new BCTable();
