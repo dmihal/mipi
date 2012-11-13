@@ -48,6 +48,9 @@ switch (@$_GET[1]) {
     case 'bids':
     	$page = Page::getPage('rush/bids');
     	break;
+    case 'stats':
+        $page = Page::getPage('rush/stats');
+        break;
 	default:
 		$page = new Page("Rush");
 		
