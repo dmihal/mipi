@@ -20,16 +20,6 @@ class BCPeopleList implements BoxContent {
 	<a href="#" onclick="peoplestate='thumbnail';buildList();return false;">Thumbnail View</a> - <a href="#" onclick="peoplestate='table';buildList();return false;">Table View</a>
 </div>
 <div id="list">
-	<div class="personBox">
-		<img src="https://my.pizeta.org/Pi/Formalphotos/2010kocienski.png" />
-		<h3><a href="user/12345" class="userlink">Steve Kocienski</a></h3>
-		<p>Pi1234</p>
-	</div>
-	<div class="personBox">
-		<img src="https://my.pizeta.org/Pi/Formalphotos/2010beliveau.png" />
-		<h3><a href="user/12345" class="userlink">Andrew Beliveau</a></h3>
-		<p>Pi1234</p>
-	</div>
 </div>
 <div style="clear: both">&nbsp;</div>
 <?php
