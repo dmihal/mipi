@@ -3,7 +3,7 @@ $page = new Page("Event Description");
 $event = Event::getEvent($_GET[2]);
 
 $box = new Box('description',$event->name);
-$box->setContent(new BCStatic(""));
+$box->setContent(new BCStatic(nl2br($event->description)));
 $page->addBox($box,'double');
 
 $guestlist = new Box('list',"Guestlist");
