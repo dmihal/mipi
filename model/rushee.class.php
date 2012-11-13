@@ -8,6 +8,7 @@
 class Rushee extends Person {
 	public $type = Person::RUSHEE;
     public $brother = NULL;
+    public $comments = NULL;
     
     private $initialVars;
     
@@ -22,6 +23,7 @@ class Rushee extends Person {
         $this->dob    = new DateTime($data['dob']);
         $this->brother= $data['brother'];
         $this->hiddenData(json_decode($data['data'],true));
+        @$this->comments = $data['comments'];
         
         $this->initialVars = $this->getDBArray();
     }
