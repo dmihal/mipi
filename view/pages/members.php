@@ -17,7 +17,7 @@ default:
 	$page = new Page("Brothers");
 	
 	$box = new Box("members","Brothers");
-	$peoplelist = new BCPeopleList();
+	$peoplelist = new BCPeopleList('members');
 	$peoplelist->defaultState = 'thumbnail';
 	$peoplelist->setColumns("Email","Social","Cell Phone","Pi Number","YOG","Birthday");
 	$peoplelist->setThumbColumns("Pi Number");

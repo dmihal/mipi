@@ -7,9 +7,12 @@ class BCPeopleList implements BoxContent {
 	public $people;
 	public $columns;
 	public $defaultState = 'table';
+    private $name;
+    private $states;
 	
-	function __construct() {
-		
+	function __construct($name='pplList') {
+		$this->name = $name;
+        $this->states = (array_key_exists($name,$_COOKIE) and $_COOKIE[$name]=='table') ? array("display:none","") : array("","display:none");
 	}
 	
 	function getHTML()
@@ -17,9 +20,45 @@ class BCPeopleList implements BoxContent {
 		ob_start();
 ?>
 <div id="peopleSetings">
-	<a href="#" onclick="peoplestate='thumbnail';buildList();return false;">Thumbnail View</a> - <a href="#" onclick="peoplestate='table';buildList();return false;">Table View</a>
+	<a href="#" onclick="setList('thumbnail');return false;">Thumbnail View</a> - <a href="#" onclick="setList('table');return false;">Table View</a>
 </div>
 <div id="list">
+</div>
+<div id="pplThumb" style="<?php echo $this->states[0] ?>">
+<?php
+foreach ($this->people as $person) {
+	echo '<div class="personBox"><div style="height:175px"><img src="'.$person['img'].'" /></div>';
+    echo '<h3><a href="'.$person['url'].'" class="userlink">'.$person['first']." ".$person['last']."</a></h3></div>";
+}
+?>
+</div>
+<div id="pplTable" style="<?php echo $this->states[1] ?>">
+    <table id="persontable">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+<?php
+foreach ($this->columns as $value => $x) {
+	echo "<th>$value</th>";
+}
+?>
+            </tr>
+        </thead>
+        <tbody>
+<?php
+foreach ($this->people as $person) {
+    echo "<tr>";
+    echo '<td><img src="'.$person['img'].'" style="width:75px;"/></td>';
+    echo '<td><a href="'.$person['url'].'" class="userlink">'.$person['first'].' '.$person['last'].'</a></td>';
+	foreach ($person['values'] as $value) {
+		echo "<td>$value</td>";
+	}
+    echo "</tr>";
+}
+?>
+        </tbody>
+    </table>
 </div>
 <div style="clear: both">&nbsp;</div>
 <?php
@@ -30,44 +69,16 @@ class BCPeopleList implements BoxContent {
 		ob_start();
 //<script type="text/javascript">
 ?>
-
-window.peoplelist = <?php echo $this->getPeopleJSON(); ?>;
-window.peoplestate = "<?php echo $this->defaultState; ?>";
-function buildList()
-{
-	var div = $("#list");
-	div.html("");
-	if (peoplestate == 'thumbnail')
-	{
-		for(var i in peoplelist.people)
-		{
-			var person = peoplelist.people[i];
-			div.append('<div class="personBox"><div style="height:175px"><img src="'+person.img+'" /></div>' +
-			"<h3><a href=\""+person.url+"\" class=\"userlink\">"+person.first+" "+person.last+"</a></h3>");
-		}
-	} else if (peoplestate == 'table')
-	{
-		var headings = "";
-		for(var column in peoplelist.columns)
-		{
-			headings += "<th>"+column+"</th>";
-		}
-		div.append('<table id="persontable"><thead><tr><th>Photo</th><th>Name</th>'+headings+'</tr></thead><tbody></tbody></table>');
-		var tbody = $("#persontable tbody");
-		for(var i in peoplelist.people)
-		{
-			var person = peoplelist.people[i];
-			var values = "";
-			for(var n in person.values)
-			{
-				values += "<td>"+person.values[n]+"</td>";
-			}
-			tbody.append('<tr><td><img src="'+person.img+'" style="width:75px;"/></td><td><a href= "'+person.url+'" class=\"userlink\">'+person.first+' '+person.last+'</a></td>'+values+'</tr>')
-		}
-	}
-	$("#list a.userlink").fancybox({onComplete:fbLoaded});
+function setList(state){
+    $.cookie('<?php echo $this->name ?>',state);
+    if('table'==state){
+        $("#pplTable").show();
+        $("#pplThumb").hide();
+    } else {
+        $("#pplTable").hide();
+        $("#pplThumb").show();
+    }
 }
-$(buildList);
 
 <?php
 		return ob_get_clean();

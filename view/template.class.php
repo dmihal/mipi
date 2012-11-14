@@ -124,6 +124,7 @@ ob_start();
 		<script src="/js/jquery.jOrgChart.js"></script>
 		<script src="/js/jquery.tokeninput.js"></script>
 		<script src="/js/jquery.mousewheel.min.js"></script>
+		<script src="/js/jquery.cookie.js"></script>
 		<script src="/js/jquery.smoothdivscroll-1.2-min.js" type="application/javascript"></script>
 		<script src="http://d3js.org/d3.v2.js" type="application/javascript"></script>
 		<script type="application/javascript">

@@ -1,9 +1,9 @@
 <?php
 $page = new Page("Bids");
 
-$box = new Box("rush","Rush");
+$box = new Box("bids","Rushees with Bids");
 try{
-    $peoplelist = new BCPeopleList();
+    $peoplelist = new BCPeopleList('bids');
     $peoplelist->defaultState = 'thumbnail';
     $peoplelist->setColumns("Email","Social","Cell Phone","Year");
     $peoplelist->setThumbColumns("Year");

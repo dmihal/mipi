@@ -2,7 +2,7 @@
 $page = new Page("Alumni");
 	
 $box = new Box("alums","Alumni");
-$peoplelist = new BCPeopleList();
+$peoplelist = new BCPeopleList('alum');
 $peoplelist->defaultState = 'thumbnail';
 $peoplelist->setColumns("Email","Social","Cell Phone","Pi Number","YOG","Birthday");
 $peoplelist->setThumbColumns("Pi Number");

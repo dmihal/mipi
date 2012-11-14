@@ -60,7 +60,7 @@ switch (@$_GET[1]) {
         
 		$box = new Box("rush","Rush");
         try{
-    		$peoplelist = new BCPeopleList();
+    		$peoplelist = new BCPeopleList('rushees');
     		$peoplelist->defaultState = 'thumbnail';
     		$peoplelist->setColumns("Involvement","Email","Social","Cell Phone","Year","Comments");
     		$peoplelist->setThumbColumns("Year");

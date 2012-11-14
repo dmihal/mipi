@@ -3,7 +3,7 @@ $page = new Page("Associate Members");
 
 $box = new Box("alums","Associate Members");
 try {
-    $peoplelist = new BCPeopleList();
+    $peoplelist = new BCPeopleList('ams');
     $peoplelist->defaultState = 'thumbnail';
     $peoplelist->setColumns("Email","Social","Cell Phone","YOG","Birthday");
     
