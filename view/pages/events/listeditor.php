@@ -42,7 +42,8 @@ $linkbox = new Box("links","");
 $linkcontent = new BCStatic();
 ob_start();
 ?>
-<a href="/events/list/<?php echo $eventID ?>/print">Print</a>
+<a href="/events/list/<?php echo $eventID ?>/print">Print</a><br />
+<a href="/events/description/<?php echo $eventID ?>">Event Information</a>
 <?php
 $linkcontent->content = ob_get_clean();
 $linkbox->setContent($linkcontent);
