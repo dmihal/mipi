@@ -50,7 +50,7 @@ $page->js  = ob_get_clean();
 
 $box = new Box("tree","Family Tree");
 //$tree = Member::buildTree();
-$box->setContent(new BCStatic('<link href="http://mbostock.github.com/d3/ex/cluster.css" rel="stylesheet" /><div id="tree"></div>'));
+$box->setContent(new BCStatic('<link href="/js/cluster.css" rel="stylesheet" /><div id="tree"></div>'));
 $page->addBox($box,'tripple');
 
 
