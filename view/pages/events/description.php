@@ -11,12 +11,13 @@ ob_start();
 if ($event->hasGL){
     echo new Hyperlink("View/Edit Guestlist","/events/list/".$event->id);
     echo "<h3>Stats</h3>";
+    $id = $event->id;
     $stats = new Query("SELECT
-        (SELECT COUNT(*) FROM `guests` WHERE `event`=2) as num,
-        (SELECT COUNT(*) FROM `guests` WHERE `event`=2 AND `sex`='MALE') as guys,
-        (SELECT COUNT(*) FROM `guests` WHERE `event`=2 AND `sex`='FEMALE') as girls,
-        ((SELECT COUNT(*) FROM `guests` WHERE `event`=2 AND `sex`='FEMALE')/(SELECT COUNT(*) FROM `guests` WHERE `event`=2)) as ratio,
-        (SELECT AVG(a.num) FROM (SELECT COUNT(*) as num  FROM `guests` WHERE `event`=2 GROUP BY `owner`) as a) as guestsperbro");
+        (SELECT COUNT(*) FROM `guests` WHERE `event`=$id) as num,
+        (SELECT COUNT(*) FROM `guests` WHERE `event`=$id AND `sex`='MALE') as guys,
+        (SELECT COUNT(*) FROM `guests` WHERE `event`=$id AND `sex`='FEMALE') as girls,
+        ((SELECT COUNT(*) FROM `guests` WHERE `event`=$id AND `sex`='FEMALE')/(SELECT COUNT(*) FROM `guests` WHERE `event`=$id)) as ratio,
+        (SELECT AVG(a.num) FROM (SELECT COUNT(*) as num  FROM `guests` WHERE `event`=$id GROUP BY `owner`) as a) as guestsperbro");
     echo 'Guests: '.$stats->getField('num').'<br />';
     echo 'Guys: '.$stats->getField('guys').'<br />';
     echo 'Girls: '.$stats->getField('girls').'<br />';
