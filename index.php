@@ -1,5 +1,5 @@
 <?php 
-
+date_default_timezone_set('America/New_York');
 require "control/session.class.php";
 include("control/query.class.php");
 include 'control/sqlquerybuiler.class.php';
