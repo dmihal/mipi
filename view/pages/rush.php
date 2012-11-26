@@ -67,7 +67,7 @@ switch (@$_GET[1]) {
     		
     		foreach (Rushee::getRusheesFromQuery("SELECT *,(SELECT count(*) FROM `comments` WHERE subject=rushees.ID) as comments FROM rushees WHERE `bid`='FALSE' ORDER BY `last`") as $rushee) {
     			/* @var $rushee Rushee */
-    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->fieldString('involvement'),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),$rushee->phone,$rushee->getYearName(),$rushee->comments);
+    			$peoplelist->addPerson($rushee->first, $rushee->last, "/rush/person/$rushee->id", $rushee->getPhotoPath(),$rushee->fieldString('involvement'),$rushee->email,$rushee->getFBLink().'<br />'.$rushee->getTwitterLink(),new PhoneNumber($rushee->phone),$rushee->getYearName(),$rushee->comments);
     		}
     		
     		$box->setContent($peoplelist);
