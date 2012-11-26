@@ -9,6 +9,7 @@ class Rushee extends Person {
 	public $type = Person::RUSHEE;
     public $brother = NULL;
     public $comments = NULL;
+    public $bid;
     
     private $initialVars;
     
@@ -20,6 +21,7 @@ class Rushee extends Person {
         $this->email  = $data['email'];
         $this->phone  = $data['phone'];
         $this->yog    = $data['class'];
+        $this->bid    = $data['bid'];
         $this->dob    = new DateTime($data['dob']);
         $this->brother= $data['brother'];
         $this->hiddenData(json_decode($data['data'],true));
@@ -182,6 +184,7 @@ class Rushee extends Person {
             "class"     => $this->yog,
             "dob"       => $this->dob->format('Y-m-d'),
             "brother"   => $this->brother,
+            "bid"       => strtoupper($this->bid),
             "data"      => json_encode($this->hiddenData())
             );
     }
