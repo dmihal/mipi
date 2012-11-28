@@ -17,8 +17,8 @@ class BCCalendar implements BoxContent {
 	}
 	public function addEvent($name,$link,$day,$time=NULL,$month=NULL,$year=NULL)
 	{
-		$month	= (is_null($month)) ? date('m') : $month;
-		$year	= (is_null($year))	? date('Y') : $year;
+		$month	= (is_null($month)) ? $this->month : $month;
+		$year	= (is_null($year))	? $this->year : $year;
 		$date = new DateTime("$month/$day/$year $time");
 		
 		$this->events[$year][$month][$day][] = array("name"=>$name, "link"=>$link, "date"=>$date, "time"=>$time);
