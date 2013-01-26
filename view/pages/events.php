@@ -35,13 +35,29 @@ switch (@$_GET[1]) {
 			$events = Event::getEventsFromQuery("SELECT * FROM eventsX WHERE MONTH(start)=$calendar->month AND YEAR(start)=$calendar->year ORDER BY start");
 			foreach ($events as $event) {
 				/* @var $event Event */
-				$calendar->addEvent($event->name, "/events/description/$event->id", $event->start->format('d'));
+				$calendar->addEvent($event->name, "/events/description/$event->id", $event->start->format('j'));
 			}
 		} catch(Exception $e){}
 		
 		$cal->setContent($calendar);
 		$page->addBox($cal,'tripple');
 		
+        $cal = new Box("calendar","Calendar");
+        $calendar = new BCCalendar();
+        $calendar->month++;
+        
+        try {
+            $events = Event::getEventsFromQuery("SELECT * FROM eventsX WHERE MONTH(start)=$calendar->month AND YEAR(start)=$calendar->year ORDER BY start");
+            foreach ($events as $event) {
+                /* @var $event Event */
+               echo $event->start->format('j');
+                $calendar->addEvent($event->name, "/events/description/$event->id", $event->start->format('j'));
+            }
+        } catch(Exception $e){}
+        
+        $cal->setContent($calendar);
+        $page->addBox($cal,'tripple');
+        
 		break;
 }
 $page->section = "events";
