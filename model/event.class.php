@@ -51,7 +51,7 @@ class Event {
 	 * @return Event
 	 */
 	static function getEvent($id) {
-	    $events = self::getEventsFromQuery("SELECT * FROM `eventsX` WHERE `id`=$id;");
+	    $events = self::getEventsFromQuery(sprintf("SELECT * FROM `eventsX` WHERE `id`=%d;",$id));
 		return $events[0];
 	}
 	static function getEventsFromQuery($query)
