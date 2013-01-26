@@ -97,8 +97,9 @@ class Page
     /**
      * Wraps the page in a form tag
      *
-     * @return void
-     * @author  
+     * @param string $url URL target of the form
+     * @param string $method HTTP method, defaults to 'POST'
+     * @param bool $file set true to upload a file field
      */
     function setForm($url,$method='POST',$file=false) {
         $fileatt = $file ? 'enctype="multipart/form-data" ' : '';
