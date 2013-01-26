@@ -36,7 +36,7 @@ ob_start();
     <ul>
         <li><a href= "#tabs-1">Info</a></li>
         <li><a href= "#tabs-2">Edit</a></li>
-        <li><a href= "#tabs-3">Comments<?php echo $numComments ? " ($numComments)" : '' ?></a></li>
+        <?php if(getUser()->type!=Member::AM){?><li><a href= "#tabs-3" onclick="cmtRead(<?php echo $user->id ?>)">Comments<?php echo $numComments ? " ($numComments)" : '' ?></a></li><?php } ?>
         <li><a href= "#tabs-4">Attendance</a></li>
     </ul>
     </div>
@@ -57,11 +57,12 @@ ob_start();
         
     </div>
     <div id="tabs-2">
-        <form>
-            <label></label>
+        <form action="/rush/saverushee" method="post">
+            <label>Bid? <input type="checkbox" name="bid" <?php echo $user->bid ? "checked" :"" ?> /></label>
+            <button type="submit">Save</button>
         </form>
     </div>
-    <div id="tabs-3">
+    <?php if(getUser()->type!=Member::AM){?><div id="tabs-3">
         <form id="postComment" onsubmit="addComment(this);return false;">
             <textarea name="comment"></textarea><input type="hidden" name="rushee" value="<?php echo $user->id ?>" />
             <button type="submit">Post</button>
@@ -78,7 +79,7 @@ try {
 }
 ?>
         </ul>
-    </div>
+    </div><?php } ?>
     <div id="tabs-4"></div>
 </div>
 
