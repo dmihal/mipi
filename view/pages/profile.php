@@ -39,6 +39,20 @@ switch(@$_GET[1])
 			header("location: /profile/msg:nosaved");
 		}
 		exit;
+    case 'changepw':
+        $page = Page::getPage('profile/changepassword');
+        break;
+    case 'setpw':
+        if ($_POST['oldpw'] === $_POST['oldpw2']) {
+            $q = new Query(sprintf("SELECT * FROM `users` WHERE `ID`=%d AND `password` LIKE '%s' LIMIT 0,1;",getUser()->id,md5($_POST['oldpw'])));
+            if ($q->numRows == 1) {
+                mysql_query(sprintf("UPDATE `users` SET  `password` = '%s' WHERE `ID` =%d;",md5($_POST['newpw']),getUser()->id));
+                header("Location: /profile/msg:pwup");
+                exit;
+            }
+        }
+        header("Location: /profile/changepw/msg:pwer");
+        exit;
 	default:
 		$page = new Page("Profile");
 		
@@ -77,6 +91,8 @@ dob: <?php echo $user->dob->format('F jS, Y') ?><br />
 			case 'nosaved':
 				$page->setMessage("No information updated");
 				break;
+            case 'pwup':
+                $page->setMessage("Password Updates");
 		}
 		break;
 }

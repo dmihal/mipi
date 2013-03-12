@@ -53,6 +53,7 @@ class Template
 			new NavElement("My Profile","/profile","profile"),
 			new NavElement("Edit My Profile","/profile/edit","editprofile"),
 			new NavElement("Settings","/profile/settings","settings"),
+			new NavElement("Change Password",'/profile/changepw','password'),
 			new Spacer()
 			)
 		);
