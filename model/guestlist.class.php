@@ -152,5 +152,25 @@ class GuestList {
 	function listOpen() {
 	    return !$this->listCloses or ($this->listCloses > new DateTime());
 	}
+	/**
+	 * Returns a list of frequent guests of the user
+	 *
+	 * @return void
+	 * @author  
+	 */
+	static function getFrequentGuests(Member $user) {
+	    $q = new Query(sprintf('SELECT * , COUNT(*) AS count
+	        FROM  `guests` 
+            WHERE  `owner` =%d
+            GROUP BY `owner` , `first` , `last` 
+            HAVING  `count` >1
+            ORDER BY  `count` DESC 
+            LIMIT 0 , 30',$user->id));
+        $array = array();
+        while ($row = $q->nextRow()){
+            $array[] = new Person($row['first'],$row['last'],0,$row['sex']);
+        }
+        return $array;
+	}
 } // END
 ?>
