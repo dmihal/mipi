@@ -35,6 +35,15 @@ function newEntry(sex){
     }
     return false;
 }
+function addGuest(first,last,sex,link){
+    if (spots<availableSpots){
+        ++spots;
+        $("#remain").html(availableSpots-spots);
+        $("#guestFields").append('<li>'+ sex +'<input type="hidden" name="sex[]" value="'+ sex +'" /> - <input name="first[]" value="'+first+'" /> <input name="last[]" value="'+last+'" /></li>');
+        link.parentNode.removeChild(link);
+    }
+    return false;
+}
 <?php
 $page->js = ob_get_clean();
 
@@ -50,6 +59,7 @@ $linkbox->setContent($linkcontent);
 $page->addBox($linkbox);
 
 $edit = new Box("edit","Edit List");
+ob_start();
 if ($eventList->listOpen()){
     echo '<form method="POST" action="/events/update" >';
 }
@@ -91,6 +101,18 @@ if ($eventList->listOpen()){
 }
 $edit->setContent(new BCStatic(ob_get_clean()));
 $page->addBox($edit);
+
+if ($eventList->listOpen()){
+    $frequentbox = new Box('frequent','Frequent Guests');
+    ob_start();
+    $frequents = array_diff(GuestList::getFrequentGuests(getUser()), $myGuests);
+    foreach ($frequents as $person) {
+        $gender = $person->sex == Person::FEMALE ? 'Girl' : 'Guy';
+        echo '<a style="display:block" href="#" onclick="return addGuest(\''.$person->first.'\',\''.$person->last.'\',\''.$gender.'\',this)" >'.$person->getName().'</a>';
+    }
+    $frequentbox->setContent(new BCStatic(ob_get_clean()));
+    $page->addBox($frequentbox);
+}
 
 $bestRbox = new Box('bestrbox',"Best Ratio");
 $bestRtable = new BCTable();
