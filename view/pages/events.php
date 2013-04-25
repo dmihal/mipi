@@ -16,7 +16,7 @@ switch (@$_GET[1]) {
         $guests = array();
         for ($i=0; $i < count($_POST['sex']) && $i < count($_POST['first']) && $i < count($_POST['last']); $i++) {
             if($_POST['first'][$i]!=="" and $_POST['last'][$i]!=""){
-                $guests[] = new Person($_POST['first'][$i],$_POST['last'][$i],0,$_POST['sex'][$i]);
+                $guests[] = new Person(trim($_POST['first'][$i]),trim($_POST['last'][$i]),0,$_POST['sex'][$i]);
             }
         }
         $list->updateList(getUser(), $guests);
