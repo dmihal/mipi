@@ -14,7 +14,7 @@ class PhoneNumber{
 	}
     public function __toString()
     {
-        return $this->sufix ? "($this->area) $this->exchange-$this->sufix" : $this->start;
+        return $this->sufix ? "($this->area)&nbsp;$this->exchange&#8209;$this->sufix" : $this->start;
     }
 }
 
