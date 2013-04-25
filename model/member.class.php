@@ -70,6 +70,15 @@ class Member extends Person {
 		return self::getMember($this->bigNum);
 	}
     /**
+     * Return an array of littles
+     *
+     * @return array(Member)
+     * @author  
+     */
+    function getLittles() {
+        $members = Member::getMembersFromQuery(sprintf("SELECT * FROM `users` WHERE `big`= %d ORDER BY `pi` DESC;"),$this->id);
+    }
+    /**
      * Returns Hyperlink object to user
      *
      * @return Hyperlink
@@ -78,7 +87,14 @@ class Member extends Person {
     function getLink() {
         return new Hyperlink($this->getName(),"/user/$this->id",'userlink');
     }
-    
+    function getUsername(){
+        $q = new Query('SELECT username FROM users WHERE `ID`='.$this->id);
+        return $q->getField('username');
+    }
+    public function updatePassword($password)
+    {
+        mysql_query('UPDATE users WHERE `ID`='.$this->id.' SET (`password`='.md5($password).');');
+    }
     
     public function __wakeup()
     {
