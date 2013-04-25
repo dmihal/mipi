@@ -36,14 +36,17 @@ class Person extends Overloadable {
 	function getName($lastfirst=false) {
 		return $lastfirst ? $this->last . ', ' . $this->first : $this->first . ' ' . $this->last;
 	}
+    function __toString(){
+        return $this->getName();
+    }
     function getSex(){
         return ($this->sex==self::FEMALE) ? "Girl" : "Guy";
     }
     public function setSex($sex)
     {
-        if ($sex == self::FEMALE or $sex == "Girl") {
+        if ($sex == self::FEMALE or $sex == "Girl" or $sex == "FEMALE") {
             $this->sex = self::FEMALE;
-        } elseif($sex == self::MALE or $sex == "Guy"){
+        } elseif($sex == self::MALE or $sex == "Guy" or $sex == "MALE"){
             $this->sex = self::MALE;
         }
     }
