@@ -9,6 +9,7 @@ class Officer extends Overloadable{
 	
 	public $id,$name,$title,$subtitle,$memberID;
     
+    private $initialVars;
     private static $library;
 	
 	public function __construct(array $data)
@@ -19,6 +20,8 @@ class Officer extends Overloadable{
 		$this->title      = $data["title"];
 		$this->subtitle	  = $data["subtitle"];
         $this->hiddenData(json_decode($data['data'],true));
+        
+        $this->initialVars = $this->getDBArray();
         
         self::$library->add($this->id,$this);
 	}
@@ -49,6 +52,15 @@ class Officer extends Overloadable{
      */
     function getLink() {
         return new Hyperlink($this->name,"/officer/$this->name");
+    }
+    /**
+     * Saves any changed atributes
+     *
+     * @return boolean Whether it was updated
+     */
+    public function save()
+    {
+        return Query::update('officers', "`ID`=".$this->id, $this->initialVars, $this->getDBArray());
     }
     /**
      * Get officer by ID
@@ -115,6 +127,13 @@ class Officer extends Overloadable{
             throw new Exception("Error querying for officers");
         }
     }
+    /**
+     * return an associative array of officers
+     * Ex: ['alpha'] => "Alpha"
+     *
+     * @return array
+     * @author  
+     */
 	static function getOfficerLists($elected=true,$page=true)
 	{
 		$elected = $elected ? 'true' : 'false';
@@ -127,6 +146,15 @@ class Officer extends Overloadable{
 		}
 		return $officers;
 	}
-    
+    private function getDBArray()
+    {
+        return array(
+            "name"     => $this->name,
+            "member"      => $this->memberID,
+            "title"     => $this->title,
+            "subtitle"     => $this->subtitle,
+            "data"      => json_encode($this->hiddenData())
+            );
+    }
 } // END
 ?>
