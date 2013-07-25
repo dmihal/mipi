@@ -33,7 +33,7 @@ foreach ($this->people as $person) {
 ?>
 </div>
 <div id="pplTable" style="<?php echo $this->states[1] ?>">
-    <table id="persontable">
+    <table id="persontable" class="table">
         <thead>
             <tr>
                 <th>Photo</th>
