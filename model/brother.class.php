@@ -14,6 +14,12 @@ class Brother extends Member {
 		parent::__construct($data);
 		$this->piNum = $data['pi'];
 	}
+    /**
+     * Get the brother's pi number
+     *
+     * @return String/int
+     * @param $htmlchar set true if html version should be returned
+     */
 	function getPiNum($htmlchar=false)
 	{
 	    //Brother Morin gets his own 3 lines of code!
