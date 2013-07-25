@@ -100,8 +100,8 @@ class Template
 ob_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
-	<head>
+<html>
+  <head>
 		<meta charset="utf-8" />
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
@@ -109,15 +109,50 @@ ob_start();
 		<title><?php echo $this->page->title ?> - MiPi</title>
 		<meta name="description" content="" />
 		<meta name="author" content="David Mihal" />
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-		<link rel="stylesheet" href="/styles.css"/>
-		<link rel="stylesheet" href="/js/fancybox/jquery.fancybox-1.3.4.css" />
-		<link rel="stylesheet" href="/js/jquery.jOrgChart.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <!-- Le styles -->
+        <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+          body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+          }
+          .sidebar-nav {
+            padding: 9px 0;
+          }
+    
+          @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+              float: none;
+              padding-left: 5px;
+              padding-right: 5px;
+            }
+          }
+        </style>
+        <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+    
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+          <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                       <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    
+
+		<!-- <link rel="stylesheet" href="/styles.css"/> -->
+		<!-- <link rel="stylesheet" href="/js/fancybox/jquery.fancybox-1.3.4.css" /> -->
+		<!-- <link rel="stylesheet" href="/js/jquery.jOrgChart.css" /> -->
 		<link rel="stylesheet" href="/js/smoothDivScroll.css" />
-		<link rel="stylesheet" href= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
+		<!-- <link rel="stylesheet" href= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" /> -->
 		<link rel="stylesheet" href="/js/token-input-facebook.css" />
 		<script src="/js/jquery-1.7.1.js" type="application/javascript"></script>
 		<script src= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
@@ -202,51 +237,66 @@ function vote(id,dir,link){
 <?php
 echo $this->page->getJS();
 ?>
-	</head>
-	<body>
-		<div id="container">
-			<header>
-				<h1><img src="/img/pizetalogo.gif" alt="My Pi Zeta" /></h1>
-				<nav>
-					<ul id="navLeft" class="topNav">
-<?php 
-foreach ($this->navLeft as $name => $uri) {
-	echo "<li><a href=\"$uri\">$name</a></li>";
-}
-?>
-					</ul>
-					<ul id="navRight" class="topNav">
+    </head>
+    <body>
+    <div class='navbar navbar-inverse navbar-fixed-top'>
+      <div class='navbar-inner'>
+        <div class='container-fluid'>
+          <button class='btn btn-navbar' data-target='.nav-collapse' data-toggle='collapse' type='button'>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a class='brand' href='#'>My Pi Zeta</a>
+          <div class='nav-collapse collapse'>
+            <div class='pull-right'>
+              <ul class='nav'>
 <?php 
 foreach ($this->navRight as $name => $uri) {
-	echo "<li><a href=\"$uri\">$name</a></li>";
+    echo "<li class='active'><a href=\"$uri\">$name</a></li>";
 }
 ?>
-					</ul>
-				</nav>
-				<div id="shout">
+              </ul>
+            </div>
+            <ul class='nav'>
+<?php 
+foreach ($this->navLeft as $name => $uri) {
+    echo "<li class='active'><a href=\"$uri\">$name</a></li>";
+}
+?>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 <?php if($this->showTicker) { ?>
-					<div id="shouter">
-						<input placeholder="Write a quick message..." />
-					</div>
-					<div id="ticker">
-						<div id="stream">
+    <div class='navbar navbar-fixed-bottom'>
+      <div class='navbar-inner'>
+        <div id="shouter">
+            <input placeholder="Write a quick message..." />
+        </div>
+        <div id="ticker">
+            <div id="stream">
 <?php 
 $shouts = Shout::getLastTen();
 foreach ($shouts as $shout) {
-	/* @var $shout Shout */
-	echo '<span class="shouted"><span class="shoutMsg">"' . $shout->message . 
-		'"</span> - '.$shout->getUser()->getLink().' </span>';
-	
+    /* @var $shout Shout */
+    echo '<span class="shouted"><span class="shoutMsg">"' . $shout->message . 
+        '"</span> - '.$shout->getUser()->getLink().' </span>';
+    
 }
 unset($shouts);
 ?>
-						</div>
-					</div>
+            </div>
+        </div>
+      </div>
+    </div>
 <?php } ?>
-				</div>
-			</header>
-			<nav id="sidebar">
-				<ul>
+<div class='container-fluid'>
+      <div class='row-fluid'>
+        <div class='span3'>
+          <div class='well sidebar-nav'>
+            <ul class='nav nav-list'>
 <?php 
 $navs = $this->getSecondNav();
 foreach ($navs as $value) {
@@ -254,9 +304,11 @@ foreach ($navs as $value) {
    echo $value->getHTML();
 }
 ?>
-				</ul>
-			</nav>
-			<div id="content">
+            </ul>
+          </div>
+        </div>
+        <div class='span9'>
+          <div class='row-fluid'>
 <?php
 if ($this->page->message)
 {
@@ -268,58 +320,67 @@ if ($this->page->form){
     echo $this->page->form;
 }
 ?>
-				<div class="column">
+            <div class='span4'>
 <?php
 foreach ($this->page->boxes['left'] as $box) {
-	echo $box->getHTML();
+    echo $box->getHTML();
 }
-echo '</div>';
-
+?>
+            </div>
+            <div class='span4'>
+<?php
 if (!empty($this->page->boxes['center']))
 {
-	echo '<div class="column">';
-	foreach ($this->page->boxes['center'] as $box) {
-		echo $box->getHTML();
-	}
-	echo "</div>";
+    foreach ($this->page->boxes['center'] as $box) {
+        echo $box->getHTML();
+    }
 }
+?>
+            </div>
+<?php
 if (!empty($this->page->boxes['double']))
 {
-    echo '<div class="column double">';
+    echo "<div class='span8'>";
     foreach ($this->page->boxes['double'] as $box) {
         echo $box->getHTML();
     }
     echo "</div>";
 }
+?>
+            <div class='span4'>
+<?php
 if (!empty($this->page->boxes['right']))
 {
-	echo '<div class="column">';
-	foreach ($this->page->boxes['right'] as $box) {
-		echo $box->getHTML();
-	}
-	echo "</div>";
+    foreach ($this->page->boxes['right'] as $box) {
+        echo $box->getHTML();
+    }
 }
+?>
+            </div>
+<?php
 if (!empty($this->page->boxes['tripple']))
 {
-	echo '<div class="column tripple">';
-	foreach ($this->page->boxes['tripple'] as $box) {
-		echo $box->getHTML();
-	}
-	echo "</div>";
+    echo "<div class='span12'>";
+    foreach ($this->page->boxes['tripple'] as $box) {
+        echo $box->getHTML();
+    }
+    echo "</div>";
 }
+?>
+<?php
 if ($this->page->form){
     echo "</form>";
 }
-?>					<div style="clear: both">&nbsp;</div>
-				</div>
-			</div>
-			<footer>
-				<p>
-					&copy; Copyright  by David Mihal
-				</p>
-			</footer>
-		</div>
-	</body>
+?>  
+          </div>
+        </div>
+      </div>
+      <hr>
+      <footer>
+        <p>Copyright</p>
+      </footer>
+    </div>
+  </body>
 </html>
 <?php
 	return ob_get_clean();

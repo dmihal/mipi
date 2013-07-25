@@ -12,9 +12,9 @@ class NavElement extends Hyperlink {
         ?>
 <li>
     <a href="<?php echo $this->url ?>">
-        <div class="navIcon">
+        <!-- <div class="navIcon">
             <img src="<?php echo self::trans ?>" alt="<?php echo $this->title ?>" id="icon<?php echo ucfirst($this->class) ?>" />
-        </div>
+        </div> -->
         <?php echo $this->title ?>
     </a>
 </li>
