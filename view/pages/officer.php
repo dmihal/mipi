@@ -24,6 +24,22 @@ $detContent->content = ob_get_clean();
 $details->setContent($detContent);
 $page->addBox($details,'left');
 
+///////////  Files /////////////
+$files = new Box("files","Uploaded Files");
+try {
+    $filelist = new BCList();
+    foreach (File::getFilesByOfficer($officer) as $file) {
+        /* @var $file File */
+        $filelist->addElement($file->getLink(), "",$file->description);
+    }
+    $files->setContent($filelist);
+} catch (Exception $e) {
+    $files->setContent(new BCStatic("No Uploaded Files"));
+}
+
+$page->addBox($files,'left');
+
+
 $announce = new Box("announcements","Announcements");
 $announceList;
 try
