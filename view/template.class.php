@@ -319,25 +319,23 @@ if ($this->page->message)
 if ($this->page->form){
     echo $this->page->form;
 }
-?>
-            <div class='span4'>
-<?php
-foreach ($this->page->boxes['left'] as $box) {
-    echo $box->getHTML();
+
+if (!empty($this->page->boxes['left']))
+{
+    echo "<div class='span4'>";
+    foreach ($this->page->boxes['left'] as $box) {
+        echo $box->getHTML();
+    }
+    echo "</div>";
 }
-?>
-            </div>
-            <div class='span4'>
-<?php
 if (!empty($this->page->boxes['center']))
 {
+    echo "<div class='span4'>";
     foreach ($this->page->boxes['center'] as $box) {
         echo $box->getHTML();
     }
+    echo "</div>";
 }
-?>
-            </div>
-<?php
 if (!empty($this->page->boxes['double']))
 {
     echo "<div class='span8'>";
@@ -346,18 +344,14 @@ if (!empty($this->page->boxes['double']))
     }
     echo "</div>";
 }
-?>
-            <div class='span4'>
-<?php
 if (!empty($this->page->boxes['right']))
 {
+    echo "<div class='span4'>";
     foreach ($this->page->boxes['right'] as $box) {
         echo $box->getHTML();
     }
+    echo "</div>";
 }
-?>
-            </div>
-<?php
 if (!empty($this->page->boxes['tripple']))
 {
     echo "<div class='span12'>";
