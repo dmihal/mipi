@@ -6,26 +6,30 @@
  * @author  
  */
 class Hyperlink implements HTMLElement {
-    public $title,$url,$class,$onclick;
-    public $style = NULL;
+    public $title,$url,$onclick;
+    private $attributes = array();
     
-    public function __construct($title,$url='#',$class='')
+    public function __construct($title,$url='#',$class='',$attributes=null)
     {
         $this->title = $title;
-        $this->class = $class;
-        $this->url   = $url;
+        $this->attributes = $attributes ? $attributes : array();
+        if($class)
+            $this->attributes['class'] = $class;
+        $this->url = $this->attributes['href']   = $url;
     }
     
     /**
      * Return HTML <a> tag
      *
      * @return string
-     * @author  
      */
     public function getHTML() {
-        $style = ($this->style) ? " style=\"$this->style\"" : "";
+        $attributestring = '';
+        foreach ($this->attributes as $attribute => $value) {
+            $attributestring .= "$attribute=\"$value\" ";
+        }
         $onclick = ($this->onclick) ? " onclick=\"$this->onclick\"" : "";
-        return "<a href=\"$this->url\" class=\"$this->class\"$style $onclick>$this->title</a>";
+        return "<a href=\"$this->url\" $attributestring $onclick>$this->title</a>";
     }
     public function __toString() {
         return $this->getHTML();
@@ -34,7 +38,6 @@ class Hyperlink implements HTMLElement {
      * Add class to string
      *
      * @return Hyperlink
-     * @author  
      */
     function addClass($class) {
         $this->class .= " $class";
@@ -44,7 +47,6 @@ class Hyperlink implements HTMLElement {
      * Set the URL to a new value
      *
      * @return Hyperlink
-     * @author  
      */
     function setUrl($url) {
         $this->url = $url;
@@ -54,10 +56,18 @@ class Hyperlink implements HTMLElement {
      * Set the Style String
      *
      * @return Hyperlink
-     * @author  
      */
     function setStyle($style) {
-        $this->style = $style;
+        $this->setAttribute('style', $style);
+        return $this;
+    }
+    /**
+     * Set an attribute of the link
+     *
+     * @return Hyperlink
+     */
+    function setAttribute($attribute,$value) {
+        $attributes[$attribute] = $value;
         return $this;
     }
 } // END
