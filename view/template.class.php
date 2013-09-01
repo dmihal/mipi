@@ -170,6 +170,11 @@ $(function() {
     window.fbLoaded = function(){
         $("#fancybox-content").find("a.userlink,a.messageLink,a.announceLink").fancybox({onComplete:fbLoaded});
         $("#fancybox-content").find(".tabs").tabs();
+        $('#fancybox-content').find(".nav-tabs a").click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+        });
+        $('#fancybox-content').find(".nav-tabs a:first").tab('show');
     }
 	$("a.userlink,a.messageLink,a.announceLink").fancybox({onComplete:fbLoaded});
 
