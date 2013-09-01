@@ -148,14 +148,15 @@ ob_start();
                                        <link rel="shortcut icon" href="../assets/ico/favicon.png">
     
 
-		<!-- <link rel="stylesheet" href="/styles.css"/> -->
-		<!-- <link rel="stylesheet" href="/js/fancybox/jquery.fancybox-1.3.4.css" /> -->
+		<link rel="stylesheet" href="/styles.css"/>
+		<link rel="stylesheet" href="/js/fancybox/jquery.fancybox-1.3.4.css" />
 		<!-- <link rel="stylesheet" href="/js/jquery.jOrgChart.css" /> -->
 		<link rel="stylesheet" href="/js/smoothDivScroll.css" />
 		<!-- <link rel="stylesheet" href= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" /> -->
 		<link rel="stylesheet" href="/js/token-input-facebook.css" />
 		<script src="/js/jquery-1.7.1.js" type="application/javascript"></script>
 		<script src= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="/bootstrap/js/bootstrap.min.js"></script>
 		<script src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 		<script src="/js/jquery.jOrgChart.js"></script>
 		<script src="/js/jquery.tokeninput.js"></script>
@@ -373,6 +374,19 @@ if ($this->page->form){
       <footer>
         <p>Copyright</p>
       </footer>
+    </div>
+    <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Modal header</h3>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
     </div>
   </body>
 </html>
