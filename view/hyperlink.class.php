@@ -40,7 +40,7 @@ class Hyperlink implements HTMLElement {
      * @return Hyperlink
      */
     function addClass($class) {
-        $this->class .= " $class";
+        $this->attributes['class'] .= " $class";
         return $this;
     }
     /**
