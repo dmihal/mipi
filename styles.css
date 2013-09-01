@@ -5,21 +5,6 @@ body {
 }
 /* = Layout = */
 
-/* Header */
-header {
-	background: #fcf39f; /* Old browsers */
-	background: -moz-linear-gradient(top, #fcf39f 0%, #cec175 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcf39f), color-stop(100%,#cec175)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fcf39f 0%,#cec175 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #fcf39f 0%,#cec175 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #fcf39f 0%,#cec175 100%); /* IE10+ */
-	background: linear-gradient(top, #fcf39f 0%,#cec175 100%); /* W3C */
-}
-
-header h1 {
-	float: left;
-	margin: 0;
-}
 /* Nav */
 header nav {
 	padding-top: 50px;
@@ -113,102 +98,6 @@ header nav {
 div.scrollWrapper {
 	width: auto !important;
 }
-/* Sidebar */
-#sidebar {
-	float: left;
-	background: #ffe2c3;
-	padding: 5px 15px 5px 0;
-	margin-right: 15px;
-	border-top-right-radius: 15px;
-	border-bottom-right-radius: 15px;
-	width: 175px;
-	
-	font-family: sans-serif;
-	font-size: 11pt;
-}
-#sidebar ul {
-	list-style: none;
-	padding-left: 0px;
-}
-#sidebar ul li {
-	padding-left: 15px;
-	border-top-right-radius: 7px;
-	border-bottom-right-radius: 7px;
-}
-#sidebar ul li a {
-	text-decoration: none;
-	color: black;
-}
-.spacer {
-	font-size: 6px;
-}
-/* Icons */
-.navIcon {
-	float: left;
-	height: 15px;
-}
-.navIcon img {
-	height: 15px;
-	width: 15px;
-	background-image: url(img/icons.png);
-}
-#iconAlpha {
-	background-position-y: -15px;
-}
-#iconBeta{
-	background-position-y: -30px;
-}
-#iconGamma{
-	background-position-y: -45px;
-}
-#iconTheta{
-	background-position-y: -60px;
-}
-#iconTau{
-	background-position-y: -75px;
-}
-#iconIota{
-	background-position-y: -90px;
-}
-#iconKappa{
-	background-position-y: -105px;
-}
-#iconDelta{
-	background-position-y: -120px;
-}
-#iconPhi{
-	background-position-y: -135px;
-}
-#iconSigma{
-	background-position-y: -150px;
-}
-#iconEpsilon{
-	background-position-y: -165px;
-}
-#iconRho{
-	background-position-y: -180px;
-}
-#iconHouse{
-	background-position-y: -195px;
-}
-#iconEvents, #iconCalendar, #iconRushevents{
-	background-position-y: -210px;
-}
-#iconStew{
-	background-position-y: -225px;
-}
-#iconWeb {
-	background-position-y: -240px;
-}
-#iconBrothers, #iconAms, #iconAlum, #iconFamily, #iconRecruits, #iconProfile, #iconBlist, #iconGlist, #iconNewrushee, #iconRushvote {
-	background-position-y: -255px;
-}
-#iconSettings {
-	background-position-y: -270px;
-}
-#iconPhonebook {
-	background-position-y: -285px;
-}
 /* Content */
 #content {
 	background-color: #EEB;
@@ -230,14 +119,13 @@ div.scrollWrapper {
 	width: 98%;
 }
 .wbox {
-	background: white;
+	background: #eef;
 	margin-bottom: 10px;
 	min-height: 36px;
 }
 .wbox h2 {
 	margin: 0;
-	background:#FFF2D3;
-	font-weight: normal;
+	font-weight: bold;
 	font-size: 12pt;
 	padding: 2px;
 }
@@ -247,6 +135,7 @@ div.scrollWrapper {
 ul.desclist {
 	list-style: none;
 	padding: 0;
+    margin: 0;
 }
 .desclist li {
 	display: block;
@@ -286,8 +175,10 @@ td {
 	float: left;
 	margin: 6px;
 }
-.personBox h3 {
+.personBox a {
 	margin: 0;
+    font-weight: bold;
+    font-size: 16px;
 }
 .personBox p {
 	margin: 0;
@@ -314,12 +205,13 @@ td {
 /* Guest List */
 #guestFields {
     padding-left: 25px;
+    margin: 0;
 }
 #guestFields li {
     /*list-style: none;*/
 }
 #guestFields li input {
-    width: 125px;
+    width: 106px;
 }
 /* Comments */
 .comments {

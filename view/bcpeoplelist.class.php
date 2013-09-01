@@ -28,12 +28,12 @@ class BCPeopleList implements BoxContent {
 <?php
 foreach ($this->people as $person) {
 	echo '<div class="personBox"><div style="height:175px"><img src="'.$person['img'].'" /></div>';
-    echo '<h3><a href="'.$person['url'].'" class="userlink">'.$person['first']." ".$person['last']."</a></h3></div>";
+    echo '<a href="'.$person['url'].'" class="userlink">'.$person['first']." ".$person['last']."</a></div>";
 }
 ?>
 </div>
 <div id="pplTable" style="<?php echo $this->states[1] ?>">
-    <table id="persontable">
+    <table id="persontable" class="table">
         <thead>
             <tr>
                 <th>Photo</th>

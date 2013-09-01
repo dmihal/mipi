@@ -33,7 +33,7 @@ class BCCalendar implements BoxContent {
 		ob_start();
 ?>
 <h3><?php echo date('F', $first_day); ?></h3>
-<table>
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th style="width:14.28571%">Sunday</th>
@@ -51,7 +51,7 @@ class BCCalendar implements BoxContent {
 $week = $blanks;
 if($blanks>0)
 {
-	echo "<td colspan=\"$blanks\" style=\"border:none\" >&nbsp;</td>";
+	echo "<td colspan=\"$blanks\">&nbsp;</td>";
 }
 for($day = 1;$day<=$days;$day++)
 {

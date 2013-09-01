@@ -22,7 +22,7 @@ class BCTable implements BoxContent {
 	
 	public function getHTML()
 	{
-		$html = "<table><tr>";
+		$html = "<table class='table'><tr>";
 		foreach ($this->header as $value) {
 			$html .= "<th>$value</th>";
 		}
