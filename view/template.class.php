@@ -23,7 +23,8 @@ class Template
 		
 		$this->secondNav  = array(
 		"home"		=> array(
-			new NavElement("Dashboard","/","dash")
+			new NavElement("Dashboard","/","dash"),
+			new NavElement("Lights","/lights","lights")
 			),
 		"members"	=> array(
 			new NavElement("Brothers","/members","brothers"),
@@ -154,10 +155,10 @@ ob_start();
 		<link rel="stylesheet" href="/js/smoothDivScroll.css" />
 		<!-- <link rel="stylesheet" href= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" /> -->
 		<link rel="stylesheet" href="/js/token-input-facebook.css" />
-		<script src="/js/jquery-1.7.1.js" type="application/javascript"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="application/javascript"></script>
 		<script src= "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
-		<script src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
 		<script src="/js/jquery.jOrgChart.js"></script>
 		<script src="/js/jquery.tokeninput.js"></script>
 		<script src="/js/jquery.mousewheel.min.js"></script>
